@@ -7,4 +7,12 @@ Front End: React
 
 Back End: NodeJS
 
-Development Environment: Cloud9
+Development Environment: Independent DE's
+
+## Developers
+
+James Gelok
+
+Joshua Simmons
+
+Sam Mahan
