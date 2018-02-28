@@ -27,18 +27,6 @@ class App extends Component {
         <Link to="/Registration" className="App-title">Register</Link>
 
       </div>
-=======
-      <BrowserRouter>
-        <div>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/Secret" component={Secret} />
-            <Route path="/Login" component={Login} />
-            <Route exact path='*' component={NotFound} />
-          </Switch>
-        </div>
-      </BrowserRouter>
->>>>>>> 0b85fd575533b5f8c133e2264c63b77ebfe9f54b
     );
   }
 }
