@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import logo from './img/logo.png';
-import exampleSentanceImage from './img/example-sentance.png';
-import calculatedPicture from './img/calculated-picture.png';
-import './App.css';
+import { Link } from 'react-router-dom';
+import logo from '../css/images/logo.png';
+import exampleSentanceImage from '../css/images/example-sentance.png';
+import calculatedPicture from '../css/images/calculated-picture.png';
 
 const exampleSentance = "This sentance was stored in a variable within App.js.";
 
@@ -13,6 +13,7 @@ class App extends Component {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Hello, World!<br />Computer Science Club</h1>
+          <Link to="/secret" className="App-title">SECRET PAGE</Link>
         </header>
 
         <p>I am a calculated {1 + 2 + 3 + 4 + 5 + 6} years old.</p>
