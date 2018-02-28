@@ -8,6 +8,10 @@ p {
   font-size: 19px;
 }
 
+form{
+  text-align: center;
+}
+
 .App {
   text-align: center;
 }

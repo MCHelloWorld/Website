@@ -23,6 +23,8 @@ class App extends Component {
         <img src={exampleSentenceImage} alt="example sentence" style={{height: '64px'}}/>
         <br />
         <Link to="/Login" className="App-title">Log In</Link>
+        <br />
+        <Link to="/Registration" className="App-title">Register</Link>
 
       </div>
     );
