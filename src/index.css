@@ -19,17 +19,31 @@ p {
 
 .App-header {
   background-color: #222;
-  height: 150px;
+  height: 175px;
   padding: 20px;
   color: white;
 }
 
 .App-title {
-  font-size: 1.5em;
+  font-size: 1.75em;
+  font-famiy: 'Arista'
 }
 
 .App-intro {
   font-size: large;
+}
+
+@font-face {
+    font-family: 'Arista';
+    src: url('./css/fonts/arista-webfont.woff2') format('woff2'),
+         url('./css/fonts/arista-webfont.woff') format('woff');
+    font-weight: lighter;
+    font-style: normal;
+}
+
+h1 {
+  font-family: 'Arista';
+  font-weight: lighter;
 }
 
 @keyframes App-logo-spin {
