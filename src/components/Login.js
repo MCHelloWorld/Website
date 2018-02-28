@@ -9,7 +9,7 @@ class Login extends Component {
       <div className="App">
        <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Login/Signup</h1>
+          <h1 className="App-title">Login</h1>
       </header>
       <br />
           <form>Username:  <input type="text" placeholder="username"/>
