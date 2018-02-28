@@ -15,12 +15,13 @@ class App extends Component {
           <h1 className="App-title">Hello, World!<br />Computer Science Club</h1>
           <Link to="/secret" className="App-title">SECRET PAGE</Link>
         </header>
-
-        <p>I am a calculated {1 + 2 + 3 + 4 + 5 + 6} years old.</p>
+        <br />
+        <h2>I am a calculated {1 + 2 + 3 + 4 + 5 + 6} years old.</h2>
         <img src={calculatedPicture} alt="calculated value" style={{height: '64px'}}/>
 
         <p>{exampleSentance} Neat!</p>
         <img src={exampleSentanceImage} alt="example sentance" style={{height: '64px'}}/>
+
 
       </div>
     );
