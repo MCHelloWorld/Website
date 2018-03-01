@@ -31,6 +31,10 @@ input {
   height: 80px;
 }
 
+.App-profile-photo {
+  height: 40px;
+}
+
 .App-header {
   background-color: #262262;
   height: 175px;
