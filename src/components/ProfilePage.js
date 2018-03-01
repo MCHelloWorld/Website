@@ -12,7 +12,7 @@ class Profile extends Component {
           <h1 className="App-title">Profile</h1>
       </header>
       <br />
-      <img src={userphoto} className="App-profile-photo" />
+      <img src={userphoto} className="App-profile-photo" alt=""/>
       <br />
         <p>This is where the profile page will go. <br />
         This will contain the account's name, username, profile picture, bio, and eventually their openKattis score. <br />
