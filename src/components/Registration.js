@@ -12,17 +12,20 @@ class Register extends Component {
           <h1 className="App-title">Sign Up</h1>
       </header>
       <br />
-        <form id="form1">First Name:  <input type="text" placeholder="First Name"/>
+        <form id="form1">First Name:  <input type="text" name='first_name' placeholder="First Name"/>
         <br />
-        Last Name:  <input type="text" placeholder="Last Name"/>
+        Last Name:  <input type="text" name='last_name' placeholder="Last Name"/>
         <br />
-        Email:  <input type="text" placeholder="Email"/>
+        Email:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name='email' placeholder="Email"/>
         <br />
-        Username:  <input type="text" placeholder="Username"/>
+        Username:  &nbsp;<input type="text" name='username' placeholder="Username"/>
         <br />
+        Password: &nbsp;<input type="password" name='password' placeholder='Password'/>
         <br />
         </form>
+        <br />
         <button type="submit" form="form1">Register</button>
+        <br />
         <br />
         <Link to="/" className="App-title">Home Page</Link>
       </div>

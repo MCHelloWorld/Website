@@ -14,7 +14,8 @@ p {
 }
 
 form{
-  text-align: center;
+  text-align: right;
+  margin-right: 32em;
 }
 
 input {

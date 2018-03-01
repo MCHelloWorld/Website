@@ -12,12 +12,13 @@ class Login extends Component {
           <h1 className="App-title">Login</h1>
       </header>
       <br />
-          <form id="form1">Username:  <input type="text" placeholder="username"/>
+          <form id="form1">Username:  <input type="text" name='username' placeholder="Username"/>
           <br />
-          Password:    <input type="password" placeholder="password" />
+          Password:    <input type="password" name='password' placeholder="Password" />
           </form>
           <br />
           <button type="submit" form="form1">Log in</button>
+          <br />
           <br />
           <Link to="/" className="App-title">Home Page</Link>
       </div>
