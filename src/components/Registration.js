@@ -20,6 +20,7 @@ class Register extends Component {
         <br />
         Username:  <input type="text" placeholder="Username"/>
         <br />
+        <br />
         </form>
         <button type="submit" form="form1">Register</button>
         <br />
