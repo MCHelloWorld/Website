@@ -1,11 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Comfortaa');
+
+
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
 
 p {
   font-size: 19px;
+  font-family: 'Nunito', sans-serif;
 }
 
 form{
@@ -30,12 +35,60 @@ form{
 
 .App-title {
   font-size: 1.75em;
-  font-famiy: 'Arista'
+  font-family: 'Comfortaa', cursive;
 }
 
 .App-intro {
   font-size: large;
 }
+
+button {
+    -webkit-transition-duration: 0.1s; /* Safari */
+    transition-duration: 0.1s;
+    background-color: #F4595B;
+
+    border-radius: 8px;
+    border-bottom: 4px solid #C24648;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-family: 'Oxygen', sans-serif;
+    letter-spacing: 2px;
+}
+
+button:hover {
+  background-color: #FF7375;
+  border: none;
+  border-radius: 8px;
+  border-bottom: 4px solid #C24648;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-family: 'Oxygen', sans-serif;
+  letter-spacing: 2px;
+}
+
+button:active {
+  background-color: #C24648;
+  border: none;
+  border-radius: 8px;
+  border-bottom: 4px solid #C24648;
+  color: #CCC;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-family: 'Oxygen', sans-serif;
+  letter-spacing: 2px;
+}
+
 
 @font-face {
     font-family: 'Arista';
@@ -46,8 +99,8 @@ form{
 }
 
 h1 {
-  font-family: 'Arista';
-  font-weight: lighter;
+  font-family: 'Comfortaa', cursive;
+  font-weight: bold;
 }
 
 @keyframes App-logo-spin {
