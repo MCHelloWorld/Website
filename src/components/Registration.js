@@ -22,6 +22,8 @@ class Register extends Component {
         <br />
         </form>
         <button type="submit" form="form1">Register</button>
+        <br />
+        <Link to="/" className="App-title">Home Page</Link>
       </div>
     )
   }

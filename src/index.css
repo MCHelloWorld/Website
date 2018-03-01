@@ -1,11 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Comfortaa');
+
+
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
 
 p {
   font-size: 19px;
+  font-family: 'Nunito', sans-serif;
 }
 
 form{
@@ -30,7 +35,7 @@ form{
 
 .App-title {
   font-size: 1.75em;
-  font-famiy: 'Arista'
+  font-family: 'Comfortaa', cursive;
 }
 
 .App-intro {
@@ -46,8 +51,8 @@ form{
 }
 
 h1 {
-  font-family: 'Arista';
-  font-weight: lighter;
+  font-family: 'Comfortaa', cursive;
+  font-weight: bold;
 }
 
 @keyframes App-logo-spin {
