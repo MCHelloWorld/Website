@@ -17,9 +17,10 @@ class Home extends Component {
         <img src={calculatedPicture} alt="calculated value" style={{height: '64px'}}/>
 
         <p>{exampleSentance} Neat!</p>
-        <h5> The nation od jucie </h5>
-        <p> I loke pies they grate </p>
+        
         <img src={exampleSentanceImage} alt="example sentance" style={{height: '64px'}}/>
+        <br/>
+        <Link to="/Registration" className="App-title">Registration</Link>
       </div>
     );
   }
