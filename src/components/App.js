@@ -12,9 +12,9 @@ class App extends Component {
       <BrowserRouter>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/Secret" component={Secret} />
-            <Route path="/Login" component={Login} />
-            <Route path='/Registration' component={Register} />
+            <Route exact path="/Login" component={Login} />
+            <Route exact path="/Secret" component={Secret} />
+            <Route exact path='/Registration' component={Register} />
             <Route exact path='*' component={NotFound} />
           </Switch>
       </BrowserRouter>
