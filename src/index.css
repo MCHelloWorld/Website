@@ -49,10 +49,10 @@ input {
 button {
     -webkit-transition-duration: 0.1s; /* Safari */
     transition-duration: 0.1s;
-    background-color: #F4595B;
+    background-color: #1DB361;
 
     border-radius: 8px;
-    border-bottom: 4px solid #C24648;
+    border-bottom: 4px solid #126B3A;
     color: white;
     padding: 15px 32px;
     text-align: center;
@@ -64,10 +64,10 @@ button {
 }
 
 button:hover {
-  background-color: #FF7375;
+  background-color: #53e896;
   border: none;
   border-radius: 8px;
-  border-bottom: 4px solid #C24648;
+  border-bottom: 4px solid #126B3A;
   color: white;
   padding: 15px 32px;
   text-align: center;
@@ -79,10 +79,10 @@ button:hover {
 }
 
 button:active {
-  background-color: #C24648;
+  background-color: #1263BA;
   border: none;
   border-radius: 8px;
-  border-bottom: 4px solid #C24648;
+  border-bottom: 4px solid #1263BA;
   color: #CCC;
   padding: 15px 32px;
   text-align: center;
