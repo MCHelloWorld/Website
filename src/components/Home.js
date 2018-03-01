@@ -17,7 +17,6 @@ class Home extends Component {
 
         <p>{exampleSentance} Neat!</p>
         <img src={exampleSentanceImage} alt="example sentance" style={{height: '64px'}}/>
-
       </div>
     );
   }
