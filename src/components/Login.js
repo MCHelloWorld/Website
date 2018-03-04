@@ -17,7 +17,7 @@ class Login extends Component {
           Password:    <input type="password" name='password' placeholder="Password" />
           </form>
           <br />
-          <button type="submit" form="form1">Log in</button>
+          <button type="submit" form="form1" className="form-button">Log in</button>
           <br />
           <br />
           <Link to="/" className="App-title">Home Page</Link>
