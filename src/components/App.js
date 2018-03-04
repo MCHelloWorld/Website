@@ -25,7 +25,7 @@ class App extends Component {
       <BrowserRouter>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/login/Login" component={Login} change={login()} username={this.state.username} password={this.state.password} />
+            <Route exact path="/login/Login" component={Login}  username={this.state.username} password={this.state.password} />
             <Route exact path="/Secret" component={Secret} />
             <Route exact path='/Registration' component={Register} />
             <Route exact path='/ProfilePage' component={Profile} />
