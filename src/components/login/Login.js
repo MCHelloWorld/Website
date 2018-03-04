@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import logo from '../css/images/logo.png';
+import logo from '../../css/images/logo.png';
 
 
 class Login extends Component {
@@ -12,7 +12,7 @@ class Login extends Component {
           <h1 className="App-title">Login</h1>
       </header>
       <br />
-          <form id="form1">Username:  <input type="text" name='username' placeholder="Username"/>
+          <form id="form1">  <input type="text" name='username' placeholder={this.props.username}/>
           <br />
           Password:    <input type="password" name='password' placeholder="Password" />
           </form>
