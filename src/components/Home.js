@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import Button from 'material-ui/Button';
 import HelloHeader from './HelloHeader.js';
 import calculatedPicture from '../css/images/calculated-picture.png';

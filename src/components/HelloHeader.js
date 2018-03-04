@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../css/images/logo.png';
 
 import PropTypes from 'prop-types';
@@ -8,8 +9,8 @@ import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import AccountCircle from 'material-ui-icons/AccountCircle';
-import Switch from 'material-ui/Switch';
-import { FormControlLabel, FormGroup } from 'material-ui/Form';
+//import Switch from 'material-ui/Switch';
+//import { FormControlLabel, FormGroup } from 'material-ui/Form';
 import Menu, { MenuItem } from 'material-ui/Menu';
 
 
@@ -32,7 +33,7 @@ class MenuAppBar extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    //const { classes } = this.props;
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
@@ -80,7 +81,10 @@ class MenuAppBar extends Component {
                   open={open}
                   onClose={this.handleClose}
                 >
-                  <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                  <MenuItem
+                    containerElement={<Link to="/ProfilePage" />}
+                    onClick={this.handleClose}>Profile</MenuItem>
+                    {/*Couldnt get this to link to somehwere else for some reason*/}
                   <MenuItem onClick={this.handleClose}>My account</MenuItem>
                 </Menu>
               </div>
