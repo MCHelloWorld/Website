@@ -51,7 +51,7 @@ input {
   font-size: large;
 }
 
-button {
+.form-button {
     -webkit-transition-duration: 0.1s; /* Safari */
     transition-duration: 0.1s;
     background-color: #1DB361;
@@ -68,7 +68,7 @@ button {
     letter-spacing: 2px;
 }
 
-button:hover {
+.form-button:hover {
   background-color: #53e896;
   border: none;
   border-radius: 8px;
@@ -83,7 +83,7 @@ button:hover {
   letter-spacing: 2px;
 }
 
-button:active {
+.form-button:active {
   background-color: #1263BA;
   border: none;
   border-radius: 8px;
