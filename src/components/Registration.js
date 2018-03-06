@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import Button from 'material-ui/Button';
 import logo from '../css/images/logo.png';
 
