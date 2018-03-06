@@ -12,7 +12,7 @@ class Login extends Component {
           <h1 className="App-title">Login</h1>
       </header>
       <br />
-          <form id="form1">  <input type="text" name='username' placeholder={this.props.username}/>
+          <form id="form1">Username:  <input type="text" name='username' placeholder="Username"/>
           <br />
           Password:    <input type="password" name='password' placeholder="Password" />
           </form>

@@ -15,7 +15,7 @@ class Home extends Component {
 
         <br />
 
-        <Button href="/Login" variant="raised" color="primary" linkButton={true}>Log In</Button>
+        <Button href="/login/Login" variant="raised" color="primary" linkButton={true}>Log In</Button>
         &nbsp;&nbsp;&nbsp;
         <Button href="/Registration" variant="raised" color="primary" linkButton={true}>Sign Up</Button>
         &nbsp;&nbsp;&nbsp;
