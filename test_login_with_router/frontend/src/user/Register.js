@@ -13,7 +13,8 @@ class Register extends Component {
       first_name:'',
       last_name:'',
       email:'',
-      password:''
+      password:'',
+      confirm:''
     }
   }
 
@@ -28,8 +29,23 @@ handleClick(event){
     "email":this.state.email,
     "password":this.state.password
     }
-    if (payload.password.length < 6) {
+    var validEmail = false;
+    if (payload.email.length > 0) {
+      var result = payload.email.match(/@messiah.edu/gi)
+      validEmail = true;
+    }
+    if (payload.first_name.length <= 0) {
+      alert("First name cannot be blank.");
+    } else if (payload.last_name.length <= 0) {
+      alert("Last name cannot be blank.");
+    } else if (payload.email.length <= 0) {
+      alert("Email cannot be blank.");
+    } else if (payload.password <= 0) {
+      alert("Password cannot be blank.");
+    } else if (payload.password.length < 6) {
       alert("Password must be longer than 6 characters.");
+    } else if (!validEmail){
+      alert("Email is not a valid Messiah email.");
     } else {
     axios.post(apiBaseUrl+'/register', payload)
    .then(function (response) {
@@ -86,6 +102,13 @@ handleClick(event){
              onChange = {(event,newValue) => this.setState({password:newValue})}
              />
            <br/>
+           <TextField
+            type="password"
+            hintText="Confirm your Password"
+            floatingLabelText="Confirm Password"
+            onChange = {(event,newValue) => this.setState({confirm:newValue})}
+            />
+            </br>
            <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
           </div>
          </MuiThemeProvider>
