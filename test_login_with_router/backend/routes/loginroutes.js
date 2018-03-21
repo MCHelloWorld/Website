@@ -33,7 +33,7 @@ exports.register = function(req,res){
       "code":400,
       "failed":"error ocurred"
     })
-  }else{
+  } else {
     console.log('The solution is: ', results);
     res.send({
       "code":200,

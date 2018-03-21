@@ -28,6 +28,9 @@ handleClick(event){
     "email":this.state.email,
     "password":this.state.password
     }
+    if (payload.password.length < 6) {
+      alert("Password must be longer than 6 characters.");
+    } else {
     axios.post(apiBaseUrl+'/register', payload)
    .then(function (response) {
      console.log(response);
@@ -35,7 +38,7 @@ handleClick(event){
       //  console.log("registration successfull");
        var loginscreen=[];
        loginscreen.push(<Login parentContext={this} appContext={self.props.appContext}/>);
-       var loginmessage = "Not Registered yet.Go to registration";
+       var loginmessage = "Not Registered yet. Go to registration";
        self.props.parentContext.setState({loginscreen:loginscreen,
        loginmessage:loginmessage,
        buttonLabel:"Register",
@@ -47,6 +50,7 @@ handleClick(event){
      console.log(error);
    });
   }
+}
 
   render() {
     return (

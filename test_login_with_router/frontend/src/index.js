@@ -5,14 +5,8 @@ import User from './user/User';
 import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import UploadScreen from './user/UploadScreen';
-
-
 import Home from './components/Home.js';
 import Secret from './components/Secret.js';
-import Login from './components/login/Login.js';
-import Register from './components/Registration.js';
-import Profile from './components/ProfilePage.js'
-import NotFound from './components/NotFound.js';
 import Constant from './components/util/Constant.js';
 
 const Root = () => {
