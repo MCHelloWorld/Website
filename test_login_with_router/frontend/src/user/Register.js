@@ -42,6 +42,8 @@ handleClick(event){
       alert("Email cannot be blank.");
     } else if (payload.password <= 0) {
       alert("Password cannot be blank.");
+    } else if (payload.password !== this.state.confirm) {
+      alert("Passwords do not match.");
     } else if (payload.password.length < 6) {
       alert("Password must be longer than 6 characters.");
     } else if (!validEmail){
