@@ -34,6 +34,14 @@ class MenuAppBar extends Component {
     return (
       <div className="alright">
         {/* HEY!!!!!!!!!!!! This part is used to toggle the log in and log out */}
+        {/*<FormGroup>
+          <FormControlLabel
+            control={
+              <Switch checked={auth} onChange={this.handleChange} aria-label="LoginSwitch" />
+            }
+            label={auth ? 'Logout' : 'Login'}
+          />
+        </FormGroup>*/}
       </div>
     );
   }

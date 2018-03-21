@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import Button from 'material-ui/Button';
 import logo from '../css/images/logo.png';
-
+import { Link } from 'react-router-dom';
 
 class Register extends Component {
   render() {
@@ -24,10 +23,10 @@ class Register extends Component {
           <br />
         </form>
         <br />
-        <Button type="submit" form="form1" variant="raised" color="primary" linkButton={true}>Register</Button>
+        <button type="submit" form="form1" variant="raised" color="primary" linkButton={true}>Register</button>
         <br />
         <br />
-        <Button href="/" variant="raised" color="primary" linkButton={true}>Home</Button>
+        <button href="/" variant="raised" color="primary" linkButton={true}>Home</button>
       </div>
     )
   }

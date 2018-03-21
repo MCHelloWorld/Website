@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import './App.css';
+import './User.css';
 import LoginScreen from './LoginScreen';
 
 
-class App extends Component {
+class User extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,4 +28,4 @@ class App extends Component {
     );
   }
 }
-export default App;
+export default User;

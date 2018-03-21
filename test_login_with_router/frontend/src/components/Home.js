@@ -15,9 +15,9 @@ class Home extends Component {
 
         <br />
 
-        <Link to="/User">Log In</Link>
+        <Link to='/User'>Log In</Link>
         &nbsp;&nbsp;&nbsp;
-        <Link to="/User">Sign Up</Link>
+        <Link to='/User'>Sign Up</Link>
         &nbsp;&nbsp;&nbsp;
         <Link to='/User'>Profile</Link>
         <br/>
