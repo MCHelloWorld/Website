@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './test_login/index.css';
 import App from './test_login/App';
+import Home from './components/Home';
 import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import UploadScreen from './test_login/UploadScreen';
@@ -11,7 +12,7 @@ const Root = () => {
     <BrowserRouter>
       <div>
         <Switch>
-          <Route exact path="/"
+          <Route exact path="/" component={Home} />
           <Route exact path="/User" component={App} />
           <Route exact path="/LoginSuccess" component={UploadScreen} />
           {/*<Route exact path='*' component={NotFound} />*/}
