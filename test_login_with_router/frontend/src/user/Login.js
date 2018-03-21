@@ -27,9 +27,8 @@ handleClick(event){
  .then(function (response) {
    console.log(response);
    if(response.data.code === 200){
-     console.log("Login successfull");
+     console.log("Login successful");
 
-     console.log("idk why it didn't redirect");
      var uploadScreen=[];
      uploadScreen.push(<UploadScreen appContext={self.props.appContext}/>)
      self.props.appContext.setState({loginPage:[],uploadScreen:uploadScreen})
@@ -37,7 +36,7 @@ handleClick(event){
      console.log("Username password do not match");
      alert("Username and password do not match");
   } else {
-    console.log("Username does not exists");
+    console.log("Username does not exist");
     alert("Username does not exist");
   }
  })

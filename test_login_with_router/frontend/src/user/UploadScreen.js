@@ -2,12 +2,14 @@ import React, { Component} from 'react';
 class UploadScreen extends Component {
   constructor(props) {
     super(props);
-    this.state={};
+    this.state={
+      email:''
+    };
   }
   render() {
     return (
       <div>
-      <h1> Howdy Doody </h1>
+      <h1> Howdy Doody, {this.state.email} </h1>
       </div>
     )
   }

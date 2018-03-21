@@ -8,8 +8,8 @@ class Loginscreen extends Component {
   constructor(props){
     super(props);
     this.state={
-      username:'',
-      password:'',
+      //username:'',
+      userEmail:'',
       loginscreen:[],
       loginmessage:'',
       buttonLabel:'Register',
@@ -34,7 +34,7 @@ class Loginscreen extends Component {
     }
     else{
 
-      loginscreen.push(<Login parentContext={this} appContext={this.props.parentContext}/>);
+      loginscreen.push(<Login parentContext={this} appContext={this.props.parentContext} userEmail={this.state.userEmail}/>);
       loginmessage = "Not Registered yet? Go to registration";
       this.setState({
                      loginscreen:loginscreen,
@@ -63,7 +63,7 @@ class Loginscreen extends Component {
           <MuiThemeProvider>
             <div>
                <RaisedButton label={this.state.buttonLabel} primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
-               <RaisedButton label="Home" primary={true} style={style} href='/'/>               
+               <RaisedButton label="Home" primary={true} style={style} href='/'/>
            </div>
           </MuiThemeProvider>
         </div>
