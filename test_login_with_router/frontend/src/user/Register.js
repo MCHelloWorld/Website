@@ -114,7 +114,6 @@ handleClick(event){
             />
             <br/>
            <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
-           <RaisedButton label="Home" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
           </div>
          </MuiThemeProvider>
       </div>

@@ -63,12 +63,13 @@ class Loginscreen extends Component {
           <MuiThemeProvider>
             <div>
                <RaisedButton label={this.state.buttonLabel} primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+               <RaisedButton label="Home" primary={true} style={style} href='/'/>               
            </div>
           </MuiThemeProvider>
         </div>
       </div>
     );
-    
+
   }
 }
 
