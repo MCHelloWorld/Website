@@ -20,8 +20,9 @@ class UploadScreen extends Component {
           <div>
             <AppBar title={"Welcome, " + this.state.email}/>
             <h1> Here's the profile page. It's the best we have. Sorry :(</h1>
+          </div>
+        </MuiThemeProvider>
       </div>
-    </div>
     )
   }
 }
