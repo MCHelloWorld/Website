@@ -5,7 +5,6 @@ import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import UploadScreen from './UploadScreen';
-import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
 constructor(props){
