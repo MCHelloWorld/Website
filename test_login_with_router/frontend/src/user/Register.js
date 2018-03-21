@@ -32,7 +32,9 @@ handleClick(event){
     var validEmail = false;
     if (payload.email.length > 0) {
       var result = payload.email.match(/@messiah.edu/gi)
-      validEmail = true;
+      if (result.length === 1){
+        validEmail = true;
+      }
     }
     if (payload.first_name.length <= 0) {
       alert("First name cannot be blank.");
@@ -112,6 +114,7 @@ handleClick(event){
             />
             <br/>
            <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+           <RaisedButton label="Home" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
           </div>
          </MuiThemeProvider>
       </div>
