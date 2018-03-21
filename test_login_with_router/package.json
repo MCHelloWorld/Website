@@ -6,7 +6,8 @@
   "scripts": {
     "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
     "server": "cd backend && nodemon server.js",
-    "client": "cd frontend && react-scripts start"
+    "client": "cd frontend && react-scripts start",
+    "install": "cd backend && npm install && cd ../frontend && npm install"
   },
   "author": "",
   "license": "ISC",
