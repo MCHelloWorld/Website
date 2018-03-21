@@ -110,7 +110,7 @@ handleClick(event){
             floatingLabelText="Confirm Password"
             onChange = {(event,newValue) => this.setState({confirm:newValue})}
             />
-            </br>
+            <br/>
            <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
           </div>
          </MuiThemeProvider>
