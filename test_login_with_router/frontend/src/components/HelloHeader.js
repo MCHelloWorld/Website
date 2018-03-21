@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import logo from '../css/images/logo.png';
-
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AppBar from 'material-ui/AppBar';
 import PropTypes from 'prop-types';
-//import Switch from 'material-ui/Switch';
-//import { FormControlLabel, FormGroup } from 'material-ui/Form';
-import Menu, { MenuItem } from 'material-ui/Menu';
-
-
 class MenuAppBar extends Component {
   state = {
     auth: true,
@@ -27,21 +22,13 @@ class MenuAppBar extends Component {
   };
 
   render() {
-    //const { classes } = this.props;
-    const { auth, anchorEl } = this.state;
-    const open = Boolean(anchorEl);
-
     return (
       <div className="alright">
-        {/* HEY!!!!!!!!!!!! This part is used to toggle the log in and log out */}
-        {/*<FormGroup>
-          <FormControlLabel
-            control={
-              <Switch checked={auth} onChange={this.handleChange} aria-label="LoginSwitch" />
-            }
-            label={auth ? 'Logout' : 'Login'}
-          />
-        </FormGroup>*/}
+        <MuiThemeProvider>
+          <AppBar
+            title="Hello World"
+           />
+        </MuiThemeProvider>
       </div>
     );
   }
@@ -50,6 +37,11 @@ class MenuAppBar extends Component {
 MenuAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+
+/*
+const style = {
+  margin: 15,
+};*/
 
 class HelloHeader extends Component {
   render() {

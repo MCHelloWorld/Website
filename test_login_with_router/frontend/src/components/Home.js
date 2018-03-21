@@ -15,11 +15,11 @@ class Home extends Component {
 
         <br />
 
-        <Link to='/User'>Log In</Link>
+        <Link to={Constant.LOGIN_PATH}>Log In</Link>
         &nbsp;&nbsp;&nbsp;
-        <Link to='/User'>Sign Up</Link>
+        <Link to={Constant.REGISTRATION_PATH}>Sign Up</Link>
         &nbsp;&nbsp;&nbsp;
-        <Link to='/User'>Profile</Link>
+        <Link to={Constant.PROFILE_PAGE_PATH}>Profile</Link>
         <br/>
         <p>I am a calculated {1 + 2 + 3 + 4 + 5 + 6} years old.</p>
         <img src={calculatedPicture} alt="calculated value" style={{height: '64px'}}/>
