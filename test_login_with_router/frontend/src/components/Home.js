@@ -17,9 +17,9 @@ class Home extends Component {
 
         <Button href="/User" variant="raised" color="primary" linkButton={true}>Log In</Button>
         &nbsp;&nbsp;&nbsp;
-        <Button href={Constant.REGISTRATION_PATH} variant="raised" color="primary" linkButton={true}>Sign Up</Button>
+        <Button href={"/User"} variant="raised" color="primary" linkButton={true}>Sign Up</Button>
         &nbsp;&nbsp;&nbsp;
-        <Button href={Constant.PROFILE_PAGE_PATH} variant="raised" color="primary" linkButton={true}>Profile</Button>
+        <Button href={'/User'} variant="raised" color="primary" linkButton={true}>Profile</Button>
         <br/>
         <p>I am a calculated {1 + 2 + 3 + 4 + 5 + 6} years old.</p>
         <img src={calculatedPicture} alt="calculated value" style={{height: '64px'}}/>
