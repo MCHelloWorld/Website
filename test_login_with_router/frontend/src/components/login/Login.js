@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import Button from 'material-ui/Button';
 import logo from '../../css/images/logo.png';
-
+import { Link } from 'react-router-dom';
 
 class Login extends Component {
   render() {
@@ -17,10 +16,10 @@ class Login extends Component {
           Password:    <input type="password" name='password' placeholder="Password" />
           </form>
           <br />
-          <Button type="submit" form="form1" variant="raised" color="primary" linkButtton={true}>Log in</Button>
+          <button type="submit" form="form1" variant="raised" color="primary" linkButtton={true}>Log in</button>
           <br />
           <br />
-          <Button href="/" variant="raised" color="primary" linkButton={true}>Home</Button>
+          <Link to="/">Home</Link>
       </div>
     )
   }

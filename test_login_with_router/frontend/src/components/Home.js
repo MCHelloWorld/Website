@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Button from 'material-ui/Button';
 import HelloHeader from './HelloHeader.js';
 import calculatedPicture from '../css/images/calculated-picture.png';
 import exampleSentanceImage from '../css/images/example-sentance.png';
 import Constant from './util/Constant.js';
+import { Link } from 'react-router-dom'
 
 const exampleSentance = "This sentance was stored in a variable within App.js.";
 
@@ -15,11 +15,11 @@ class Home extends Component {
 
         <br />
 
-        <Button href={Constant.LOGIN_PATH} variant="raised" color="primary" linkButton={true}>Log In</Button>
+        <Link to={Constant.LOGIN_PATH}>Log In</Link>
         &nbsp;&nbsp;&nbsp;
-        <Button href={Constant.REGISTRATION_PATH} variant="raised" color="primary" linkButton={true}>Sign Up</Button>
+        <Link to={Constant.REGISTRATION_PATH}>Sign Up</Link>
         &nbsp;&nbsp;&nbsp;
-        <Button href={Constant.PROFILE_PAGE_PATH} variant="raised" color="primary" linkButton={true}>Profile</Button>
+        <Link to={Constant.PROFILE_PAGE_PATH}>Profile</Link>
         <br/>
         <p>I am a calculated {1 + 2 + 3 + 4 + 5 + 6} years old.</p>
         <img src={calculatedPicture} alt="calculated value" style={{height: '64px'}}/>
