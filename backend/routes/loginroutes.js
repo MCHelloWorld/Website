@@ -53,7 +53,7 @@ exports.login = function(req,res){
       "code":400,
       "failed":"error ocurred"
     })
-  }else{
+  } else {
     console.log(results.length);
     // console.log('The solution is: ', results);
     if(results.length > 0){
@@ -61,20 +61,18 @@ exports.login = function(req,res){
         res.send({
           "code":200,
           "success":"login successfull"
-            });
-      }
-      else{
+        });
+      } else {
         res.send({
           "code":204,
           "success":"Email and password does not match"
             });
       }
-    }
-    else{
+    } else {
       res.send({
         "code":204,
         "success":"Email does not exist"
-          });
+      });
     }
   }
   });
