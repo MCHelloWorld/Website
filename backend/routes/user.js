@@ -23,7 +23,7 @@ exports.edit = function(req, res){
     "modified":today,
     "email":req.body.email
   }
-  var str = 'UPDATE test_table SET first_name = ?, last_name = ?, password = ?, modified = ? WHERE email = ?';
+  var str = 'UPDATE test_table SET first_name = ?, last_name = ?, bio = ? password = ?, modified = ? WHERE email = ?';
   connection.query('SELECT * FROM test_table WHERE email = ?', [payload.email], function(error, results, fields) {
     console.log(results.length);
     if(results.length > 0){
@@ -33,7 +33,7 @@ exports.edit = function(req, res){
           "success":"Passwords match"
         });
       } else {
-        connection.query(str, [payload.first_name, payload.last_name, payload.password, payload.modified, payload.email], function (error, results, fields) {
+        connection.query(str, [payload.first_name, payload.last_name, payload.bio, payload.password, payload.modified, payload.email], function (error, results, fields) {
           if(error) {
             console.log(error);
           } else {
