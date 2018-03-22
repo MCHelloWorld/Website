@@ -1,7 +1,7 @@
 var express    = require("express");
 var login = require('./routes/loginroutes');
 var bodyParser = require('body-parser');
-
+var user = require('./routes/user.js');
 var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -16,6 +16,7 @@ var router = express.Router();
 
 //route to handle user registration
 router.post('/register', login.register);
-router.post('/login', login.login)
+router.post('/login', login.login);
+router.post('/user/edit', user.edit);
 app.use('/api', router);
 app.listen(5000);
