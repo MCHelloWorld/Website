@@ -6,6 +6,9 @@ import TextField from 'material-ui/TextField';
 import Login from './Login';
 import axios from 'axios';
 
+import logo from '../css/images/logo.png';
+import banner from '../css/images/banner.png';
+
 class Register extends Component {
   constructor(props){
     super(props);
@@ -80,6 +83,9 @@ handleClick(event){
           <AppBar
              title="Register"
            />
+           <header style={{backgroundImage: `url(${banner})`, backgroundSize: "cover", minHeight: "30vh", display: 'flex'}}>
+  <img src={logo} alt="logo" style={{height: 160, width: 160, margin: 'auto'}}/>
+  </header>
            <TextField
              hintText="Enter your First Name"
              floatingLabelText="First Name"

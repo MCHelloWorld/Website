@@ -5,6 +5,8 @@ import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import UploadScreen from './UploadScreen';
+import logo from '../css/images/logo.png';
+import banner from '../css/images/banner.png';
 
 class Login extends Component {
 constructor(props){
@@ -58,6 +60,9 @@ render() {
           <AppBar
              title="Login"
            />
+           <header style={{backgroundImage: `url(${banner})`, backgroundSize: "cover", minHeight: "30vh", display: 'flex'}}>
+           <img src={logo} alt="logo" style={{height: 160, width: 160, margin: 'auto'}}/>
+           </header>
            <TextField
              hintText="Enter your Email"
              floatingLabelText="Email"

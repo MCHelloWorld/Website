@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import HelloHeader from './HelloHeader.js';
+// eslint-disable-next-line
 import Constant from './util/Constant.js';
-import { Link } from 'react-router-dom'
+import RaisedButton from 'material-ui/RaisedButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+const style = {
+  margin: 15,
+};
 
 class Home extends Component {
   render() {
@@ -11,15 +17,18 @@ class Home extends Component {
 
         <br />
 
-        <Link to={Constant.LOGIN_PATH}>Log In</Link>
-        &nbsp;&nbsp;&nbsp;
-        <Link to={Constant.REGISTRATION_PATH}>Sign Up</Link>
-        &nbsp;&nbsp;&nbsp;
-        <Link to={Constant.PROFILE_PAGE_PATH}>Profile</Link>
+        <MuiThemeProvider>
+          <div>
+            <RaisedButton label="Home" primary={true} style={style} href='/'/>
+            <RaisedButton label="User" primary={true} style={style} href='/User'/>
+         </div>
+        </MuiThemeProvider>
         <br/>
       </div>
     );
   }
 }
+
+
 
 export default Home;

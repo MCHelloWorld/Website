@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import logo from '../css/images/logo.png';
+import banner from '../css/images/banner.png';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import PropTypes from 'prop-types';
@@ -47,12 +48,10 @@ class HelloHeader extends Component {
   render() {
     return (
       <div>
-        <MenuAppBar />
-      <header>
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1 className="App-title">Hello, World!<br />Computer Science Club</h1>
-        <br />
-      </header>
+      <MenuAppBar />
+        <header style={{backgroundImage: `url(${banner})`, backgroundSize: "cover", minHeight: "30vh", display: 'flex'}}>
+        <img src={logo} alt="logo" style={{height: 160, width: 160, margin: 'auto'}}/>
+        </header>
       </div>
     );
   }

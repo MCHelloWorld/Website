@@ -5,6 +5,9 @@ import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
+import logo from '../css/images/logo.png';
+import banner from '../css/images/banner.png';
+// eslint-disable-next-line
 var editMessage = '';
 
 class UploadScreen extends Component {
@@ -21,6 +24,7 @@ class UploadScreen extends Component {
   }
   handleClick(event){
     var apiBaseUrl = "http://localhost:5000/api/";
+    // eslint-disable-next-line
     var self = this;
     var payload = {
       "email":this.state.email,
@@ -63,6 +67,9 @@ class UploadScreen extends Component {
       <div>
       <MuiThemeProvider>
       <AppBar title={this.props.userEmail}/>
+      <header style={{backgroundImage: `url(${banner})`, backgroundSize: "cover", minHeight: "30vh", display: 'flex'}}>
+        <img className="App-logo" src={logo} alt="logo" style={{height: 160, width: 160, margin: 'auto'}}/>
+      </header>
       <h1>Welcome, {this.props.userEmail} </h1>
       <br />
       <TextField
