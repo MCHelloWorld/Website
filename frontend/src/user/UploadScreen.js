@@ -21,7 +21,7 @@ class UploadScreen extends Component {
   }
   handleClick(event){
     var apiBaseUrl = "http://localhost:5000/api/";
-    self = this;
+    var self = this;
     var payload = {
       "email":this.state.email,
       "first_name":this.state.first_name,
@@ -29,7 +29,7 @@ class UploadScreen extends Component {
       "bio":this.state.bio,
       "password":this.state.password
     };
-    
+
     if (payload.first_name.length <= 0) {
       alert("First name cannot be blank.");
     } else if (payload.last_name.length <= 0) {
@@ -51,7 +51,10 @@ class UploadScreen extends Component {
           console.log("New password cannot match old password")
           alert("Your new password cannot be your old password!");
         }
-      }
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
     }
   }
 
@@ -91,8 +94,8 @@ class UploadScreen extends Component {
       <TextField
         hintText="Edit your bio."
         floatingLabelText="Bio"
-        rows=4
-        rowsMax=8
+        rows={4}
+        rowsMax={8}
         onChange = {(event,newValue) => this.setState({bio:newValue})}
         />
       <br/>
