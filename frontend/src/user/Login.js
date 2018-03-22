@@ -28,10 +28,9 @@ handleClick(event){
    console.log(response);
    if(response.data.code === 200){
      console.log("Login successful");
-
      var uploadScreen=[];
-     uploadScreen.push(<UploadScreen appContext={self.props.appContext}/>)
-     self.props.appContext.setState({loginPage:[],uploadScreen:uploadScreen})
+     uploadScreen.push(<UploadScreen appContext={self.props.appContext} emailFromParent={this.state.email}/>)
+     self.props.appContext.setState({loginPage:[],uploadScreen:uploadScreen},userEmail:{this.state.email});
    } else if (response.data.code === 204) {
      console.log("Username password do not match");
      alert("Username and password do not match");
