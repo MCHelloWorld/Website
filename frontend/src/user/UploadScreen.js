@@ -46,7 +46,7 @@ class UploadScreen extends Component {
         console.log(response);
         if(response.data.code===100) {
           console.log("Login Successful")
-          editMessage = "Information saved!"
+          alert("Information saved!");
         } else if (response.data.code===104) {
           console.log("New password cannot match old password")
           alert("Your new password cannot be your old password!");
@@ -80,7 +80,7 @@ class UploadScreen extends Component {
       <TextField
       type="password"
         hintText="Edit your password."
-        floatingLabelText="Password"
+        floatingLabelText="New Password"
         onChange = {(event,newValue) => this.setState({password:newValue})}
         />
       <br/>
@@ -98,8 +98,6 @@ class UploadScreen extends Component {
         rowsMax={8}
         onChange = {(event,newValue) => this.setState({bio:newValue})}
         />
-      <br/>
-      <h2>{editMessage}</h2>
       <br/>
       <RaisedButton label="Save Changes" primary={true} onClick={(event) => this.handleClick(event)}/>
       </MuiThemeProvider>
