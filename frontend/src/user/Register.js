@@ -61,7 +61,7 @@ handleClick(event){
       //  console.log("registration successfull");
        var loginscreen=[];
        loginscreen.push(<Login parentContext={this} appContext={self.props.appContext}/>);
-       var loginmessage = "Not Registered yet. Go to registration";
+       var loginmessage = "Not Registered yet? Go to registration";
        self.props.parentContext.setState({loginscreen:loginscreen,
        loginmessage:loginmessage,
        buttonLabel:"Register",
