@@ -35,7 +35,7 @@ handleClick(event){
     var validEmail = false;
     if (payload.email.length > 0) {
       var result = payload.email.match(/@messiah.edu/gi)
-      if (result.length === 1){
+      if (result != null){
         validEmail = true;
       }
     }
