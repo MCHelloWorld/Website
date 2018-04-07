@@ -13,7 +13,7 @@ if(!err) {
 }
 });
 
-exports.edit = function(rew, res){
+export.edit = function(rew, res){
   var today = new Date();
   var users={
     "first_name":req.body.first_name,
@@ -23,7 +23,6 @@ exports.edit = function(rew, res){
     "created":today,
     "modified":today
   }
-  var string =
   connection.query('INSERT INTO test_table SET ?',users, function (error, results, fields) {
   if (error) {
     console.log("error ocurred",error);
