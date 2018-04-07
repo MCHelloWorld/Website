@@ -13,7 +13,7 @@ if(!err) {
 }
 });
 
-exports.edit = function(req, res){
+exports.edit = function(rew, res){
   var today = new Date();
   var payload={
     "first_name":req.body.first_name,

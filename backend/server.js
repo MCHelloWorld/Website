@@ -1,7 +1,14 @@
-var express    = require("express");
+
+var express = require("express");
+var load = require('express-load');
 var login = require('./routes/loginroutes');
 var bodyParser = require('body-parser');
+<<<<<<< HEAD
 var user = require('./routes/user');
+=======
+var user = require('./routes/user.js');
+var sql = require('./public/javascripts/utilities/sql.js');
+>>>>>>> Dev-react-logic
 var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
