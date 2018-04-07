@@ -14,11 +14,11 @@ const Root = () => {
   <BrowserRouter>
     <div>
       <Switch>
-          <Route exact path={Constant.HOME_PATH} component={Home} title="Home"/>
-          <Route exact path='/User' component={User} title="User" />
-          <Route exact path={Constant.REGISTRATION_PATH} component={Registration} title="Registration" />
-          <Route exact path={Constant.SECRET_PATH} component={Secret} title="Secret"/>
-          {/*<Route exact path='*' component={NotFound} />*/}
+        <Route exact path={Constant.HOME_PATH} component={Home} title="Home"/>
+        <Route exact path='/User' component={User} title="User" />
+        <Route exact path={Constant.REGISTRATION_PATH} component={Registration} title="Registration" />
+        <Route exact path={Constant.SECRET_PATH} component={Secret} title="Secret"/>
+        {/*<Route exact path='*' component={NotFound} />*/}
         </Switch>
       </div>
     </BrowserRouter>
