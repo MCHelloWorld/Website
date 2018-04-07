@@ -1,4 +1,5 @@
 var count = 0;
+var countRequests = 0;
 
 exports.special = function(req,res){
   var mySpecialGuy = req.body.mySpecialGuy ?
@@ -6,5 +7,10 @@ exports.special = function(req,res){
   console.log(mySpecialGuy);
   count = count + 1;
   console.log(count);
-  // hi there 
+
+  res.send();
+};
+
+exports.countRequests = (req, res) => {
+  
 };

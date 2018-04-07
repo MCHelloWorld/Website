@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class Special extends Component {
+
+
   handleClick(event){
     var apiBaseUrl = "http://localhost:5000/api/";
     var payload = {
@@ -15,13 +17,17 @@ class Special extends Component {
       var msg = '';
       if(response.data.code === 200){
         msg = "data code = 200";
+        console.log(msg);
+        alert(msg);
       } else if (response.data.code === 204) {
         msg = "data code equals 204";
+        console.log(msg);
+        alert(msg);
       } else {
         msg = "data code was not 200 or 204";
+        // basically do nothing hooorayyyyy
       }
-      console.log(msg);
-      alert(msg);
+
     })
     .catch(function (error) {
       console.log(error);

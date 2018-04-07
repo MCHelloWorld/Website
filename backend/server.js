@@ -1,6 +1,6 @@
 var express    = require("express");
 var login = require('./routes/loginroutes');
-var specialInTheServerJsFileHooray = require('./routes/special');
+var special = require('./routes/special');
 var bodyParser = require('body-parser');
 var user = require('./routes/user');
 var app = express();
@@ -18,8 +18,8 @@ var router = express.Router();
 //route to handle user registration
 router.post('/register', login.register);
 router.post('/login', login.login);
-router.post('/special', specialInTheServerJsFileHooray.special);
+router.post('/special', special.special);
 router.post('/user/edit', user.edit);
-router.post('/buttCrack')
+router.post('/buttCrack', special.special);
 app.use('/api', router);
 app.listen(5000);
