@@ -7,6 +7,7 @@ import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './components/Home.js';
 import Secret from './components/Secret.js';
+import Special from './components/Special.js';
 import Constant from './components/util/Constant.js';
 
 const Root = () => {
@@ -18,6 +19,7 @@ const Root = () => {
         <Route exact path='/User' component={User} title="User" />
         <Route exact path={Constant.REGISTRATION_PATH} component={Registration} title="Registration" />
         <Route exact path={Constant.SECRET_PATH} component={Secret} title="Secret"/>
+        <Route exact path='/special' component={Special} title="Special"/>
         {/*<Route exact path='*' component={NotFound} />*/}
         </Switch>
       </div>

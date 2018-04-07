@@ -6,13 +6,13 @@ var connection = mysql.createConnection({
   database : 'helloworld'
 });
 connection.connect(function(err){
-if(!err) {
-    console.log("Database is connected.");
-} else {
-    console.log("Error connecting database.");
-}
+  if(!err) {
+      console.log("Database is connected. (loginroutes)");
+  } else {
+      console.log("Error connecting database. (loginroutes)");
+  }
 });
-
+// maybe make a separate file that estabilishs a database connection.
 
 
 exports.register = function(req,res){
@@ -46,6 +46,9 @@ exports.register = function(req,res){
 exports.login = function(req,res){
   var email= req.body.email;
   var password = req.body.password;
+  var mySpecialGuy = req.body.mySpecialGuy ?
+      'My Special Guy exists and he is here:' + req.body.mySpecialGuy :  'I got nothing';
+  console.log(mySpecialGuy);
   connection.query('SELECT * FROM test_table WHERE email = ?',[email], function (error, results, fields) {
   if (error) {
     // console.log("error ocurred",error);
