@@ -2,6 +2,7 @@
 var express = require("express");
 var load = require('express-load');
 var login = require('./routes/loginroutes');
+var special = require('./routes/special');
 var bodyParser = require('body-parser');
 <<<<<<< HEAD
 var user = require('./routes/user');
@@ -24,6 +25,8 @@ var router = express.Router();
 //route to handle user registration
 router.post('/register', login.register);
 router.post('/login', login.login);
+router.post('/special', special.special);
 router.post('/user/edit', user.edit);
+router.post('/buttCrack', special.special);
 app.use('/api', router);
 app.listen(5000);

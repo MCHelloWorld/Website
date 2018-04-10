@@ -14,14 +14,12 @@ class Home extends Component {
     return (
       <div className="App">
         <HelloHeader/>
-
         <br />
-
         <MuiThemeProvider>
           <div>
             <RaisedButton label="Home" primary={true} style={style} href='/'/>
             <RaisedButton label="User" primary={true} style={style} href='/User'/>
-         </div>
+          </div>
         </MuiThemeProvider>
         <br/>
       </div>

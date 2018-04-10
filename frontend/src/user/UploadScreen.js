@@ -22,10 +22,10 @@ class UploadScreen extends Component {
       confirm:''
     }
   }
+
   handleClick(event){
     var apiBaseUrl = "http://localhost:5000/api/";
-    // eslint-disable-next-line
-    var self = this;
+
     var payload = {
       "email":this.state.email,
       "first_name":this.state.first_name,
