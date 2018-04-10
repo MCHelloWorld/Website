@@ -4,8 +4,10 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "concurrently": "^3.5.1",
     "material-ui": "^0.20.0",
     "mysql": "^2.15.0",
+    "nodemon": "^1.17.3",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
