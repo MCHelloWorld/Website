@@ -1,17 +1,5 @@
 var mysql = require('mysql');
-var connection = mysql.createConnection({
-  host     : '35.231.84.39',
-  user     : 'developer',
-  password : 'f4weqi9ptgfy3890vfm3bu8rohi3#@$R',
-  database : 'helloworld'
-});
-connection.connect(function(err){
-if(!err) {
-    console.log("Database is connected. (User)");
-} else {
-    console.log("Error connecting database. (User)");
-}
-});
+var connection = require('./connection');
 
 exports.edit = function(req, res){
   var today = new Date();

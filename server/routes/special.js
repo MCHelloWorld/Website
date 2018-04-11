@@ -12,5 +12,5 @@ exports.special = function(req,res){
 };
 
 exports.countRequests = (req, res) => {
-  
+
 };

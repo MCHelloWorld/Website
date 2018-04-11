@@ -9,42 +9,21 @@ const CryptoJS = require("crypto-js");
 
 var app = express();
 
-/* ==========================================================================
-   | James was playing with cryptographic hash functions here. It can be
-   | deleted
-   ========================================================================== */
-// Encrypt
-var ciphertext = CryptoJS.AES.encrypt('my message', 'secret key 123');
-
-// Decrypt
-var bytes  = CryptoJS.AES.decrypt(ciphertext.toString(), 'secret key 123');
-var plaintext = bytes.toString(CryptoJS.enc.Utf8);
-
-console.log("plaintext:"+plaintext);
-console.log("ciphertext:"+ciphertext);
-/* ========================================================================== */
-
-
-
-// What is body parser for?
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true })); // QUESTION: What is body parser for? ~James
 app.use(bodyParser.json());
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-app.use(require('morgan')('dev'));
 
 app.use(session({
-  name: 'server-session-cookie-id',
-  secret: "E3cHjHM349sGXRj4KFPsW3dd", //randomly generated
+  name: 'server-session-cookie-hwcsc',
+  secret: "E3cHjHM349sGXRj4KFPsW3dd",
   resave: false,
   saveUninitialized: true,
   store: new FileStore()
 }));
-
-
 
 var router = express.Router();
 
@@ -55,21 +34,46 @@ router.post('/special', special.special); // for testing and debugging
 router.post('/user/edit', user.edit);
 router.post('/user/status', function(req,res) {
   if (!req.session.user) {
-    /* If user is not logged in, then send Unauthorized 401 error */
-    return res.status(401).send();
+    return res.status(401).send();    /* If user is not logged in, then send Unauthorized 401 error */
   }
-
+  
   return res.status(200).send("Welcome to Super Secret API");
 });
-router.get('/hello', (req, res) => {
-  return res.status(200).send("hello")
-}); //for testing and debugging
+router.post('/session', function(req,res) {
+  req.session.user = req.body.user;
+  req.session.pass = req.body.user;
+});
 /* ==========================================================================
    | So the below app.use(blahblah... will print the session info when-
    | ever localhost:5000 is curl'd (as in: curl localhost:5000 )
    ========================================================================== */
-app.get('/', (req, res) => {
-  console.log('req.session', req.session);
+
+app.get('/', function initViewsCount(req, res, next) {
+  req.session.auth = { username : "bobehhhhhhh" };
+  req.session.cookie.maxAge = 6666 // 7days * 24hrs * 60mins * 60s * 1000ms = 604800000ms
+  console.log(req.session);
+  if (typeof req.session.views === 'undefined') {
+    req.session.views = 0;
+    return res.end('Welcome to the file session demo. Refresh page!');
+  }
+  return next();
 });
+app.get('/', function incrementViewsCount(req, res, next) {
+  console.assert(typeof req.session.views === 'number',
+  'missing views count in the session', req.session);
+  req.session.views++;
+  return next();
+});
+app.use(function printSession(req, res, next) {
+  console.log('req.session', req.session);
+  return next();
+});
+app.get('/', function sendPageWithCounter(req, res) {
+  res.setHeader('Content-Type', 'text/html');
+  res.write('<p>views: ' + req.session.views + '</p>\n');
+  res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
+  res.end();
+});
+
 app.use('/api', router);
 app.listen(5000);

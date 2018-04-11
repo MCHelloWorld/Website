@@ -28,8 +28,7 @@ handleClick(event){
   var self = this;
   var payload = {
     "email":this.state.email,
-    "password":this.state.password,
-    "mySpecialGuy": 'hi there i\'m special'
+    "password":this.state.password
   };
 
   axios.post(apiBaseUrl+'login', payload)
