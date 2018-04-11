@@ -4,9 +4,29 @@ const special = require('./routes/special');
 const bodyParser = require('body-parser');
 const user = require('./routes/user');
 const session = require('express-session')
+const FileStore = require('session-file-store')(session);
+const CryptoJS = require("crypto-js");
 
 var app = express();
-// HI THERE
+
+/* ==========================================================================
+   | James was playing with cryptographic hash functions here. It can be
+   | deleted
+   ========================================================================== */
+// Encrypt
+var ciphertext = CryptoJS.AES.encrypt('my message', 'secret key 123');
+
+// Decrypt
+var bytes  = CryptoJS.AES.decrypt(ciphertext.toString(), 'secret key 123');
+var plaintext = bytes.toString(CryptoJS.enc.Utf8);
+
+console.log("plaintext:"+plaintext);
+console.log("ciphertext:"+ciphertext);
+/* ========================================================================== */
+
+
+
+// What is body parser for?
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(function(req, res, next) {
@@ -14,12 +34,17 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
+app.use(require('morgan')('dev'));
 
 app.use(session({
+  name: 'server-session-cookie-id',
   secret: "E3cHjHM349sGXRj4KFPsW3dd", //randomly generated
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  store: new FileStore()
 }));
+
+
 
 var router = express.Router();
 
@@ -39,6 +64,12 @@ router.post('/user/status', function(req,res) {
 router.get('/hello', (req, res) => {
   return res.status(200).send("hello")
 }); //for testing and debugging
-
+/* ==========================================================================
+   | So the below app.use(blahblah... will print the session info when-
+   | ever localhost:5000 is curl'd (as in: curl localhost:5000 )
+   ========================================================================== */
+app.get('/', (req, res) => {
+  console.log('req.session', req.session);
+});
 app.use('/api', router);
 app.listen(5000);

@@ -39,7 +39,7 @@ class Special extends Component {
       "mySpecialGuy": 'hi there i\'m special'
     };
 
-    axios.post(apiBaseUrl+'user/status', payload)
+    axios.post(apiBaseUrl+'special', payload)
     .then(function (response) {
       console.log(response);
       var msg = '';
@@ -68,7 +68,7 @@ class Special extends Component {
           <br/><br/>
           <button onClick={(event) => this.handleSpecialClick(event)}>send something to special</button>
           <br/>
-          <button onClick={(event) => this.handleSpecialClick(event)}>CHECK LOGGED IN STATUS</button>
+          <button onClick={(event) => this.handleCheckLogin(event)}>CHECK LOGGED IN STATUS</button>
         </header>
       </div>
     );

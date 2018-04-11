@@ -5,6 +5,7 @@ var connection = mysql.createConnection({
   password : 'f4weqi9ptgfy3890vfm3bu8rohi3#@$R',
   database : 'helloworld'
 });
+
 connection.connect(function(err){
   if(!err) {
       console.log("Database is connected. (loginroutes)");
@@ -73,7 +74,7 @@ exports.login = function(req,res){
     // console.log('The solution is: ', results);
     if (results.length > 0) {
       if (results[0].password === password) {
-        
+
         res.send({
           "code":200,
           "success":"login successfull"
