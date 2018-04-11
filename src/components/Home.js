@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import HelloHeader from './HelloHeader.js';
-// eslint-disable-next-line
-import Constant from './util/Constant.js';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
@@ -9,7 +7,12 @@ const style = {
   margin: 15,
 };
 
+
 class Home extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <div className="App">
@@ -26,7 +29,5 @@ class Home extends Component {
     );
   }
 }
-
-
 
 export default Home;

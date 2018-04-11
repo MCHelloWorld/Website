@@ -1,8 +1,8 @@
 const Constant = {
   HOME_PATH: "/",
-  LOGIN_PATH: "/User",
-  REGISTRATION_PATH: "/User",
-  PROFILE_PAGE_PATH: "/User",
+  LOGIN_PATH: "/Login",
+  REGISTRATION_PATH: "/Login",
+  PROFILE_PAGE_PATH: "/Login",
   SECRET_PATH: "/Secret"
 }
 export default Constant;

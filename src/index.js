@@ -1,34 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './user/index.css';
-import Registration from './user/Register';
-import User from './user/User';
+import './css/main.css';
+import AppState from './AppState.js';
 import registerServiceWorker from './registerServiceWorker';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Home from './components/Home.js';
-import Secret from './components/Secret.js';
-import Special from './components/Special.js';
-import Constant from './components/util/Constant.js';
+import App from './components/App.js';
 
-const Root = () => {
+var Root = () => {
   return (
-  <BrowserRouter>
-    <div>
-      <Switch>
-        <Route exact path={Constant.HOME_PATH} component={Home} title="Home"/>
-        <Route exact path='/User' component={User} title="User" />
-        <Route exact path={Constant.REGISTRATION_PATH} component={Registration} title="Registration" />
-        <Route exact path={Constant.SECRET_PATH} component={Secret} title="Secret"/>
-        <Route exact path='/special' component={Special} title="Special"/>
-        {/*<Route exact path='*' component={NotFound} />*/}
-        </Switch>
-      </div>
-    </BrowserRouter>
-  )
-}
-
-
-
+    <AppState>
+      <App/>
+    </AppState>
+  );
+};
 
 ReactDOM.render(<Root />, document.getElementById('root'));
 registerServiceWorker();

@@ -14,6 +14,18 @@ connection.connect(function(err){
 });
 // maybe make a separate file that estabilishs a database connection.
 
+var CryptoJS = require("crypto-js");
+
+// Encrypt
+var ciphertext = CryptoJS.AES.encrypt('my message', 'secret key 123');
+
+// Decrypt
+var bytes  = CryptoJS.AES.decrypt(ciphertext.toString(), 'secret key 123');
+var plaintext = bytes.toString(CryptoJS.enc.Utf8);
+
+console.log('now i\'m in login routes')
+console.log("plaintext:"+plaintext);
+console.log("ciphertext:"+ciphertext);
 
 exports.register = function(req,res){
   // console.log("req",req.body);
@@ -38,7 +50,7 @@ exports.register = function(req,res){
     res.send({
       "code":200,
       "success":"user registered sucessfully"
-        });
+    });
   }
   });
 }
@@ -59,8 +71,9 @@ exports.login = function(req,res){
   } else {
     console.log(results.length);
     // console.log('The solution is: ', results);
-    if(results.length > 0){
-      if(results[0].password === password){
+    if (results.length > 0) {
+      if (results[0].password === password) {
+        
         res.send({
           "code":200,
           "success":"login successfull"

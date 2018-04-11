@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import logo from '../css/images/logo.png';
-import userphoto from '../css/images/default.png';
+//import userphoto from '../css/images/default.png';
 
 class Profile extends Component {
   render() {
@@ -12,7 +12,7 @@ class Profile extends Component {
           <h1 className="App-title">Profile</h1>
       </header>
       <br />
-      <img src={userphoto} className="App-profile-photo" alt=""/>
+      {/*<img src={userphoto} className="App-profile-photo" alt=""/>*/}
       <br />
         <p>This is where the profile page will go. <br />
         This will contain the account's name, username, profile picture, bio, and eventually their openKattis score. <br />
