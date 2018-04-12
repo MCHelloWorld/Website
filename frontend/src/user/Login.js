@@ -42,10 +42,10 @@ handleClick(event){
       self.props.appContext.setState({loginPage:[],uploadScreen:uploadScreen});
     } else if (response.data.code === 204) {
       console.log("Username password do not match");
-      alert("Username and password do not match");
+      alert(response.data);
     } else {
       console.log("Username does not exist");
-      alert("Username does not exist");
+      alert(response.data);
     }
   })
   .catch(function (error) {

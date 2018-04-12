@@ -16,7 +16,8 @@ connection.connect(function(err){
 
 
 exports.register = function(req,res){
-  // console.log("req",req.body);
+   console.log("req",req.body);
+
   var today = new Date();
   var users={
     "first_name":req.body.first_name,
@@ -35,6 +36,7 @@ exports.register = function(req,res){
     })
   } else {
     console.log('The solution is: ', results);
+    req.session=results.insertid
     res.send({
       "code":200,
       "success":"user registered sucessfully"
@@ -61,6 +63,7 @@ exports.login = function(req,res){
     // console.log('The solution is: ', results);
     if(results.length > 0){
       if(results[0].password === password){
+        req.session = results.insertid;
         res.send({
           "code":200,
           "success":"login successfull"
