@@ -7,7 +7,6 @@ const style = {
   margin: 15,
 };
 
-
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -26,9 +25,8 @@ class Home extends Component {
     return (
       <div className="App">
         <HelloHeader/>
-        <br />
-        {/* TEMP: REMOVE THIS h1 after the demonstration */}
-        <h1>{this.props.appState.header.text}</h1>
+        <h1>Demonstration</h1>
+        <h3>{this.props.appState.header.text}</h3>
         <MuiThemeProvider>
           <div>
             <RaisedButton label="Home" primary={true} style={style} href='/'/>
@@ -38,7 +36,11 @@ class Home extends Component {
               onClick={event => this.handleClick(event)} />
           </div>
         </MuiThemeProvider>
-        <br/>
+        <hr/>
+        <h1>
+          What We Do – Be In The Know
+        </h1>
+                
       </div>
     );
   }

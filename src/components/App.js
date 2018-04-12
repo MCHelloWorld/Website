@@ -17,7 +17,7 @@ class App extends Component {
     console.log("State from App.js:")
     console.log(this.state);
   }
-
+  
   render() {
     return (
       <BrowserRouter {...this.props}>
