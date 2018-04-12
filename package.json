@@ -21,7 +21,9 @@
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1",
     "react-tap-event-plugin": "^3.0.2",
-    "session-file-store": "^1.2.0"
+    "request-promise": "^4.2.2",
+    "session-file-store": "^1.2.0",
+    "tough-cookie-filestore": "0.0.1"
   },
   "scripts": {
     "server": "nodemon server/server.js",

@@ -6,6 +6,7 @@ const user = require('./routes/user');
 const session = require('express-session')
 const FileStore = require('session-file-store')(session);
 const CryptoJS = require("crypto-js");
+var rp = require('request-promise');
 
 var app = express();
 
@@ -36,7 +37,7 @@ router.post('/user/status', function(req,res) {
   if (!req.session.user) {
     return res.status(401).send();    /* If user is not logged in, then send Unauthorized 401 error */
   }
-  
+
   return res.status(200).send("Welcome to Super Secret API");
 });
 router.post('/session', function(req,res) {

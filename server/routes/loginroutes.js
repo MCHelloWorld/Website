@@ -37,8 +37,9 @@ function saveSession(username, password) {
 exports.login = function(req,res){
   var email    = req.body.email;
   var password = req.body.password;
-  console.log("req.body.username : " + req.body.username)
+  console.log("req.body.username : " + req.body.email)
   console.log("req.body.password : " + req.body.password)
+  console.log(req.sessions);
 
   connection.query('SELECT * FROM test_table WHERE email = ?',[email], function (error, results, fields) {
     if (error) {
