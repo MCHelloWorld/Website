@@ -4,52 +4,65 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-
 import logo from '../css/images/logo.png';
 import banner from '../css/images/banner.png';
-// eslint-disable-next-line
-var editMessage = '';
+import IconButton from 'material-ui/IconButton';
+import SettingsIcon from 'material-ui/svg-icons/action/settings';
+//import Globe from "../css/images/Globe.png";
+//const Globe = require('../css/images/Globe.png');
+import Globe from '../css/images/Globe.png';
+var pic = ('../css/images/Globe.png')
+var status = "hidden";
 
 class UploadScreen extends Component {
   constructor(props) {
     super(props);
     this.state={
       email:this.props.userEmail,
-      first_name:'',
-      last_name:'',
-      bio:'',
+      first_name:this.props.first,
+      last_name:this.props.last,
+      bio:this.props.bio,
+      admin:this.props.admin,
+      picSource:this.props.picSource,
       password:'',
-      confirm:''
+      confirm:'',
+      edit:false
+    }
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  editClick(event) {
+    this.setState({edit:!this.state.edit});
+    if(status==="visible") {
+      status = "hidden";
+    } else if (status==="hidden") {
+      status="visible";
     }
   }
 
   handleClick(event){
     var apiBaseUrl = "http://localhost:5000/api/";
-
+    // eslint-disable-next-line
+    var self = this;
     var payload = {
       "email":this.state.email,
-      "first_name":this.state.first_name,
-      "last_name":this.state.last_name,
-      "bio":this.state.bio,
-      "password":this.state.password
     };
 
-    if (payload.first_name.length <= 0) {
-      alert("First name cannot be blank.");
-    } else if (payload.last_name.length <= 0) {
-      alert("Last name cannot be blank.");
-    } else if (payload.password <= 0) {
-      alert("New Password cannot be blank.");
-    } else if (payload.password !== this.state.confirm) {
-      alert("Passwords do not match.");
-    } else if (payload.password.length < 6) {
-      alert("New Password must be longer than 6 characters.");
-    } else {
-      axios.post(apiBaseUrl+'user/edit', payload)
+    if (this.state.first_name.length > 0) payload.first_name = this.state.first_name;
+    if(this.state.last_name.length > 0) payload.last_name = this.state.last_name;
+    if(this.state.bio.length > 0) payload.bio = this.state.bio;
+    if(this.state.password !== 0 && this.state.password > 6 && this.state.password === this.state.confirm) payload.password = this.state.password;
+
+    if(this.state.password.length !== 0 && this.state.password < 6) alert("Password must be more than 6 characters.");
+    if(this.state.password.length !== 0 && this.state.password !== this.state.confirm) alert("Passwords do not match.");
+
+    axios.post(apiBaseUrl+'user/edit', payload)
       .then(function(response) {
         console.log(response);
         if(response.data.code===100) {
-          console.log("Login Successful")
+          console.log("Update Successful")
+          self.setState({edit:false});
+          status="hidden";
           alert("Information saved!");
         } else if (response.data.code===104) {
           console.log("New password cannot match old password")
@@ -60,28 +73,34 @@ class UploadScreen extends Component {
         console.log(error);
       });
     }
-  }
 
   render() {
     return (
       <div>
       <MuiThemeProvider>
-      <AppBar title={this.props.userEmail}/>
+      <AppBar title='Profile Page'
+        iconElementLeft={<IconButton tooltip='Edit your profile' tooltipPosition='bottom-right'><SettingsIcon/></IconButton>}
+        onLeftIconButtonClick={(event) => this.editClick(event)}/>
       <header style={{backgroundImage: `url(${banner})`, backgroundSize: "cover", minHeight: "30vh", display: 'flex'}}>
-        <img className="App-logo" src={logo} alt="logo" style={{height: 160, width: 160, margin: 'auto'}}/>
+      <img className='App-logo' src={logo} alt="logo" style={{height: 160, width: 160, margin: 'auto'}}/>
       </header>
-      <h1>Welcome, {this.props.userEmail} </h1>
-      <br />
+      <br/>
+      <img src={Globe} alt='profile pic' style={{height: 140, width: 140, margin: 'auto'}}/>
+      <h1>Welcome, {this.props.first} {this.props.last}! </h1>
+      <h2>{this.props.userEmail}</h2>
+      <p><u style={{color:'#262262'}}>Bio:</u>&nbsp;&nbsp;{this.props.bio} </p>
       <TextField
         hintText="Edit your first name."
         floatingLabelText="First name"
         onChange = {(event,newValue) => this.setState({first_name:newValue})}
+        style ={{visibility:status}}
         />
       <br/>
       <TextField
         hintText="Edit your last name."
         floatingLabelText="Last name"
         onChange = {(event,newValue) => this.setState({last_name:newValue})}
+        style ={{visibility:status}}
         />
       <br/>
       <TextField
@@ -89,6 +108,7 @@ class UploadScreen extends Component {
         hintText="Edit your password."
         floatingLabelText="New Password"
         onChange = {(event,newValue) => this.setState({password:newValue})}
+        style ={{visibility:status}}
         />
       <br/>
       <TextField
@@ -96,18 +116,24 @@ class UploadScreen extends Component {
         hintText="Confirm your new password."
         floatingLabelText="Confirm Password"
         onChange = {(event,newValue) => this.setState({confirm:newValue})}
+        style ={{visibility:status}}
         />
       <br/>
       <TextField
         hintText="Edit your bio."
         floatingLabelText="Bio"
-        rows={4}
+        multiLine={true}
         rowsMax={8}
         onChange = {(event,newValue) => this.setState({bio:newValue})}
+        style ={{visibility:status}}
         />
       <br/>
-      <RaisedButton label="Save Changes" primary={true} onClick={(event) => this.handleClick(event)}/>
+      <RaisedButton label="Save Changes" primary={true} onClick={(event) => this.handleClick(event)}
+      style ={{visibility:status}}/>
+      <br/>
       </MuiThemeProvider>
+      <br/>
+      <br/>
       </div>
     );
   }

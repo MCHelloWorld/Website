@@ -19,7 +19,6 @@ class User extends Component {
       loginPage:loginPage
     });
   };
-  
   render() {
     return (
       <div className="App">
