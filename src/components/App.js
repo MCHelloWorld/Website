@@ -13,22 +13,21 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.setAppState = this.props.setAppState.bind(this);
-    this.state = this.props.appState;
-    this.setAppState = this.props.setAppState;
+    this.appState = this.props.appState;
     console.log("State from App.js:")
     console.log(this.state);
   }
 
   render() {
     return (
-      <BrowserRouter>
-          <Switch>
-            <Route exact path={Constant.HOME_PATH} component={Home} />
-            <Route exact path='/Login' component={Login}  />
-            <Route exact path='/User' component={User} />
-            <Route exact path='/Secret' component={Secret} />
-            <Route exact path='/Special' component={Special} />
-            <Route exact path='*' component={NotFound} />
+      <BrowserRouter {...this.props}>
+          <Switch {...this.props}>
+            <Route exact path={Constant.HOME_PATH} render={() => <Home {...this.props}/>} />
+            <Route exact path='/Login' render={()=><Login {...this.props}/>} />
+            <Route exact path='/User' render={()=><User {...this.props}/>} />
+            <Route exact path='/Secret' render={()=><Secret {...this.props}/>} />
+            <Route exact path='/Special' render={()=><Special {...this.props}/>} />
+            <Route exact path='*' render={()=><NotFound {...this.props}/>} />
           </Switch>
       </BrowserRouter>
 

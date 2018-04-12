@@ -6,7 +6,7 @@ class AppState extends Component {
     this.state = {
       async: {},
       header: {
-        text: 'Welcome to React-No-Redux',
+        text: 'Temporary Text For Demonstration Purposes Only',
       }
     };
     this.setAppState = this.setAppState.bind(this);
@@ -27,7 +27,6 @@ class AppState extends Component {
   render() {
     return (
       <div className="AppState">
-      	<h1>{this.state.header.text}</h1>
         {console.log("From AppState.js:")}
         {console.log(this.state)}
         {React.Children.map(this.props.children, child => {
