@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import logo from '../css/images/logo.png';
+import React, { Component } from 'react'
+import logo from '../css/images/logo.png'
 
 class Register extends Component {
   render() {
@@ -10,25 +10,50 @@ class Register extends Component {
           <h1 className="App-title">Sign Up</h1>
         </header>
         <br />
-        <form id="form1">First Name:  <input type="text" name='first_name' placeholder="First Name"/>
+        <form id="form1">
+          First Name:{' '}
+          <input type="text" name="first_name" placeholder="First Name" />
           <br />
-          Last Name:  <input type="text" name='last_name' placeholder="Last Name"/>
+          Last Name:{' '}
+          <input type="text" name="last_name" placeholder="Last Name" />
           <br />
-          Email:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name='email' placeholder="Email"/>
+          Email: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+            type="text"
+            name="email"
+            placeholder="Email"
+          />
           <br />
-          Username:  &nbsp;<input type="text" name='username' placeholder="Username"/>
+          Username: &nbsp;<input
+            type="text"
+            name="username"
+            placeholder="Username"
+          />
           <br />
-          Password: &nbsp;<input type="password" name='password' placeholder='Password'/>
+          Password: &nbsp;<input
+            type="password"
+            name="password"
+            placeholder="Password"
+          />
           <br />
         </form>
         <br />
-        <button type="submit" form="form1" variant="raised" color="primary" linkButton={true}>Register</button>
+        <button
+          type="submit"
+          form="form1"
+          variant="raised"
+          color="primary"
+          linkButton={true}
+        >
+          Register
+        </button>
         <br />
         <br />
-        <button href="/" variant="raised" color="primary" linkButton={true}>Home</button>
+        <button href="/" variant="raised" color="primary" linkButton={true}>
+          Home
+        </button>
       </div>
     )
   }
 }
 
-export default Register;
+export default Register
