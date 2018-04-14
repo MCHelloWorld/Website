@@ -3,9 +3,7 @@ const login = require('./routes/loginroutes');
 const special = require('./routes/special');
 const bodyParser = require('body-parser');
 const user = require('./routes/user');
-//var session = require('express-session')
 var session = require('cookie-session')
-//const FileStore = require('session-file-store')(session);
 const CryptoJS = require("crypto-js");
 const CryptoKey = "feijwqfhaivrqfnaobg3q4ngui9p";
 
