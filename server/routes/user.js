@@ -59,3 +59,33 @@ exports.upload = function(req, res) {
     }
   })
 }
+exports.register = function(req,res){
+  // console.log("req",req.body);
+  var today = new Date();
+  bcrypt.hash(req.body.password, 5, function(err, bcryptedPassword){
+    var users={
+      "first_name":req.body.first_name,
+      "last_name":req.body.last_name,
+      "email":req.body.email,
+      "username":req.body.email.substring(0,6),
+      "hash":bcryptedPassword,
+      "created":today,
+      "modified":today
+    }
+    connection.query('INSERT INTO user SET ?',users, function (error, results, fields) {
+    if (error) {
+      console.log("error ocurred",error);
+      res.send({
+        "code":400,
+        "failed":"error ocurred"
+      })
+    } else {
+      console.log('The solution is: ', results);
+      res.send({
+        "code":200,
+        "success":"user registered sucessfully"
+          });
+    }
+    });
+  });
+}
