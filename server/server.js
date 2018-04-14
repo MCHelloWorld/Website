@@ -44,6 +44,7 @@ router.post('/session', function(req,res) {
   req.session.user = req.body.user;
   req.session.pass = req.body.user;
 });
+
 /* ==========================================================================
    | So the below app.use(blahblah... will print the session info when-
    | ever localhost:5000 is curl'd (as in: curl localhost:5000 )
