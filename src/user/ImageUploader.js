@@ -1,33 +1,33 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import React, { Component } from "react";
+import axios from "axios";
 
 class FileUpload extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      uploadStatus: false,
-    }
-    this.handleUploadImage = this.handleUploadImage.bind(this)
+      uploadStatus: false
+    };
+    this.handleUploadImage = this.handleUploadImage.bind(this);
   }
 
   handleUploadImage(ev) {
-    ev.preventDefault()
+    ev.preventDefault();
 
-    const data = new FormData()
-    data.append('file', this.uploadInput.files[0])
-    data.append('filename', this.fileName.value)
+    const data = new FormData();
+    data.append("file", this.uploadInput.files[0]);
+    data.append("filename", this.fileName.value);
 
     axios
-      .post('http://localhost:5000/api/user/upload', data)
+      .post("http://localhost:5000/api/user/upload", data)
       .then(function(response) {
         this.setState({
           imageURL: `http://localhost:8000/${data.file}`,
-          uploadStatus: true,
-        })
+          uploadStatus: true
+        });
       })
       .catch(function(error) {
-        console.log(error)
-      })
+        console.log(error);
+      });
   }
 
   render() {
@@ -37,7 +37,7 @@ class FileUpload extends Component {
           <div>
             <input
               ref={ref => {
-                this.uploadInput = ref
+                this.uploadInput = ref;
               }}
               type="file"
             />
@@ -45,6 +45,6 @@ class FileUpload extends Component {
           <button>Upload</button>
         </form>
       </div>
-    )
+    );
   }
 }

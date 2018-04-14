@@ -3,8 +3,9 @@ const login = require('./routes/loginroutes');
 const special = require('./routes/special');
 const bodyParser = require('body-parser');
 const user = require('./routes/user');
-const session = require('express-session')
-const FileStore = require('session-file-store')(session);
+//var session = require('express-session')
+var session = require('cookie-session')
+//const FileStore = require('session-file-store')(session);
 const CryptoJS = require("crypto-js");
 var rp = require('request-promise');
 
@@ -23,7 +24,7 @@ app.use(session({
   secret: "E3cHjHM349sGXRj4KFPsW3dd",
   resave: false,
   saveUninitialized: true,
-  store: new FileStore()
+  maxAge: 6000
 }));
 
 var router = express.Router();
@@ -51,9 +52,7 @@ router.post('/session', function(req,res) {
    ========================================================================== */
 
 app.get('/', function initViewsCount(req, res, next) {
-  req.session.auth = { username : "bobehhhhhhh" };
-  req.session.cookie.maxAge = 6666 // 7days * 24hrs * 60mins * 60s * 1000ms = 604800000ms
-  console.log(req.session);
+  console.log(req.sessionOptions.maxAge);
   if (typeof req.session.views === 'undefined') {
     req.session.views = 0;
     return res.end('Welcome to the file session demo. Refresh page!');
@@ -67,13 +66,13 @@ app.get('/', function incrementViewsCount(req, res, next) {
   return next();
 });
 app.use(function printSession(req, res, next) {
-  console.log('req.session', req.session);
+  console.log('req.session: ', req.session);
   return next();
 });
 app.get('/', function sendPageWithCounter(req, res) {
   res.setHeader('Content-Type', 'text/html');
   res.write('<p>views: ' + req.session.views + '</p>\n');
-  res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
+  res.write('<p>expires in: ' + (req.sessionOptions.maxAge / 1000) + 's</p>')
   res.end();
 });
 
