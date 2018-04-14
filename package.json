@@ -3,13 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
-    "bcrypt-nodejs": "0.0.3",
-=======
     "ajv": "^6.4.0",
     "axios": "^0.18.0",
     "bcrypt": "^2.0.0",
->>>>>>> dev-cleanup
     "concurrently": "^3.5.1",
     "cookie-parser": "^1.4.3",
     "crypto-js": "^3.1.9-1",
