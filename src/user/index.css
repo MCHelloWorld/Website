@@ -1,0 +1,59 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Prompt', sans-serif;
+}
+
+h1 {
+  font-family: 'hello-world';
+}
+
+h2 {
+  font-family:'Prompt', sans-serif;
+}
+
+@font-face {
+  font-family: 'Prompt';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../css/fonts/prompt-v2-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Prompt'), local('Prompt-Regular'),
+       url('../css/fonts/prompt-v2-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../css/fonts/prompt-v2-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../css/fonts/prompt-v2-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('../css/fonts/prompt-v2-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('../css/fonts/prompt-v2-latin-regular.svg#Prompt') format('svg'); /* Legacy iOS */
+}
+
+@font-face {
+  font-family:"hello-world";
+  src:url("../css/fonts/arista-webfont.woff2") format('woff2');
+}
