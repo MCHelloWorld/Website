@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
 class Special extends Component {
   handleCheckLogin(event) {
@@ -9,7 +10,6 @@ class Special extends Component {
     var apiBaseUrl = "http://localhost:5000/api/";
     var payload = {};
 
-    const cookies = new Cookies();
     cookies.set("myCat", "Pacman", { path: "/" });
     console.log(cookies.get("myCat")); // Pacman
 

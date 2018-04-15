@@ -68,8 +68,8 @@ exports.upload = function(req, res) {
 };
 exports.register = function(req, res) {
   // console.log("req",req.body);
-  if(getSession(req)){
-    res.send({session:"valid"});
+  if (getSession(req)) {
+    res.send({ session: "valid" });
   }
   var today = new Date();
   bcrypt.hash(req.body.password, 5, function(err, bcryptedPassword) {
@@ -95,7 +95,7 @@ exports.register = function(req, res) {
         });
       } else {
         console.log("The solution is: ", results);
-        initSession(req,email, next);
+        initSession(req, email, next);
         res.send({
           code: 200,
           success: "user registered sucessfully"
@@ -103,74 +103,76 @@ exports.register = function(req, res) {
       }
     });
   });
-
-}
+};
 //
-exports.login(req,res){
+exports.login = (req, res) => {
   var email = req.body.email;
   var password = req.body.password;
 
-
   userId = session.getSession(req);
-  if(userId > -1){
+  if (userId > -1) {
     res.send({
-      session:"valid";
-    })
-  }else{**/
-    connection.query('Select * from User where email = ? AND hash = ?',{email, password}, function (error, results, fields) {
-    compare = true;//bcrypt.compare(results[0].hash, password);
-    if compare
-    if (error) {
-      console.log("error ocurred",error);
-      res.send({
-        "code":400,
-        "failed":"error ocurred"
-      })
-    } else {
-      initSession(req,email, next);
-      console.log('The solution is: ', results);
-      res.send({
-        "code":200,
-        "success":"user registered sucessfully",
-        "session":"valid",
-        "first_name":results[0].first_name,
-        "last_name":results[0].last_name,
-        "email":results[0].email,
-        "username":results[0].username,
-        "profile_pic":results[0].url,
-        "is_admin":results[0].is_admin
-
-          });
-    }
+      session: "valid"
     });
-  });
-  //}
-
-}
-exports.get(email){
-  connection.query('Select * from User where email=?',{email}, function (error, results, fields) {
-  compare = true;//bcrypt.compare(results[0].hash, password);
-  if compare
-  if (error) {
-    console.log("error ocurred",error);
-    res.send({
-      "code":400,
-      "failed":"error ocurred"
-    })
   } else {
-    console.log('The solution is: ', results);
-    res.send({
-      "code":200,
-      "success":"user registered sucessfully",
-      "session":"valid",
-      "first_name":results[0].first_name,
-      "last_name":results[0].last_name,
-      "email":results[0].email,
-      "username":results[0].username,
-      "profile_pic":results[0].url,
-      "is_admin":results[0].is_admin
-
-        });
+    connection.query(
+      "Select * from User where email = ? AND hash = ?",
+      { email, password },
+      function(error, results, fields) {
+        compare = true; //bcrypt.compare(results[0].hash, password);
+        if (error) {
+          console.log("error ocurred", error);
+          res.send({
+            code: 400,
+            failed: "error ocurred"
+          });
+        } else {
+          initSession(req, email, next);
+          console.log("The solution is: ", results);
+          res.send({
+            code: 200,
+            success: "user registered sucessfully",
+            session: "valid",
+            first_name: results[0].first_name,
+            last_name: results[0].last_name,
+            email: results[0].email,
+            username: results[0].username,
+            profile_pic: results[0].url,
+            is_admin: results[0].is_admin
+          });
+        }
+      }
+    );
+    //}
   }
+};
+
+exports.get = email => {
+  connection.query("Select * from User where email=?", { email }, function(
+    error,
+    results,
+    fields
+  ) {
+    compare = true; //bcrypt.compare(results[0].hash, password);
+    if (error) {
+      console.log("error ocurred", error);
+      res.send({
+        code: 400,
+        failed: "error ocurred"
+      });
+    } else {
+      console.log("The solution is: ", results);
+      res.send({
+        code: 200,
+        success: "user registered sucessfully",
+        session: "valid",
+        first_name: results[0].first_name,
+        last_name: results[0].last_name,
+        email: results[0].email,
+        username: results[0].username,
+        profile_pic: results[0].url,
+        is_admin: results[0].is_admin
+      });
+    }
   });
 };

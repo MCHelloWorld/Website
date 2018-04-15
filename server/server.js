@@ -4,7 +4,6 @@ const special = require("./routes/special");
 const bodyParser = require("body-parser");
 const user = require("./routes/user");
 const session = require("cookie-session");
-const functions = require("./utils/functions");
 const CryptoJS = require("crypto-js");
 const CryptoKey = "feijwqfhaivrqfnaobg3q4ngui9p";
 
@@ -42,12 +41,12 @@ router.post("/special", special.special); // for testing and debugging
 router.post("/user/edit", user.edit);
 router.post("/user/status", function(req, res) {
   if (!req.session.user) {
-    return res
-      .status(401)
-      .send(); /* If user is not logged in, then send Unauthorized 401 error */
+    return res.status(401).send();
+    /* If user is not logged in, then send Unauthorized 401 error */
   }
 
   return res.status(200).send("Welcome to Super Secret API");
+  /* Otherwise go to the super long API */
 });
 router.post("/session", function(req, res) {
   req.session.user = req.body.user;
