@@ -8,7 +8,6 @@ exports.initSession = function(req, id){
   var Lhash = -1;
   var ciphertext = CryptoJS.AES.encrypt(id,CryptoKey);
   req.session.id = ciphertext;
-  return Lhash;
 }
 
 exports.getSession = function(req){
@@ -19,4 +18,8 @@ exports.getSession = function(req){
   }else{
     return false;
   }
+}
+
+exports.toySession = function(id){
+  if user
 }

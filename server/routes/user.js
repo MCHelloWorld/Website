@@ -89,3 +89,72 @@ exports.register = function(req,res){
     });
   });
 }
+//
+exports.login(req,res){
+  //var email = req.body.email;
+  //var password = req.body.password;
+
+
+  /**userId = session.getSession(req);
+  if(userId > -1){
+    res.send({
+      "session":"valid";
+    })
+  }else{**/
+    connection.query('Select * from User where email = js1874@messiah.edu AND hash = $2a$05$kqr0vTB5Q.MdyTzTwWozwuQ7rfnFHYagItf1ne/Z6sjd.uzjYjnuO',{email, password}, function (error, results, fields) {
+    compare = true;//bcrypt.compare(results[0].hash, password);
+    if compare
+    if (error) {
+      console.log("error ocurred",error);
+      res.send({
+        "code":400,
+        "failed":"error ocurred"
+      })
+    } else {
+      console.log('The solution is: ', results);
+      res.send({
+        "code":200,
+        "success":"user registered sucessfully",
+        "session":"valid",
+        "first_name":results[0].first_name,
+        "last_name":results[0].last_name,
+        "email":results[0].email,
+        "username":results[0].username,
+        "profile_pic":results[0].url,
+        "is_admin":results[0].is_admin
+
+          });
+    }
+    });
+  });
+  //}
+
+}
+exports.get(id){
+  connection.query('Select * from User where id=?',{id}, function (error, results, fields) {
+  compare = true;//bcrypt.compare(results[0].hash, password);
+  if compare
+  if (error) {
+    console.log("error ocurred",error);
+    res.send({
+      "code":400,
+      "failed":"error ocurred"
+    })
+  } else {
+    console.log('The solution is: ', results);
+    res.send({
+      "code":200,
+      "success":"user registered sucessfully",
+      "session":"valid",
+      "first_name":results[0].first_name,
+      "last_name":results[0].last_name,
+      "email":results[0].email,
+      "username":results[0].username,
+      "profile_pic":results[0].url,
+      "is_admin":results[0].is_admin
+
+        });
+  }
+  });
+});
+}
