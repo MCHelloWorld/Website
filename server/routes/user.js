@@ -68,6 +68,9 @@ exports.upload = function(req, res) {
 };
 exports.register = function(req, res) {
   // console.log("req",req.body);
+  if(getSession(req)){
+    res.send({session:"valid"});
+  }
   var today = new Date();
   bcrypt.hash(req.body.password, 5, function(err, bcryptedPassword) {
     var users = {
@@ -92,6 +95,7 @@ exports.register = function(req, res) {
         });
       } else {
         console.log("The solution is: ", results);
+        initSession(req,email, next);
         res.send({
           code: 200,
           success: "user registered sucessfully"
@@ -99,21 +103,21 @@ exports.register = function(req, res) {
       }
     });
   });
-<<<<<<< HEAD
+
 }
 //
 exports.login(req,res){
-  //var email = req.body.email;
-  //var password = req.body.password;
+  var email = req.body.email;
+  var password = req.body.password;
 
 
-  /**userId = session.getSession(req);
+  userId = session.getSession(req);
   if(userId > -1){
     res.send({
       "session":"valid";
     })
   }else{**/
-    connection.query('Select * from User where email = js1874@messiah.edu AND hash = $2a$05$kqr0vTB5Q.MdyTzTwWozwuQ7rfnFHYagItf1ne/Z6sjd.uzjYjnuO',{email, password}, function (error, results, fields) {
+    connection.query('Select * from User where email = ? AND hash = ?',{email, password}, function (error, results, fields) {
     compare = true;//bcrypt.compare(results[0].hash, password);
     if compare
     if (error) {
@@ -123,6 +127,7 @@ exports.login(req,res){
         "failed":"error ocurred"
       })
     } else {
+      initSession(req,email, next);
       console.log('The solution is: ', results);
       res.send({
         "code":200,
@@ -142,8 +147,8 @@ exports.login(req,res){
   //}
 
 }
-exports.get(id){
-  connection.query('Select * from User where id=?',{id}, function (error, results, fields) {
+exports.get(email){
+  connection.query('Select * from User where email=?',{email}, function (error, results, fields) {
   compare = true;//bcrypt.compare(results[0].hash, password);
   if compare
   if (error) {
@@ -168,8 +173,4 @@ exports.get(id){
         });
   }
   });
-});
-}
-=======
 };
->>>>>>> ba46345884e115cb70984038cd13e0477dcdf85f

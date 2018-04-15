@@ -1,31 +1,29 @@
 const CryptoJS = require("crypto-js");
 
-exports.initSession = function(req, id) {
-  if (req.session.id !== null) {
-    res.send("valid");
+exports.initSession = function(req, email, next) {
+  if (req.session.email !== null) {
+    res.send(session:"valid");
   }
-  var Lhash = -1;
-  var ciphertext = CryptoJS.AES.encrypt(id, CryptoKey);
-  req.session.id = ciphertext;
 
+  var ciphertext = CryptoJS.AES.encrypt(email, CryptoKey);
+
+  req.session.email = ciphertext;
 
   return true;
 };
 
 
 exports.getSession = function(req) {
-  cryptId = req.session.id;
-  var solvedId = CryptoJS.AES.decrypt(ciphertext.toString(), CryptoKey);
-  if (solvedId > -1) {
-    return solvedId;
+  cryptId = req.session.email;
+  var solved = CryptoJS.AES.decrypt(ciphertext.toString(), CryptoKey);
+  if (solved.includes("@messiah.edu")) {
+    return User.getUser(solved)
   } else {
-    return false;
+    res.send({session:"bad"})
 }
 
 }
 
-exports.toySession = function(id){
-  if user
-}
+
 
 };
