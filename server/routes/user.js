@@ -114,7 +114,7 @@ exports.login(req,res){
   userId = session.getSession(req);
   if(userId > -1){
     res.send({
-      "session":"valid";
+      session:"valid";
     })
   }else{**/
     connection.query('Select * from User where email = ? AND hash = ?',{email, password}, function (error, results, fields) {
