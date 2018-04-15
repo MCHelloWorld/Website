@@ -9,7 +9,6 @@ import banner from "../css/images/banner.png";
 import IconButton from "material-ui/IconButton";
 import SettingsIcon from "material-ui/svg-icons/action/settings";
 import Globe from "../css/images/globe.png";
-var pic = "../css/images/globe.png";
 var status = "hidden";
 
 class UploadScreen extends Component {
