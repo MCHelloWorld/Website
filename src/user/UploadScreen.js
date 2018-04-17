@@ -11,11 +11,12 @@ import SettingsIcon from "material-ui/svg-icons/action/settings";
 import Globe from "../css/images/globe.png";
 var status = "hidden";
 
+// Primary user profile page
 class UploadScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      email: this.props.userEmail,
+    this.state = {                  // Receives user's data from loginroutes.js response object,
+      email: this.props.userEmail,  // which was sent to Loginscreen.js and set as props on that component.
       first_name: this.props.first,
       last_name: this.props.last,
       bio: this.props.bio,
@@ -37,7 +38,7 @@ class UploadScreen extends Component {
     }
   }
 
-  handleClick(event) {
+  handleClick(event) { // Sends edited user information as an API request
     var apiBaseUrl = "http://localhost:5000/api/";
     // eslint-disable-next-line
     var self = this;

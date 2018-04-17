@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+// AppState functions as a global state for all React components to reference
 class AppState extends Component {
   constructor(props) {
     super(props);
