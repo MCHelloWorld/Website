@@ -74,9 +74,6 @@ class UploadScreen extends Component {
           self.setState({ edit: false });
           status = "hidden";
           alert("Information saved!");
-        } else if (response.data.code === 104) {
-          console.log("New password cannot match old password");
-          alert("Your new password cannot be your old password!");
         }
       })
       .catch(function(error) {
