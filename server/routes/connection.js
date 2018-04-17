@@ -1,7 +1,8 @@
 /* ==========================================================================
    | connection.js
-   | This file is used to test get requests on localhost 5000
-   | To run, cd into the containing folder and run the command: node client.js
+   | This file is used to establish a connection to our MySQL database.
+   | Currently hosted on Google's database servers, will be ported over to
+   | Messiah's servers later in the development
    ========================================================================== *
 
 In the future, we should probably get rid of this and maybe put it in a tests

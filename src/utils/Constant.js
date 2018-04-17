@@ -1,3 +1,4 @@
+// Creates constant url paths to be referenced by other files
 const Constant = {
   HOME_PATH: '/',
   LOGIN_PATH: '/Login',

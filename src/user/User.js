@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './User.css'
 import LoginScreen from './LoginScreen'
 
+// This component displays the assigned login page component, either Login or Register
 class User extends Component {
   constructor(props) {
     super(props)

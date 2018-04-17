@@ -85,7 +85,7 @@ exports.register = function(req, res) {
     });
   });
 };
-//
+// Eventually .login will be exported from this file instead of loginroutes.js
 exports.login = (req, res) => {
   var email = req.body.email;
   var password = req.body.password;
@@ -110,7 +110,7 @@ exports.login = (req, res) => {
         } else {
           initSession(req, email, next);
           console.log("The solution is: ", results);
-          res.send({
+          res.send({    // Sends back user's information for use in the React components
             code: 200,
             success: "user registered sucessfully",
             session: "valid",
@@ -128,7 +128,8 @@ exports.login = (req, res) => {
   }
 };
 
-exports.get = email => {
+// Function to get a user's data based on an email
+exports.getUser = email => {
   connection.query("Select * from User where email=?", { email }, function(
     error,
     results,

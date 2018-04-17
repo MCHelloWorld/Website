@@ -11,7 +11,8 @@ var rp = require("request-promise");
 
 var app = express();
 
-app.use(bodyParser.urlencoded({ extended: true })); // QUESTION: What is body parser for? ~James
+//establish an express routing app and assign it's url interpretation properties.
+app.use(bodyParser.urlencoded({ extended: true })); // QUESTION: What is body parser for? ~James ANSWER: I dunno, but the tutorial said we needed it. ~ Josh
 app.use(bodyParser.json());
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -22,6 +23,7 @@ app.use(function(req, res, next) {
   next();
 });
 
+// Initializes session object
 app.use(
   session({
     name: "server-session-cookie-hwcsc",
@@ -32,14 +34,15 @@ app.use(
   })
 );
 
+// Creates express router which handles API requests
 var router = express.Router();
 
 //route to handle user registration
-router.post("/register", login.register);
-router.post("/login", login.login);
+router.post("/register", login.register); // allows user registration
+router.post("/login", login.login); // user login page
 router.post("/special", special.special); // for testing and debugging
-router.post("/user/edit", user.edit);
-router.post("/user/status", function(req, res) {
+router.post("/user/edit", user.edit); // editing profile information
+router.post("/user/status", function(req, res) { // determines if a user is logged in
   if (!req.session.user) {
     return res.status(401).send();
     /* If user is not logged in, then send Unauthorized 401 error */
@@ -48,6 +51,7 @@ router.post("/user/status", function(req, res) {
   return res.status(200).send("Welcome to Super Secret API");
   /* Otherwise go to the super long API */
 });
+
 router.post("/session", function(req, res) {
   req.session.user = req.body.user;
   req.session.pass = req.body.user;
