@@ -5,9 +5,9 @@ import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
 import Login from "./Login";
 import axios from "axios";
-
 import logo from "../css/images/logo.png";
 import banner from "../css/images/banner.png";
+import ImageLoader from 'react-image-file';
 
 // Registration component; requires user to enter information
 class Register extends Component {
