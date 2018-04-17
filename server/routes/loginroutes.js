@@ -2,6 +2,7 @@ var mysql = require("mysql");
 var bcrypt = require("bcrypt");
 var connection = require("./connection");
 
+// Runs when a user regsiters a new profile
 exports.register = function(req, res) {
   // console.log("req",req.body);
   var today = new Date();

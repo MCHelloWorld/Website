@@ -4,6 +4,7 @@ import RaisedButton from "material-ui/RaisedButton";
 import Login from "./Login";
 import Register from "./Register";
 
+// Establishes which component, login or registration, will be rendered. 
 class Loginscreen extends Component {
   constructor(props) {
     super(props);

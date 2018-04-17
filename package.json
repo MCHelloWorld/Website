@@ -27,12 +27,13 @@
     "react-tap-event-plugin": "^3.0.2",
     "request-promise": "^4.2.2",
     "session-file-store": "^1.2.0",
-    "tough-cookie-filestore": "0.0.1"
+    "tough-cookie-filestore": "0.0.1",
+    "universal-cookie": "^2.1.2"
   },
   "scripts": {
     "server": "nodemon server/server.js",
     "client": "react-scripts start",
-    "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "start": "concurrently --kill-others \"yarn server\" \"yarn client\"",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

@@ -8,6 +8,7 @@ import UploadScreen from "./UploadScreen";
 import logo from "../css/images/logo.png";
 import banner from "../css/images/banner.png";
 
+// This component displays a login prompt and submits a login request api
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -31,11 +32,12 @@ class Login extends Component {
       password: this.state.password
     };
 
+    // Checks if an entered password/email set matches an entry in the database
     axios
       .post(apiBaseUrl + "login", payload)
       .then(function(response) {
         console.log(response);
-        if (response.data.code === 200) {
+        if (response.data.code === 200) { // received from ../../server/loginroutes.js
           console.log("Login successful");
           var uploadScreen = [];
           var iSource = response.data.pic;

@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import logo from '../css/images/logo.png'
+import React, { Component } from "react";
+import logo from "../css/images/logo.png";
 
 class Register extends Component {
   render() {
@@ -11,10 +11,10 @@ class Register extends Component {
         </header>
         <br />
         <form id="form1">
-          First Name:{' '}
+          First Name:{" "}
           <input type="text" name="first_name" placeholder="First Name" />
           <br />
-          Last Name:{' '}
+          Last Name:{" "}
           <input type="text" name="last_name" placeholder="Last Name" />
           <br />
           Email: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
@@ -52,8 +52,8 @@ class Register extends Component {
           Home
         </button>
       </div>
-    )
+    );
   }
 }
 
-export default Register
+export default Register;
