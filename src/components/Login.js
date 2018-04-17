@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class Login extends Component {
   render() {
@@ -12,7 +12,7 @@ class Login extends Component {
         <form id="form1">
           Username: <input type="text" name="username" placeholder="Username" />
           <br />
-          Password:{' '}
+          Password:{" "}
           <input type="password" name="password" placeholder="Password" />
         </form>
         <br />
@@ -29,8 +29,8 @@ class Login extends Component {
         <br />
         <Link to="/">Home</Link>
       </div>
-    )
+    );
   }
 }
 
-export default Login
+export default Login;

@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import logo from '../css/images/logo.png'
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import logo from "../css/images/logo.png";
 //import userphoto from '../css/images/default.png';
 
 class Profile extends Component {
@@ -27,8 +27,8 @@ class Profile extends Component {
           Home Page
         </Link>
       </div>
-    )
+    );
   }
 }
 
-export default Profile
+export default Profile;
