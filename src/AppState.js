@@ -1,44 +1,44 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
 // AppState functions as a global state for all React components to reference
 class AppState extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       async: {},
       header: {
-        text: 'Temporary Text For Demonstration Purposes Only',
-      },
-    }
-    this.setAppState = this.setAppState.bind(this)
+        text: "Temporary Text For Demonstration Purposes Only"
+      }
+    };
+    this.setAppState = this.setAppState.bind(this);
   }
 
   setAppState(updater, callback) {
     // newState can be object or function!
     this.setState(updater, () => {
       if (this.props.debug) {
-        console.log('setAppState', JSON.stringify(this.state))
+        console.log("setAppState", JSON.stringify(this.state));
       }
       if (callback) {
-        callback()
+        callback();
       }
-    })
+    });
   }
 
   render() {
     return (
       <div className="AppState">
-        {console.log('From AppState.js:')}
+        {console.log("From AppState.js:")}
         {console.log(this.state)}
         {React.Children.map(this.props.children, child => {
           return React.cloneElement(child, {
             appState: this.state,
-            setAppState: this.setAppState,
-          })
+            setAppState: this.setAppState
+          });
         })}
       </div>
-    )
+    );
   }
 }
 
-export default AppState
+export default AppState;
