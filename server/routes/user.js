@@ -1,6 +1,7 @@
 var mysql = require("mysql");
-var bcrypt = require("bcrypt");
 var connection = require("./connection");
+const CryptoJS = require("crypto-js");
+
 
 // Updating a user's profile information
 exports.edit = function(req, res) {
@@ -10,8 +11,7 @@ exports.edit = function(req, res) {
 
   // Generates salt-rounded password
   if (req.body.hasOwnProperty("password")) {
-    var salt = bcrypt.genSaltSync(5);
-    var hashed = bcrypt.hashSync(req.body.password, salt);
+    var hashed = CryptoJS.AES.encrypt(req.body.password, passCrypto);
     payload.hash = hashed;
   }
   if (req.body.hasOwnProperty("first_name"))
