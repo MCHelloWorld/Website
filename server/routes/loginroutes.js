@@ -59,7 +59,7 @@ exports.login = function(req, res) {
         var bytes = CryptoJS.AES.decrypt(results[0].hash, passCrypto);
         var decrypted = bytes.toString(CryptoJS.enc.Utf8);
         console.log(password);
-        console.log(decrypted)
+        console.log(decrypted);
         if (password === decrypted) {
           res.send({
             code: 200,
@@ -88,7 +88,6 @@ exports.login = function(req, res) {
     }
   });
 };
-
 
 function saveSession(username, password) {
   req.session.user = username;
