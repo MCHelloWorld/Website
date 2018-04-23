@@ -30,3 +30,29 @@ exports.initSession = function(req,res,email, next) {
   console.log(req.session + " initSession");
   next();
 };
+//returns the decrypted contents of the session
+exports.getSession = function(req,res, next) {
+  if(req.session== null){
+    return false
+  }
+  var ciphertext = req.session;
+  const solved = CryptoJS.AES.decrypt(ciphertext, CryptoKey);
+  var plaintext = solved.toString(CryptoJS.enc.Utf8);
+
+  if (plaintext.includes("@messiah.edu")) {
+    return plaintext;
+    console.log("plaintext session: "+ plaintext);
+  } else {
+
+    return false
+  }
+};
+exports.authSession = function(req,res,next){
+  var session = getSession(req,res,next)
+  if(session == false){
+    res.send({code:401});
+
+  }else{
+    return session;
+  }
+};
