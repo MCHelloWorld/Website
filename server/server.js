@@ -42,6 +42,7 @@ router.post("/register", login.register); // allows user registration
 router.post("/login", login.login); // user login page
 router.post("/special", special.special); // for testing and debugging
 router.post("/user/edit", user.edit); // editing profile information
+// router.post("/user/images", user.images); //Importing profile pictures
 router.post("/user/status", function(req, res) { // determines if a user is logged in
   if (!req.session.user) {
     return res.status(401).send();

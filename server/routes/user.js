@@ -47,44 +47,55 @@ exports.edit = function(req, res) {
   });
 };
 
+// Runs when a user regsiters a new profile
 exports.register = function(req, res) {
   // console.log("req",req.body);
-  if (getSession(req)) {
-    res.send({ session: "valid" });
-  }
   var today = new Date();
-  bcrypt.hash(req.body.password, 5, function(err, bcryptedPassword) {
-    var users = {
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
-      email: req.body.email,
-      username: req.body.email.substring(0, 6),
-      hash: bcryptedPassword,
-      created: today,
-      modified: today
-    };
-    connection.query("INSERT INTO user SET ?", users, function(
-      error,
-      results,
-      fields
-    ) {
-      if (error) {
-        console.log("error ocurred", error);
-        res.send({
-          code: 400,
-          failed: "error ocurred"
-        });
-      } else {
-        console.log("The solution is: ", results);
-        initSession(req, email, next);
-        res.send({
-          code: 200,
-          success: "user registered sucessfully"
-        });
-      }
-    });
+  var encryptedPassword = CryptoJS.AES.encrypt(req.body.password, passCrypto);
+  var users = {
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    email: req.body.email,
+    username: req.body.email.substring(0, 6),
+    hash: encryptedPassword,
+    created: today,
+    modified: today
+  };
+  connection.query("INSERT INTO user SET ?", users, function(
+    error,
+    results,
+    fields
+  ) {
+    if (error) {
+      console.log("error ocurred", error);
+      res.send({
+        code: 400,
+        failed: "error ocurred"
+      });
+    } else {
+      console.log("The solution is: ", results);
+      res.send({
+        code: 200,
+        success: "user registered sucessfully"
+      });
+    }
   });
 };
+
+exports.images = function(req, res) {
+  if (getSession(req)) {
+    req.send({session: "valid"});
+  }
+  //check if images contains a file
+  var today = new Date();
+  var images = {
+    pic: req.body.file
+  };
+  connection.query("UPDATE user SET profile_pic = ? modified = ? WHERE EMAIL = ?",
+                    )
+
+}
+
 // Eventually .login will be exported from this file instead of loginroutes.js
 exports.login = (req, res) => {
   var email = req.body.email;
@@ -97,7 +108,7 @@ exports.login = (req, res) => {
     });
   } else {
     connection.query(
-      "Select * from User where email = ? AND hash = ?",
+      "Select * from user where email = ? AND hash = ?",
       { email, password },
       function(error, results, fields) {
         compare = true; //bcrypt.compare(results[0].hash, password);
