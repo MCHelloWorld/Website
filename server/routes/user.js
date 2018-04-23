@@ -110,8 +110,8 @@ exports.images = function(req, res) {
 exports.login = (req, res,next) => {
   var email = req.body.email;
   var password = req.body.password;
-  var hash = CryptoJS.AES.encrypt(password, CryptoKey);
-
+  //var hash = CryptoJS.AES.encrypt(password, CryptoKey);
+hash = "111111";
   userId = sessionUtils.getSession(req,res,next);
   /**if (userId > -1) {
     res.send({
@@ -121,11 +121,8 @@ exports.login = (req, res,next) => {
   console.log(email + " " + password + " " +hash);
     connection.query(
       "Select * from user where email = ? AND hash = ?",
-<<<<<<< HEAD
       [ email, hash ],
-=======
-      { email, password },
->>>>>>> 30272a047b55312347cd30c5926210961c284da3
+
       function(error, results, fields) {
         compare = true; //bcrypt.compare(results[0].hash, password);
         if (error) {
