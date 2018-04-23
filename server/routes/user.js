@@ -47,8 +47,10 @@ exports.edit = function(req, res) {
   });
 };
 
+// Runs when a user regsiters a new profile
 exports.register = function(req, res) {
   // console.log("req",req.body);
+
 
   var hash = CryptoJS.AES.encrypt(password, CryptoKey);
 
@@ -87,7 +89,23 @@ var email = req.body.email;
       }
     });
 
+
 };
+
+exports.images = function(req, res) {
+  if (getSession(req)) {
+    req.send({session: "valid"});
+  }
+  //check if images contains a file
+  var today = new Date();
+  var images = {
+    pic: req.body.file
+  };
+  connection.query("UPDATE user SET profile_pic = ? modified = ? WHERE EMAIL = ?",
+                    )
+
+}
+
 // Eventually .login will be exported from this file instead of loginroutes.js
 exports.login = (req, res,next) => {
   var email = req.body.email;
@@ -103,7 +121,11 @@ exports.login = (req, res,next) => {
   console.log(email + " " + password + " " +hash);
     connection.query(
       "Select * from user where email = ? AND hash = ?",
+<<<<<<< HEAD
       [ email, hash ],
+=======
+      { email, password },
+>>>>>>> 30272a047b55312347cd30c5926210961c284da3
       function(error, results, fields) {
         compare = true; //bcrypt.compare(results[0].hash, password);
         if (error) {
