@@ -17,25 +17,16 @@ the session state will be indicated by a field named "session" in every returnin
 \* ========================================================================== */
 
 const CryptoJS = require("crypto-js");
+var CryptoKey = "o012i390umsamkg89phr3qp"
 
-exports.initSession = function(req, email, next) {
-  if (req.session.email !== null) {
-    res.send((session: "valid"));
-  }
+exports.initSession = function(req,res,email, next) {
+  /*if (req.session.email !== null) {
+    res.send({session: "valid"});
+  }*/
 
   var ciphertext = CryptoJS.AES.encrypt(email, CryptoKey);
 
-  req.session.email = ciphertext;
-
-  return true;
-};
-
-exports.getSession = function(req) {
-  cryptId = req.session.email;
-  var solved = CryptoJS.AES.decrypt(ciphertext.toString(), CryptoKey);
-  if (solved.includes("@messiah.edu")) {
-    return User.getUser(solved);
-  } else {
-    res.send({ session: "bad" });
-  }
+  req.session = ciphertext;
+  console.log(req.session + " initSession");
+  next();
 };
