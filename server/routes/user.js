@@ -1,8 +1,8 @@
 var mysql = require("mysql");
 var connection = require("./connection");
 const CryptoJS = require("crypto-js");
-
-
+const sessionUtils = require("./session");
+const CryptoKey = "kd2iewGN3Q9PGV8HNQ3G";
 // Updating a user's profile information
 exports.edit = function(req, res) {
   //bcrypt.hash(req.body.password, 5, function(err, bcryptedPassword) {
@@ -49,17 +49,20 @@ exports.edit = function(req, res) {
 
 exports.register = function(req, res) {
   // console.log("req",req.body);
-  if (getSession(req)) {
+
+  var hash = CryptoJS.AES.encrypt(password, CryptoKey);
+
+  if (sessionUtils.getSession(req)) {
     res.send({ session: "valid" });
   }
   var today = new Date();
-  bcrypt.hash(req.body.password, 5, function(err, bcryptedPassword) {
+var email = req.body.email;
     var users = {
       first_name: req.body.first_name,
       last_name: req.body.last_name,
-      email: req.body.email,
+      email: email,
       username: req.body.email.substring(0, 6),
-      hash: bcryptedPassword,
+      hash: hash,
       created: today,
       modified: today
     };
@@ -76,29 +79,31 @@ exports.register = function(req, res) {
         });
       } else {
         console.log("The solution is: ", results);
-        initSession(req, email, next);
+        sessionUtils.initSession(req, email, next);
         res.send({
           code: 200,
           success: "user registered sucessfully"
         });
       }
     });
-  });
+
 };
 // Eventually .login will be exported from this file instead of loginroutes.js
-exports.login = (req, res) => {
+exports.login = (req, res,next) => {
   var email = req.body.email;
   var password = req.body.password;
+  var hash = CryptoJS.AES.encrypt(password, CryptoKey);
 
-  userId = session.getSession(req);
-  if (userId > -1) {
+  userId = sessionUtils.getSession(req,res,next);
+  /**if (userId > -1) {
     res.send({
       session: "valid"
     });
-  } else {
+  } else {**/
+  console.log(email + " " + password + " " +hash);
     connection.query(
-      "Select * from User where email = ? AND hash = ?",
-      { email, password },
+      "Select * from user where email = ? AND hash = ?",
+      [ email, hash ],
       function(error, results, fields) {
         compare = true; //bcrypt.compare(results[0].hash, password);
         if (error) {
@@ -108,7 +113,8 @@ exports.login = (req, res) => {
             failed: "error ocurred"
           });
         } else {
-          initSession(req, email, next);
+          console.log("The solution is: ", results);
+          sessionUtils.initSession(req,res, email,next);
           console.log("The solution is: ", results);
           res.send({    // Sends back user's information for use in the React components
             code: 200,
@@ -125,7 +131,7 @@ exports.login = (req, res) => {
       }
     );
     //}
-  }
+  //}
 };
 
 // Function to get a user's data based on an email
