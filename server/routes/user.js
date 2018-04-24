@@ -142,12 +142,13 @@ console.log("the dpassword is: "+dPassword+" and the password is: "+ password);
               code: 200,
             success: "user registered sucessfully",
             session: "valid",
-            first_name: results[0].first_name,
-            last_name: results[0].last_name,
+            first: results[0].first_name,
+            last: results[0].last_name,
             email: results[0].email,
             username: results[0].username,
-            profile_pic: results[0].url,
-            is_admin: results[0].is_admin
+            pic: results[0].url,
+            admin: results[0].is_admin,
+            bio: results[0].bio,
           });
         }else{ res.send({code:401})};
 
