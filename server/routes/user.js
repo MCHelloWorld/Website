@@ -81,7 +81,7 @@ var email = req.body.email;
         });
       } else {
         console.log("The solution is: ", results);
-        sessionUtils.initSession(req, email, next);
+        sessionUtils.initSession(req,res, email, next);
         res.send({
           code: 200,
           success: "user registered sucessfully"
@@ -138,7 +138,7 @@ console.log("the dpassword is: "+dPassword+" and the password is: "+ password);
           if(dPassword == password){
             sessionUtils.initSession(req,res, email,next);
 
-            res.send({    // Sends back user's information for use in the React components
+            res.send({    // Sends back user's information  for use in the React components
               code: 200,
             success: "user registered sucessfully",
             session: "valid",
