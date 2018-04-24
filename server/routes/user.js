@@ -2,7 +2,7 @@ var mysql = require("mysql");
 var connection = require("./connection");
 const CryptoJS = require("crypto-js");
 const sessionUtils = require("./session");
-const CryptoKey = "kd2iewGN3Q9PGV8HNQ3G";
+var CryptoKey = "kd2iewGN3Q9PGV8HNQ3G";
 // Updating a user's profile information
 exports.edit = function(req, res) {
   //bcrypt.hash(req.body.password, 5, function(err, bcryptedPassword) {
@@ -48,11 +48,11 @@ exports.edit = function(req, res) {
 };
 
 // Runs when a user regsiters a new profile
-exports.register = function(req, res) {
+exports.register = function(req, res, next) {
   // console.log("req",req.body);
 
 
-  var hash = CryptoJS.AES.encrypt(password, CryptoKey);
+  var hash = CryptoJS.AES.encrypt(req.body.password, CryptoKey);
 
   if (sessionUtils.getSession(req)) {
     res.send({ session: "valid" });
@@ -106,37 +106,40 @@ exports.images = function(req, res) {
 
 }
 
-// Eventually .login will be exported from this file instead of loginroutes.js
+// Eventually .login will be exported  from this file instead of loginroutes.js
 exports.login = (req, res,next) => {
   var email = req.body.email;
   var password = req.body.password;
-  //var hash = CryptoJS.AES.encrypt(password, CryptoKey);
-hash = "111111";
-  userId = sessionUtils.getSession(req,res,next);
+
+//hash = "111111";
+  var userId = sessionUtils.getSession(req,res,next);
   /**if (userId > -1) {
     res.send({
       session: "valid"
-    });
+    });/
   } else {**/
-  console.log(email + " " + password + " " +hash);
+  console.log(email + " " + password + " " +password);
+
     connection.query(
-      "Select * from user where email = ? AND hash = ?",
-      [ email, hash ],
+      "Select * from user where email = ?",
+      [ email ],
 
       function(error, results, fields) {
-        compare = true; //bcrypt.compare(results[0].hash, password);
+        compare = true; ///bcrypt.compare(results[0].hash, password);
         if (error) {
           console.log("error ocurred", error);
           res.send({
             code: 400,
             failed: "error ocurred"
           });
-        } else {
-          console.log("The solution is: ", results);
-          sessionUtils.initSession(req,res, email,next);
-          console.log("The solution is: ", results);
-          res.send({    // Sends back user's information for use in the React components
-            code: 200,
+        } else if (results[0] !== null){
+          var dPassword = CryptoJS.AES.decrypt(results[0].hash, CryptoKey).toString(CryptoJS.enc.Utf8);
+console.log("the dpassword is: "+dPassword+" and the password is: "+ password);
+          if(dPassword == password){
+            sessionUtils.initSession(req,res, email,next);
+
+            res.send({    // Sends back user's information for use in the React components
+              code: 200,
             success: "user registered sucessfully",
             session: "valid",
             first_name: results[0].first_name,
@@ -145,6 +148,12 @@ hash = "111111";
             username: results[0].username,
             profile_pic: results[0].url,
             is_admin: results[0].is_admin
+          });
+        }else{ res.send({code:401})};
+
+        }else{
+          res.send({
+            code:401,
           });
         }
       }
