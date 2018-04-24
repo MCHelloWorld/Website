@@ -119,6 +119,7 @@ class UploadScreen extends Component {
             alt="profile pic"
             style={{ height: 140, width: 140, margin: "auto" }}
           />
+
           <h1>
             Welcome, {this.props.first} {this.props.last}!{" "}
           </h1>
