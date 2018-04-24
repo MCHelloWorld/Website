@@ -9,34 +9,50 @@ the session state will be indicated by a field named "session" in every returnin
 
 //maybe call it invalid and not bad
 
-"bad"-there is no session or it is in some way invalid. Usually this is a good time to redirect to the login screen
-"valid"-the session is valid. proceed as if the user is logged in
-"denied"- there is a user session but the user does not have priviledges to that part of the site
+"user"-there is no session or it is in some way invalid. Usually this is a good time to redirect to the login screen
+"admin"-the session is valid. proceed as if the user is logged in
 
 
 
 \* ========================================================================== */
 
 const CryptoJS = require("crypto-js");
+var CryptoKey = "o012i390umsamkg89phr3qp"
 
-exports.initSession = function(req, email, next) {
-  if (req.session.email !== null) {
-    res.send((session: "valid"));
-  }
+exports.initSession = function(req,res,email, next) {
+  /*if (req.session.email !== null) {
+    res.send({session: "valid"});
+  }*/
 
   var ciphertext = CryptoJS.AES.encrypt(email, CryptoKey);
 
-  req.session.email = ciphertext;
-
-  return true;
+  req.session = ciphertext;
+  console.log(req.session + " initSession");
+  next();
 };
+//returns the decrypted contents of the session
+exports.getSession = function(req,res, next) {
+  if(req.session== null){
+    return false
+  }
+  var ciphertext = req.session;
+  const solved = CryptoJS.AES.decrypt(ciphertext, CryptoKey);
+  var plaintext = solved.toString(CryptoJS.enc.Utf8);
 
-exports.getSession = function(req) {
-  cryptId = req.session.email;
-  var solved = CryptoJS.AES.decrypt(ciphertext.toString(), CryptoKey);
-  if (solved.includes("@messiah.edu")) {
-    return User.getUser(solved);
+  if (plaintext.includes("@messiah.edu")) {
+    return plaintext;
+    console.log("plaintext session: "+ plaintext);
   } else {
-    res.send({ session: "bad" });
+
+    return false
+  }
+};
+exports.authSession = function(req,res,next){
+  var session = getSession(req,res,next)
+  if(session == false){
+    res.send({code:401});
+
+  }else{
+    return session;
   }
 };

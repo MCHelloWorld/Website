@@ -1,8 +1,8 @@
 var mysql = require("mysql");
 var connection = require("./connection");
 const CryptoJS = require("crypto-js");
-
-
+const sessionUtils = require("./session");
+const CryptoKey = "kd2iewGN3Q9PGV8HNQ3G";
 // Updating a user's profile information
 exports.edit = function(req, res) {
   //bcrypt.hash(req.body.password, 5, function(err, bcryptedPassword) {
@@ -50,36 +50,46 @@ exports.edit = function(req, res) {
 // Runs when a user regsiters a new profile
 exports.register = function(req, res) {
   // console.log("req",req.body);
+
+
+  var hash = CryptoJS.AES.encrypt(password, CryptoKey);
+
+  if (sessionUtils.getSession(req)) {
+    res.send({ session: "valid" });
+  }
   var today = new Date();
-  var encryptedPassword = CryptoJS.AES.encrypt(req.body.password, passCrypto);
-  var users = {
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    email: req.body.email,
-    username: req.body.email.substring(0, 6),
-    hash: encryptedPassword,
-    created: today,
-    modified: today
-  };
-  connection.query("INSERT INTO user SET ?", users, function(
-    error,
-    results,
-    fields
-  ) {
-    if (error) {
-      console.log("error ocurred", error);
-      res.send({
-        code: 400,
-        failed: "error ocurred"
-      });
-    } else {
-      console.log("The solution is: ", results);
-      res.send({
-        code: 200,
-        success: "user registered sucessfully"
-      });
-    }
-  });
+var email = req.body.email;
+    var users = {
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      email: email,
+      username: req.body.email.substring(0, 6),
+      hash: hash,
+      created: today,
+      modified: today
+    };
+    connection.query("INSERT INTO user SET ?", users, function(
+      error,
+      results,
+      fields
+    ) {
+      if (error) {
+        console.log("error ocurred", error);
+        res.send({
+          code: 400,
+          failed: "error ocurred"
+        });
+      } else {
+        console.log("The solution is: ", results);
+        sessionUtils.initSession(req, email, next);
+        res.send({
+          code: 200,
+          success: "user registered sucessfully"
+        });
+      }
+    });
+
+
 };
 
 exports.images = function(req, res) {
@@ -97,19 +107,22 @@ exports.images = function(req, res) {
 }
 
 // Eventually .login will be exported from this file instead of loginroutes.js
-exports.login = (req, res) => {
+exports.login = (req, res,next) => {
   var email = req.body.email;
   var password = req.body.password;
-
-  userId = session.getSession(req);
-  if (userId > -1) {
+  //var hash = CryptoJS.AES.encrypt(password, CryptoKey);
+hash = "111111";
+  userId = sessionUtils.getSession(req,res,next);
+  /**if (userId > -1) {
     res.send({
       session: "valid"
     });
-  } else {
+  } else {**/
+  console.log(email + " " + password + " " +hash);
     connection.query(
       "Select * from user where email = ? AND hash = ?",
-      { email, password },
+      [ email, hash ],
+
       function(error, results, fields) {
         compare = true; //bcrypt.compare(results[0].hash, password);
         if (error) {
@@ -119,7 +132,8 @@ exports.login = (req, res) => {
             failed: "error ocurred"
           });
         } else {
-          initSession(req, email, next);
+          console.log("The solution is: ", results);
+          sessionUtils.initSession(req,res, email,next);
           console.log("The solution is: ", results);
           res.send({    // Sends back user's information for use in the React components
             code: 200,
@@ -136,7 +150,7 @@ exports.login = (req, res) => {
       }
     );
     //}
-  }
+  //}
 };
 
 // Function to get a user's data based on an email
