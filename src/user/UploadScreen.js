@@ -8,7 +8,7 @@ import logo from "../css/images/logo.png";
 import banner from "../css/images/banner.png";
 import IconButton from "material-ui/IconButton";
 import SettingsIcon from "material-ui/svg-icons/action/settings";
-import ImageUploader from "./ImageUploader.js";
+import { ImageUploadField } from 'react-image-file';
 import Globe from "../css/images/globe.png";
 var status = "hidden";
 
