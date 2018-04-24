@@ -69,7 +69,7 @@ exports.login = function(req, res) {
             last: results[0].last_name,
             email: results[0].email,
             bio: results[0].bio,
-            pic: results[0].picture_url,
+            pic: results[0].url,
             admin: results[0].is_admin
           });
           console.log(results[0].picture_url);
