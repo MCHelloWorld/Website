@@ -54,7 +54,7 @@ router.post("/login", function(req,res,next){
 }); // user login page
 router.post("/special", special.special); // for testing and debugging
 router.post("/user/edit", user.edit); // editing profile information
-// router.post("/user/images", user.images); //Importing profile pictures
+router.post("/user/images", user.images); //Importing profile pictures
 router.post("/user/status", function(req, res) { // determines if a user is logged in
   if (!req.session.user) {
     return res.status(401).send();
@@ -91,7 +91,7 @@ app.get("/", function incrementViewsCount(req, res, next) {
   );
   req.session.views++;
   return next();
-}); 
+});
 **/
 //prints current session to the console
 app.use(function printSession(req, res, next) {

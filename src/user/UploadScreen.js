@@ -29,9 +29,8 @@ class UploadScreen extends Component {
       password: "",
       confirm: "",
       edit: false,
-      file: []
+      fileToBeSent: []
     };
-    this.handleClick = this.handleClick.bind(this);
   }
 
   editClick(event) {
@@ -43,12 +42,44 @@ class UploadScreen extends Component {
     }
   }
 
-  handleFile(event) {
-    console.log("File Handled");
+  handleChange(newFile) {
+    console.log(newFile);
+    var files = this.state.fileToBeSent;
+    files.push(newFile);
+    this.setState({fileToBeSent: files});
+    console.log(files[0]);
   }
 
-  onClick(event) {
+  imageClick(event) {
+    var apiImageUrl = "http://localhost:5000/api/user/images";
+    var payload = {
+      email: this.state.email
+    };
+    var self = this;
 
+    if (this.state.file !== {}) {
+      payload.file = self.state.file;
+    }
+    console.log(self.state.file)
+    axios
+      .post(apiImageUrl, payload)
+      .then(function(response) {
+        console.log(response);
+        if (response.data.code === 200) {
+          console.log("Upload Successful");
+          self.setState({ file: {} });
+          alert("Image uploaded!");
+        } else if (response.data.code === 409) {
+          console.log("Incorrect file type.");
+          alert("Please select a .jpg or .png");
+        } else if (response.data.code === 400) {
+          console.log("Error");
+          alert("An error has occurred.");
+        }
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 
   handleClick(event) {
@@ -141,16 +172,22 @@ class UploadScreen extends Component {
           <p>
             <u style={{ color: "#262262" }}>Bio:</u>&nbsp;&nbsp;{this.props.bio}{" "}
           </p>
-          <RaisedButton
-            containerElement="label"
-            label="Upload Profile Picture"
-            style={{visibility: status}}
-            onClick={event => this.onClick(event)}
-          >
-            <input type="file" accept=".png,.jpg"
-            onChange={(event, newFile) => this.setState({file: newFile})}/>
+          <RaisedButton containerElement="label" style={{ visibility: status }}>
+            <input
+              type="file"
+              accept=".png,.jpg"
+              onChange={(event) => this.handleChange(event.target.file)}
+            />
           </RaisedButton>
-          <br/>
+          <br />
+          <br />
+          <RaisedButton
+            label="Upload"
+            primary={true}
+            onClick={event => this.imageClick(event)}
+            style={{ visibility: status }}
+          />
+          <br />
           <TextField
             hintText="Edit your first name."
             floatingLabelText="First name"

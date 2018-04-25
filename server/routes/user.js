@@ -7,7 +7,6 @@ var CryptoKey = "kd2iewGN3Q9PGV8HNQ3G";
 exports.edit = function(req, res) {
   //bcrypt.hash(req.body.password, 5, function(err, bcryptedPassword) {
   var payload = {};
-  var email = req.body.email;
 
   // Generates salt-rounded password
   if (req.body.hasOwnProperty("password")) {
@@ -21,9 +20,9 @@ exports.edit = function(req, res) {
   if (req.body.hasOwnProperty("bio")) payload.bio = req.body.bio;
   payload.modified = new Date();
 
-  var emailStr = ' WHERE email = "' + email + '"';
+  var emailStr = ' WHERE email = "' + req.body.email + '"';
   // Select from the database where the email is the value delivered by payload
-  connection.query("SELECT * FROM user WHERE email = ?", email, function(
+  connection.query("SELECT * FROM user WHERE email = ?", req.body.email, function(
     error,
     results,
     fields
@@ -90,15 +89,20 @@ exports.register = function(req, res, next) {
   });
 };
 
-exports.images = function(req, res) {
-  if (getSession(req)) {
-    req.send({session: "valid"});
-  }
+exports.images = function(req, res, next) {
+  var userId = sessionUtils.getSession(req,res,next);
+
   //check if images contains a file
+  var paylod = {
+    email: req.body.email
+  }
+  if (req.body.hasOwnProperty("file")) {
+    payload.file = req.body.file;
+  }
   var today = new Date();
 
 connection.query(
-  "UPDATE user SET profile_picture = ? modified = ? WHERE EMAIL = ?",
+  "UPDATE user SET profile_picture = LOAD_FILE(?), modified = ? WHERE EMAIL = ?",
  [ req.body.pic, today, req.body.email ],
  function(error, results, fields)
   {
@@ -122,14 +126,8 @@ connection.query(
 exports.login = (req, res,next) => {
   var email = req.body.email;
   var password = req.body.password;
-
-//hash = "111111";
   var userId = sessionUtils.getSession(req,res,next);
-  /**if (userId > -1) {
-    res.send({
-      session: "valid"
-    });/
-  } else {**/
+
   console.log(email + " " + password + " " +password);
 
     connection.query(
@@ -151,7 +149,7 @@ console.log("the dpassword is: "+dPassword+" and the password is: "+ password);
 
             res.send({    // Sends back user's information  for use in the React components
               code: 200,
-            success: "user registered sucessfully",
+            success: "user logged sucessfully",
             session: "valid",
             first: results[0].first_name,
             last: results[0].last_name,
