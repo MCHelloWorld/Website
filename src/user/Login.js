@@ -46,17 +46,18 @@ class Login extends Component {
         if (response.data.code === 200) { // received from ../../server/loginroutes.js
           console.log("Login successful");
           var uploadScreen = [];
-          var iSource = response.data.pic;
           uploadScreen.push(
             <UploadScreen
               appContext={self.props.appContext}
               userEmail={response.data.email}
               first={response.data.first}
               last={response.data.last}
-              picSource={iSource}
+              picSource={response.data.pic}
               bio={response.data.bio}
               admin={response.data.admin}
+              pic={response.data.profile_picture}
             />
+            
           );
           self.props.appContext.setState({
             loginPage: [],

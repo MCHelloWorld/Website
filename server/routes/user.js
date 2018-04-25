@@ -37,7 +37,7 @@ exports.edit = function(req, res) {
           console.log(error);
         } else {
           res.send({
-            code: 100,
+            code: 200,
             success: "Success!",
             returned: payload
           });
@@ -58,38 +58,36 @@ exports.register = function(req, res, next) {
     res.send({ session: "valid" });
   }
   var today = new Date();
-var email = req.body.email;
-    var users = {
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
-      email: email,
-      username: req.body.email.substring(0, 6),
-      hash: hash,
-      created: today,
-      modified: today
-    };
-    connection.query("INSERT INTO user SET ?", users, function(
-      error,
-      results,
-      fields
-    ) {
-      if (error) {
-        console.log("error ocurred", error);
-        res.send({
-          code: 400,
-          failed: "error ocurred"
-        });
-      } else {
-        console.log("The solution is: ", results);
-        sessionUtils.initSession(req,res, email, next);
-        res.send({
-          code: 200,
-          success: "user registered sucessfully"
-        });
-      }
-    });
-
-
+  var email = req.body.email;
+  var users = {
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    email: email,
+    username: req.body.email.substring(0, 6),
+    hash: hash,
+    created: today,
+    modified: today
+  };
+  connection.query("INSERT INTO user SET ?", users, function(
+    error,
+    results,
+    fields
+  ) {
+    if (error) {
+      console.log("error ocurred", error);
+      res.send({
+        code: 400,
+        failed: "error ocurred"
+      });
+    } else {
+      console.log("The solution is: ", results);
+      sessionUtils.initSession(req,res, email, next);
+      res.send({
+        code: 200,
+        success: "user registered sucessfully"
+      });
+    }
+  });
 };
 
 exports.images = function(req, res) {
@@ -98,13 +96,27 @@ exports.images = function(req, res) {
   }
   //check if images contains a file
   var today = new Date();
-  var images = {
-    pic: req.body.file
-  };
-  connection.query("UPDATE user SET profile_pic = ? modified = ? WHERE EMAIL = ?",
-                    )
 
+connection.query(
+  "UPDATE user SET profile_picture = ? modified = ? WHERE EMAIL = ?",
+ [ req.body.pic, today, req.body.email ],
+ function(error, results, fields)
+  {
+   if(error) {
+      console.log("Error occurred: ", error);
+      res.send({
+        code: 400
+      })
+    } else {
+      console.log("Success!")
+      res.send({
+        code: 200
+      })
+    }
+
+  })
 }
+
 
 // Eventually .login will be exported  from this file instead of loginroutes.js
 exports.login = (req, res,next) => {
@@ -124,7 +136,6 @@ exports.login = (req, res,next) => {
     connection.query(
       "Select * from user where email = ?",
       [ email ],
-
       function(error, results, fields) {
         compare = true; ///bcrypt.compare(results[0].hash, password);
         if (error) {
