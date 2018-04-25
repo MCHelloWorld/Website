@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import Axios from "axios";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import AppBar from "material-ui/AppBar";
 import RaisedButton from "material-ui/RaisedButton";
@@ -7,7 +7,13 @@ import TextField from "material-ui/TextField";
 import UploadScreen from "./UploadScreen";
 import logo from "../css/images/logo.png";
 import banner from "../css/images/banner.png";
-
+const axios = Axios.create({
+  baseURL: 'http://localhost:5000/api/',
+  withCredentials:true,
+  headers:{
+    'Content-Type':'application/json',
+  }
+});
 // This component displays a login prompt and submits a login request api
 class Login extends Component {
   constructor(props) {
