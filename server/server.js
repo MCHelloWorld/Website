@@ -5,6 +5,8 @@ const bodyParser = require("body-parser");
 const user = require("./routes/user");
 const cookieSession = require("cookie-session");
 const CryptoJS = require("crypto-js");
+//this allows for cross-origin scripting
+const cors = require("cors");
 const sessionUtils = require("./routes/session.js");
 
 
@@ -15,14 +17,16 @@ app = express();
 //establish an express routing app and assign it's url interpretation properties.
 app.use(bodyParser.urlencoded({ extended: true })); // QUESTION: What is body parser for? ~James ANSWER: I dunno, but the tutorial said we needed it. ~ Josh
 app.use(bodyParser.json());
-app.use(function(req, res, next) {
+
+/*app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
+    "Origin, X-Requested-With, Content-Type, Accept,Request-Headers,Request-Method"
   );
+  res.header("Access-Control-Expose-Headers","ETag,Link,X-RateLimit-Limit,X-RateLimit-Remaining, X-RateLimit-Reset, X-0Auth-Scopes, X-Accepted-0Auth-Scopes,X-Poll-Interval");
   next();
-});
+});*/
 
 // Initializes session object with parameters
 
@@ -36,19 +40,31 @@ app.use(
   })
 
 );
-app.use(function(req, res, next) {
+var options = {
+  origin: true,
+  methods: ['POST','PUT','GET','DELETE','OPTIONS'],
+  credentials: true,
+  maxAge: 3600000
+};
+app.use(cors(options));
+/*app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Credentials', true);
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Headers', '*');
+  res.header('Access-Control-Allow-Methods', "*");
   next();
-});
+});*/
 
 // Creates express router which handles API requests
 var router = express.Router();
+var corsOptions = {
+  origin:true,
+
+}
 
 //route to handle user registration
 router.post("/register", user.register); // allows user registration
-router.post("/login", function(req,res,next){
+router.post("/login",cors(options), function(req,res,next){
   console.log("login hit!");
   user.login(req,res,next);
 }); // user login page
@@ -91,7 +107,7 @@ app.get("/", function incrementViewsCount(req, res, next) {
   );
   req.session.views++;
   return next();
-}); 
+});
 **/
 //prints current session to the console
 app.use(function printSession(req, res, next) {

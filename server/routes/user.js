@@ -108,6 +108,7 @@ exports.images = function(req, res) {
 
 // Eventually .login will be exported  from this file instead of loginroutes.js
 exports.login = (req, res,next) => {
+  console.log("<Login hit>")
   var email = req.body.email;
   var password = req.body.password;
 
@@ -118,7 +119,7 @@ exports.login = (req, res,next) => {
       session: "valid"
     });/
   } else {**/
-  console.log(email + " " + password + " " +password);
+
 
     connection.query(
       "Select * from user where email = ?",
@@ -128,11 +129,13 @@ exports.login = (req, res,next) => {
         compare = true; ///bcrypt.compare(results[0].hash, password);
         if (error) {
           console.log("error ocurred", error);
-          res.send({
-            code: 400,
-            failed: "error ocurred"
-          });
-        } else if (results[0] !== null){
+          if(error = "ER_DUP_ENTRY"){
+            res.send({
+              code: 204,
+            });
+          }
+        }
+         else if (results.hasOwnProperty("password")){
           var dPassword = CryptoJS.AES.decrypt(results[0].hash, CryptoKey).toString(CryptoJS.enc.Utf8);
 console.log("the dpassword is: "+dPassword+" and the password is: "+ password);
           if(dPassword == password){
