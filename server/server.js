@@ -13,8 +13,8 @@ var rp = require("request-promise");
 app = express();
 //app.private = require("./private_config.js");
 //establish an express routing app and assign it's url interpretation properties.
-app.use(bodyParser.urlencoded({ extended: true })); // QUESTION: What is body parser for? ~James ANSWER: I dunno, but the tutorial said we needed it. ~ Josh
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ limit: '5mb', extended: true })); // QUESTION: What is body parser for? ~James ANSWER: I dunno, but the tutorial said we needed it. ~ Josh
+app.use(bodyParser.json({limit: '5mb'}));
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -25,7 +25,6 @@ app.use(function(req, res, next) {
 });
 
 // Initializes session object with parameters
-
 app.use(
   cookieSession({
     name: "server-session-cookie-hwcsc",
@@ -93,6 +92,8 @@ app.get("/", function incrementViewsCount(req, res, next) {
   return next();
 });
 **/
+
+// This is the base code for the sessions demonstration, that counts how many times the page is visited.
 //prints current session to the console
 app.use(function printSession(req, res, next) {
   console.log("req.session: ", req.session);

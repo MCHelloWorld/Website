@@ -5,7 +5,6 @@ const sessionUtils = require("./session");
 var CryptoKey = "kd2iewGN3Q9PGV8HNQ3G";
 // Updating a user's profile information
 exports.edit = function(req, res) {
-  //bcrypt.hash(req.body.password, 5, function(err, bcryptedPassword) {
   var payload = {};
 
   // Generates salt-rounded password
@@ -13,6 +12,7 @@ exports.edit = function(req, res) {
     var hashed = CryptoJS.AES.encrypt(req.body.password, passCrypto);
     payload.hash = hashed;
   }
+  // If different elements of the payload are present, add them to the query field list
   if (req.body.hasOwnProperty("first_name"))
     payload.first_name = req.body.first_name;
   if (req.body.hasOwnProperty("last_name"))
@@ -91,34 +91,35 @@ exports.register = function(req, res, next) {
 
 exports.images = function(req, res, next) {
   var userId = sessionUtils.getSession(req,res,next);
-
+  console.log(req.body.file.name);
   //check if images contains a file
-  var paylod = {
+  var payload = {
     email: req.body.email
   }
   if (req.body.hasOwnProperty("file")) {
-    payload.file = req.body.file;
+    payload.image = req.body.image;
   }
   var today = new Date();
-
-connection.query(
-  "UPDATE user SET profile_picture = LOAD_FILE(?), modified = ? WHERE EMAIL = ?",
- [ req.body.pic, today, req.body.email ],
- function(error, results, fields)
-  {
-   if(error) {
-      console.log("Error occurred: ", error);
-      res.send({
-        code: 400
-      })
-    } else {
-      console.log("Success!")
-      res.send({
-        code: 200
-      })
-    }
-
+  res.send({
+    code: 200
   })
+// connection.query(
+//   "UPDATE user SET profile_picture = LOAD_FILE(?), modified = ? WHERE EMAIL = ?",
+//  [ req.body.pic, today, req.body.email ],
+//  function(error, results, fields)
+//   {
+//    if(error) {
+//       console.log("Error occurred: ", error);
+//       res.send({
+//         code: 400
+//       })
+//     } else {
+//       console.log("Success!")
+//       res.send({
+//         code: 200
+//       })
+//     }
+//   })
 }
 
 

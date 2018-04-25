@@ -10,18 +10,20 @@ import banner from "../css/images/banner.png";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import IconButton from "material-ui/IconButton";
 import SettingsIcon from "material-ui/svg-icons/action/settings";
-//import ImageUploader from './ImageUploader';
-import Globe from "../css/images/globe.png";
+//import ImageLoader from 'react-image-file';
 var status = "hidden";
 
-// Primary user profile page
+/* Primary user profile page.
+    From here, the user can see their own data,
+    and can edit it as they please. They can also upload
+    custom profile pictures.
+*/
 class UploadScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // Receives user's data from loginroutes.js response object,
-      email: this.props.userEmail, // which was sent to Loginscreen.js and set as props on that component.
-      first_name: this.props.first,
+      email: this.props.userEmail,  // Receives user's data from user.js response object,
+      first_name: this.props.first, // which was sent to Loginscreen.js and set as props on that component.
       last_name: this.props.last,
       bio: this.props.bio,
       admin: this.props.admin,
@@ -29,7 +31,7 @@ class UploadScreen extends Component {
       password: "",
       confirm: "",
       edit: false,
-      fileToBeSent: []
+      fileToBeSent: null
     };
   }
 
@@ -42,44 +44,49 @@ class UploadScreen extends Component {
     }
   }
 
-  handleChange(newFile) {
-    console.log(newFile);
-    var files = this.state.fileToBeSent;
-    files.push(newFile);
-    this.setState({fileToBeSent: files});
-    console.log(files[0]);
+  fileSelectHandler = event => {
+    //console.log(event.target.files[0]);
+    this.setState({fileToBeSent: event.target.files[0]})
   }
 
-  imageClick(event) {
+  fileUploadHandler = () => {
     var apiImageUrl = "http://localhost:5000/api/user/images";
-    var payload = {
-      email: this.state.email
-    };
-    var self = this;
-
-    if (this.state.file !== {}) {
-      payload.file = self.state.file;
-    }
-    console.log(self.state.file)
-    axios
-      .post(apiImageUrl, payload)
-      .then(function(response) {
-        console.log(response);
-        if (response.data.code === 200) {
-          console.log("Upload Successful");
-          self.setState({ file: {} });
-          alert("Image uploaded!");
-        } else if (response.data.code === 409) {
-          console.log("Incorrect file type.");
-          alert("Please select a .jpg or .png");
-        } else if (response.data.code === 400) {
-          console.log("Error");
-          alert("An error has occurred.");
-        }
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    var payload = new FormData();
+    //Add appends back in
+    console.log(this.state.fileToBeSent);
+    axios.post(apiImageUrl, payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    .then( res => {
+      console.log(res);
+    })
+    // var self = this;
+    //
+    // if (this.state.file !== {}) {
+    //   payload.file = self.state.file;
+    // }
+    // console.log(self.state.file)
+    // axios
+    //   .post(apiImageUrl, payload)
+    //   .then(function(response) {
+    //     console.log(response);
+    //     if (response.data.code === 200) {
+    //       console.log("Upload Successful");
+    //       self.setState({ file: {} });
+    //       alert("Image uploaded!");
+    //     } else if (response.data.code === 409) {
+    //       console.log("Incorrect file type.");
+    //       alert("Please select a .jpg or .png");
+    //     } else if (response.data.code === 400) {
+    //       console.log("Error");
+    //       alert("An error has occurred.");
+    //     }
+    //   })
+    //   .catch(function(error) {
+    //     console.log(error);
+    //   });
   }
 
   handleClick(event) {
@@ -160,7 +167,7 @@ class UploadScreen extends Component {
           </header>
           <br />
           <img
-            src={Globe}
+            src={""}
             alt="profile pic"
             style={{ height: 140, width: 140, margin: "auto" }}
           />
@@ -176,7 +183,7 @@ class UploadScreen extends Component {
             <input
               type="file"
               accept=".png,.jpg"
-              onChange={(event) => this.handleChange(event.target.file)}
+              onChange={this.fileSelectHandler}
             />
           </RaisedButton>
           <br />
@@ -184,7 +191,7 @@ class UploadScreen extends Component {
           <RaisedButton
             label="Upload"
             primary={true}
-            onClick={event => this.imageClick(event)}
+            onClick={this.fileUploadHandler}
             style={{ visibility: status }}
           />
           <br />
