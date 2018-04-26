@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import Axios from "axios";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import AppBar from "material-ui/AppBar";
 import RaisedButton from "material-ui/RaisedButton";
@@ -7,8 +7,19 @@ import TextField from "material-ui/TextField";
 import UploadScreen from "./UploadScreen";
 import logo from "../css/images/logo.png";
 import banner from "../css/images/banner.png";
+<<<<<<< HEAD
+const axios = Axios.create({
+  baseURL: "http://localhost:5000/api/",
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json"
+  }
+});
+// This component displays a login prompt and submits a login request api
+=======
 
 // This component displays a login prompt and submits a login request.
+>>>>>>> bd4b754e0858f24e12b7a20aa0b421ecd7864237
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -28,11 +39,15 @@ class Login extends Component {
 
     // Checks if an entered password/email set matches an entry in the database
     axios
-      .post(apiBaseUrl + "login", payload)
+      .post(apiBaseUrl + "user/login", payload)
       .then(function(response) {
         console.log(response);
         if (response.data.code === 200) {
+<<<<<<< HEAD
+          // received from ../../server/loginroutes.js
+=======
           // received from ../../server/user.js
+>>>>>>> bd4b754e0858f24e12b7a20aa0b421ecd7864237
           console.log("Login successful");
           var uploadScreen = [];
           uploadScreen.push(

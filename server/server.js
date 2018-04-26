@@ -5,9 +5,15 @@ const express = require("express");
 const login = require("./routes/loginroutes");
 const special = require("./routes/special");
 const bodyParser = require("body-parser");
-const user = require("./routes/user");
+const user = require("./routes/user.js");
+const User = require("./classes/User.js");
 const cookieSession = require("cookie-session");
 const CryptoJS = require("crypto-js");
+
+const userRoutes = require("./routes/userRoutes.js");
+//this allows for cross-origin scripting
+const cors = require("cors");
+
 const fileUpload = require('express-fileUpload');
 const sessionUtils = require("./routes/session.js");
 
@@ -15,18 +21,28 @@ var rp = require("request-promise");
 
 app = express();
 
+//app.private =  require("./private_config.js");
+//establish an express routing app and assign it's url interpretation properties.
+app.use(bodyParser.urlencoded({ extended: true })); // QUESTION: What is body parser for? ~James ANSWER: I dunno, but the tutorial said we needed it. ~ Josh
+app.use(bodyParser.json());
+
+/*app.use(function(req, res, next) {
+
+
 // Establish an express routing app and assign it's url interpretation properties.
 app.use(bodyParser.urlencoded({ limit: '5mb', extended: true })); // QUESTION: What is body parser for? ~James ANSWER: I dunno, but the tutorial said we needed it. ~ Josh
 app.use(bodyParser.json({limit: '5mb'}));
 app.use(fileUpload())
 app.use(function(req, res, next) {
+
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
+    "Origin, X-Requested-With, Content-Type, Accept,Request-Headers,Request-Method"
   );
+  res.header("Access-Control-Expose-Headers","ETag,Link,X-RateLimit-Limit,X-RateLimit-Remaining, X-RateLimit-Reset, X-0Auth-Scopes, X-Accepted-0Auth-Scopes,X-Poll-Interval");
   next();
-});
+});*/
 
 // Initializes session object with parameters
 app.use(
@@ -39,15 +55,39 @@ app.use(
   })
 );
 
+var options = {
+  origin: true,
+  methods: ["POST", "PUT", "GET", "DELETE", "OPTIONS"],
+  credentials: true,
+  maxAge: 3600000
+};
+app.use(cors(options));
+/*app.use(function(req, res, next) {
+
+
 app.use(function(req, res, next) {
+
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Credentials', true);
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Headers', '*');
+  res.header('Access-Control-Allow-Methods', "*");
   next();
-});
+});*/
 
 // Creates express router which handles API requests
 var router = express.Router();
+var corsOptions = {
+  origin: true
+};
+
+
+//route to handle user registration
+
+router.post("/special", special.special); // for testing and debugging
+router.post("/user/edit", user.edit); // editing profile information
+// router.post("/user/images", user.images); //Importing profile pictures
+router.post("/user/status", function(req, res) {
+  // determines if a user is logged in
 
 router.post("/register", user.register);        // Route to handle user registration
 router.post("/login", function(req,res,next){   // Route to handle login
@@ -58,6 +98,7 @@ router.post("/special", special.special); // for testing and debugging
 router.post("/user/edit", user.edit); // Route for editing profile information
 router.post("/user/images", user.images); // Importing profile pictures. Currently not functional
 router.post("/user/status", function(req, res) { // API that determines if a user is logged in
+
   if (!req.session.user) {
     return res.status(401).send(); // If user is not logged in, then send Unauthorized 401 error.
   }
@@ -109,5 +150,5 @@ app.get("/", function sendPageWithCounter(req, res) {
   res.end();
 });
 
-app.use("/api", router);
+app.use("/api/user", userRoutes.router);
 app.listen(5000);

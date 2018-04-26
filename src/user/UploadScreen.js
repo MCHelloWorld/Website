@@ -10,7 +10,8 @@ import banner from "../css/images/banner.png";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import IconButton from "material-ui/IconButton";
 import SettingsIcon from "material-ui/svg-icons/action/settings";
-//import ImageLoader from 'react-image-file';
+import { ImageUploadField } from "react-image-file";
+import Globe from "../css/images/globe.png";
 var status = "hidden";
 
 /* Primary user profile page.
@@ -92,7 +93,7 @@ class UploadScreen extends Component {
       alert("Passwords do not match.");
 
     axios
-      .post(apiBaseUrl + "user/edit", payload)
+      .put(apiBaseUrl + "user/update", payload)
       .then(function(response) {
         console.log(response);
         if (response.data.code === 200) {

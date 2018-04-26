@@ -5,6 +5,7 @@ var mysql = require("mysql");
 var connection = require("./connection");
 const CryptoJS = require("crypto-js");
 const sessionUtils = require("./session");
+const cookieSession = require("cookie-session");
 var CryptoKey = "kd2iewGN3Q9PGV8HNQ3G";
 
 // Request for updating a user's profile information.
@@ -127,14 +128,68 @@ exports.images = function(req, res, next) {
   // });
 };
 
+<<<<<<< HEAD
+  })
+}
+
+
+// Eventually .login will be exported  from this file instead of loginroutes.js
+exports.login = (req, res,next) => {
+  console.log("<Login hit>")
+=======
 // User login requests; checks database for entry matching the entered
 // credentials.
 exports.login = (req, res, next) => {
+>>>>>>> bd4b754e0858f24e12b7a20aa0b421ecd7864237
   var email = req.body.email;
   var password = req.body.password;
   var userId = sessionUtils.getSession(req, res, next);
 
+<<<<<<< HEAD
+//hash = "111111";
+  var userId = sessionUtils.getSession(req,res,next);
+  /**if (userId > -1) {
+    res.send({
+      session: "valid"
+    });/
+  } else {**/
+
+
+    connection.query(
+      "Select * from user where email = ?",
+      [ email ],
+      function(error, results, fields) {
+        compare = true; ///bcrypt.compare(results[0].hash, password);
+        if (error) {
+          console.log("error ocurred", error);
+          if(error = "ER_DUP_ENTRY"){
+            res.send({
+              code: 204,
+            });
+          }
+        }
+         else if (results[0]!= null){
+          var dPassword = CryptoJS.AES.decrypt(results[0].hash, CryptoKey).toString(CryptoJS.enc.Utf8);
+console.log("the dpassword is: "+dPassword+" and the password is: "+ password);
+          if(dPassword == password){
+            sessionUtils.initSession(req,res, email,next);
+
+            res.send({    // Sends back user's information  for use in the React components
+              code: 200,
+            success: "user registered sucessfully",
+            session: "valid",
+            first: results[0].first_name,
+            last: results[0].last_name,
+            email: results[0].email,
+            username: results[0].username,
+            pic: results[0].url,
+            admin: results[0].is_admin,
+            bio: results[0].bio,
+          });
+        }else{ res.send({code:401})};
+=======
   console.log(email + " " + password + " " + password);
+>>>>>>> bd4b754e0858f24e12b7a20aa0b421ecd7864237
 
   connection.query("SELECT * FROM user WHERE email = ?", [email], function(
     error,

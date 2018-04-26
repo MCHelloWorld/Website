@@ -7,19 +7,21 @@ import Login from "./Login";
 import axios from "axios";
 import logo from "../css/images/logo.png";
 import banner from "../css/images/banner.png";
+import ImageLoader from "react-image-file";
 
 // Registration component; requires user to enter information
 class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      first_name: "",
+      first_name: {},
       last_name: "",
       email: "",
       password: "",
       confirm: ""
     };
   }
+
   // Sends entered information as an API request
   handleClick(event) {
     var apiBaseUrl = "http://localhost:5000/api/";
@@ -62,7 +64,7 @@ class Register extends Component {
       alert("Email is not a valid Messiah email.");
     } else {
       axios
-        .post(apiBaseUrl + "/register", payload)
+        .post(apiBaseUrl + "user/register", payload)
         .then(function(response) {
           console.log(response);
           if (response.data.code === 200) {
