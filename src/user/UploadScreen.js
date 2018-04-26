@@ -22,7 +22,7 @@ class UploadScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: this.props.userEmail,  // Receives user's data from user.js response object,
+      email: this.props.userEmail, // Receives user's data from user.js response object,
       first_name: this.props.first, // which was sent to Loginscreen.js and set as props on that component.
       last_name: this.props.last,
       bio: this.props.bio,
@@ -46,22 +46,18 @@ class UploadScreen extends Component {
 
   fileSelectHandler = event => {
     //console.log(event.target.files[0]);
-    this.setState({fileToBeSent: event.target.files[0]})
-  }
+    this.setState({ fileToBeSent: event.target.files[0] });
+  };
 
   fileUploadHandler = () => {
     var apiImageUrl = "http://localhost:5000/api/user/images";
-    var payload = new FormData();
-    //Add appends back in
     console.log(this.state.fileToBeSent);
-    axios.post(apiImageUrl, payload, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-    .then( res => {
+    //  payload.append('file', this.state.fileToBeSent);
+    var payload = { email: this.state.email, file: this.state.fileToBeSent };
+    console.log(payload);
+    axios.post(apiImageUrl, payload).then(res => {
       console.log(res);
-    })
+    });
     // var self = this;
     //
     // if (this.state.file !== {}) {
@@ -87,7 +83,7 @@ class UploadScreen extends Component {
     //   .catch(function(error) {
     //     console.log(error);
     //   });
-  }
+  };
 
   handleClick(event) {
     // Sends edited user information as an API request
@@ -179,21 +175,17 @@ class UploadScreen extends Component {
           <p>
             <u style={{ color: "#262262" }}>Bio:</u>&nbsp;&nbsp;{this.props.bio}{" "}
           </p>
-          <RaisedButton containerElement="label" style={{ visibility: status }}>
-            <input
-              type="file"
-              accept=".png,.jpg"
-              onChange={this.fileSelectHandler}
-            />
-          </RaisedButton>
-          <br />
-          <br />
-          <RaisedButton
-            label="Upload"
-            primary={true}
-            onClick={this.fileUploadHandler}
-            style={{ visibility: status }}
-          />
+          <form
+            ref="uploadForm"
+            id="uploadForm"
+            action="http://localhost:5000/api/user/images"
+            method="post"
+            encType="multipart/form-data"
+          >
+            <input type="file" name='file' accept='.png, .jpg'/>
+            <input type='submit' value='Upload!' />
+            <input id="email" value={this.state.email} style={{ visibility: 'false'}}/>
+          </form>
           <br />
           <TextField
             hintText="Edit your first name."

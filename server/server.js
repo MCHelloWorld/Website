@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const user = require("./routes/user");
 const cookieSession = require("cookie-session");
 const CryptoJS = require("crypto-js");
+const fileUpload = require('express-fileUpload');
 const sessionUtils = require("./routes/session.js");
 
 
@@ -15,6 +16,7 @@ app = express();
 //establish an express routing app and assign it's url interpretation properties.
 app.use(bodyParser.urlencoded({ limit: '5mb', extended: true })); // QUESTION: What is body parser for? ~James ANSWER: I dunno, but the tutorial said we needed it. ~ Josh
 app.use(bodyParser.json({limit: '5mb'}));
+app.use(fileUpload())
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(

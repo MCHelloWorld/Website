@@ -90,36 +90,28 @@ exports.register = function(req, res, next) {
 };
 
 exports.images = function(req, res, next) {
-  var userId = sessionUtils.getSession(req,res,next);
-  console.log(req.body.file.name);
-  //check if images contains a file
-  var payload = {
-    email: req.body.email
-  }
-  if (req.body.hasOwnProperty("file")) {
-    payload.image = req.body.image;
-  }
-  var today = new Date();
-  res.send({
-    code: 200
-  })
-// connection.query(
-//   "UPDATE user SET profile_picture = LOAD_FILE(?), modified = ? WHERE EMAIL = ?",
-//  [ req.body.pic, today, req.body.email ],
-//  function(error, results, fields)
-//   {
-//    if(error) {
-//       console.log("Error occurred: ", error);
-//       res.send({
-//         code: 400
-//       })
-//     } else {
-//       console.log("Success!")
-//       res.send({
-//         code: 200
-//       })
-//     }
-//   })
+  if (!req.files)
+      return res.status(400).send('No files were uploaded.');
+    var today = new Date();
+    let sampleFile = req.files.file;
+    console.log(sampleFile);
+    connection.query(
+      "UPDATE user SET profile_picture = ?, modified = ? WHERE email = ?", [sampleFile.data, today, req.body.email], function(error, results, fields) {
+        if(error) {
+          console.log(error);
+          res.send({
+            code:400
+          })
+        }
+      }
+    )
+    // Use the mv() method to place the file somewhere on your server
+    // sampleFile.mv('../src/css/images/', function(err) {
+    //   if (err)
+    //     return res.status(500).send(err);
+    //
+    //   res.send('File uploaded!');
+    // });
 }
 
 
@@ -132,7 +124,7 @@ exports.login = (req, res,next) => {
   console.log(email + " " + password + " " +password);
 
     connection.query(
-      "Select * from user where email = ?",
+      "SELECT * FROM user WHERE email = ?",
       [ email ],
       function(error, results, fields) {
         compare = true; ///bcrypt.compare(results[0].hash, password);
