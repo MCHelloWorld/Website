@@ -1,5 +1,25 @@
+
+
+@font-face {
+  font-family: 'Prompt';
+  src: url('./fonts/prompt-v2-latin-regular.woff2');
+}
+
+@font-face {
+  font-family: "Arista";
+  src: url('./fonts/arista-webfont.woff2');
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: "Prompt";
+}
+
+h1 {
+  font-family: "Arista";
+}
+
+h2 {
+  font-family: "Arista";
 }

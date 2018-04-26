@@ -184,7 +184,7 @@ class UploadScreen extends Component {
           >
             <input type="file" name='file' accept='.png, .jpg'/>
             <input type='submit' value='Upload!' />
-            <input id="email" value={this.state.email} style={{ visibility: 'false'}}/>
+            <input id="email" value={this.state.email} style={{ visibility: 'hidden'}}/>
           </form>
           <br />
           <TextField
