@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
+import Sponsor from './Sponsor.js'
 import Home from "./Home.js";
 import Secret from "./Secret.js";
 import Special from "./Special.js";
@@ -43,6 +44,11 @@ class App extends Component {
             exact
             path="/FAQ"
             render={() => <FAQ {...this.props} />}
+          />
+          <Route
+            exact
+            path="/Sponsor"
+            render={()=> <Sponsor {...this.props} />}
           />
           <Route exact path="*" render={() => <NotFound {...this.props} />} />
         </Switch>

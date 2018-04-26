@@ -25,13 +25,13 @@ class Home extends Component {
     return (
       <div className="App">
         <HelloHeader />
-        <h1>Welcome to Hello, World!</h1> 
+        <h1>Welcome to Hello, World!</h1>
         <h3>{this.props.appState.header.text}</h3>
         <MuiThemeProvider>
           <div>
             <RaisedButton label="Home" primary={true} style={style} href="/" />
             <RaisedButton
-              label="User"
+              label="Log In"
               primary={true}
               style={style}
               href="/User"
@@ -50,6 +50,12 @@ class Home extends Component {
             primary={true}
             style={style}
             href="/FAQ"
+          />
+          <RaisedButton
+            label="Want to sponsor?"
+            primary={true}
+            style={style}
+            href="/Sponsor"
           />
         </MuiThemeProvider>
 
