@@ -8,10 +8,10 @@ import UploadScreen from "./UploadScreen";
 import logo from "../css/images/logo.png";
 import banner from "../css/images/banner.png";
 const axios = Axios.create({
-  baseURL: 'http://localhost:5000/api/',
-  withCredentials:true,
-  headers:{
-    'Content-Type':'application/json',
+  baseURL: "http://localhost:5000/api/",
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json"
   }
 });
 // This component displays a login prompt and submits a login request api
@@ -40,10 +40,11 @@ class Login extends Component {
 
     // Checks if an entered password/email set matches an entry in the database
     axios
-      .post(apiBaseUrl + "login", payload)
+      .post(apiBaseUrl + "user/login", payload)
       .then(function(response) {
         console.log(response);
-        if (response.data.code === 200) { // received from ../../server/loginroutes.js
+        if (response.data.code === 200) {
+          // received from ../../server/loginroutes.js
           console.log("Login successful");
           var uploadScreen = [];
           uploadScreen.push(
@@ -57,7 +58,6 @@ class Login extends Component {
               admin={response.data.admin}
               pic={response.data.profile_picture}
             />
-            
           );
           self.props.appContext.setState({
             loginPage: [],

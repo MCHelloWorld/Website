@@ -19,29 +19,34 @@ the session state will be indicated by a field named "session" in every returnin
 const CryptoJS = require("crypto-js");
 var CryptoKey = "o012i390umsamkg89phr3qp"
 
-exports.initSession = function(req,res,email, next) {
+exports.initSession = function(req,res, email, next) {
   /*if (req.session.email !== null) {
     res.send({session: "valid"});
   }*/
 
   var ciphertext = CryptoJS.AES.encrypt(email, CryptoKey);
 
-  req.session = ciphertext;
-  console.log(req.session + " initSession");
+  res.session = ciphertext;
+  if(req.session.isChanged){
+    console.log("the session has been changed!!");
+  }
+  console.log(res.session + " initSession");
   next();
 };
-//returns the decrypted contents of the session
+//returns the decrypted contents of the session //
 exports.getSession = function(req,res, next) {
   if(req.session== null){
     return false
+    console.log("No session found!");
   }
   var ciphertext = req.session;
+  console.log("the raw session is: " + ciphertext);
   const solved = CryptoJS.AES.decrypt(ciphertext, CryptoKey);
   var plaintext = solved.toString(CryptoJS.enc.Utf8);
-
+console.log("plaintext session: "+ plaintext)
   if (plaintext.includes("@messiah.edu")) {
     return plaintext;
-    console.log("plaintext session: "+ plaintext);
+    ;
   } else {
 
     return false

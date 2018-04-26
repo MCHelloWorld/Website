@@ -8,7 +8,7 @@ import logo from "../css/images/logo.png";
 import banner from "../css/images/banner.png";
 import IconButton from "material-ui/IconButton";
 import SettingsIcon from "material-ui/svg-icons/action/settings";
-import { ImageUploadField } from 'react-image-file';
+import { ImageUploadField } from "react-image-file";
 import Globe from "../css/images/globe.png";
 var status = "hidden";
 
@@ -16,8 +16,9 @@ var status = "hidden";
 class UploadScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {                  // Receives user's data from loginroutes.js response object,
-      email: this.props.userEmail,  // which was sent to Loginscreen.js and set as props on that component.
+    this.state = {
+      // Receives user's data from loginroutes.js response object,
+      email: this.props.userEmail, // which was sent to Loginscreen.js and set as props on that component.
       first_name: this.props.first,
       last_name: this.props.last,
       bio: this.props.bio,
@@ -39,7 +40,8 @@ class UploadScreen extends Component {
     }
   }
 
-  handleClick(event) { // Sends edited user information as an API request
+  handleClick(event) {
+    // Sends edited user information as an API request
     var apiBaseUrl = "http://localhost:5000/api/";
     // eslint-disable-next-line
     var self = this;
@@ -68,7 +70,7 @@ class UploadScreen extends Component {
       alert("Passwords do not match.");
 
     axios
-      .post(apiBaseUrl + "user/edit", payload)
+      .put(apiBaseUrl + "user/update", payload)
       .then(function(response) {
         console.log(response);
         if (response.data.code === 200) {

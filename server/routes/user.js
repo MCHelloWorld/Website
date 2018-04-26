@@ -2,6 +2,7 @@ var mysql = require("mysql");
 var connection = require("./connection");
 const CryptoJS = require("crypto-js");
 const sessionUtils = require("./session");
+const cookieSession = require("cookie-session");
 var CryptoKey = "kd2iewGN3Q9PGV8HNQ3G";
 // Updating a user's profile information
 exports.edit = function(req, res) {
@@ -22,7 +23,7 @@ exports.edit = function(req, res) {
   payload.modified = new Date();
 
   var emailStr = ' WHERE email = "' + email + '"';
-  // Select from the database where the email is the value delivered by payload
+  //  Select from the database where the email is the value delivered by payload
   connection.query("SELECT * FROM user WHERE email = ?", email, function(
     error,
     results,
@@ -146,7 +147,7 @@ exports.login = (req, res,next) => {
             });
           }
         }
-         else if (results.hasOwnProperty("password")){
+         else if (results[0]!= null){
           var dPassword = CryptoJS.AES.decrypt(results[0].hash, CryptoKey).toString(CryptoJS.enc.Utf8);
 console.log("the dpassword is: "+dPassword+" and the password is: "+ password);
           if(dPassword == password){
