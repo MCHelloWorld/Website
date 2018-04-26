@@ -78,7 +78,7 @@ class FAQ extends Component {
             </h2>
             <p>
               Have you tried turning it off and on again?<br />
-              (But seriously, you should take it to CSS. They'll be happy to
+              (But seriously, you should take it to SCS. They'll be happy to
               help!)
             </p>
           </div>
