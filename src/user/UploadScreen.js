@@ -44,11 +44,13 @@ class UploadScreen extends Component {
     }
   }
 
+  // Changes state of the component when a user selects a profile picture to upload.
   fileSelectHandler = event => {
     //console.log(event.target.files[0]);
     this.setState({ fileToBeSent: event.target.files[0] });
   };
 
+  // Submits a file as an API request, to store the file. Currently not functional.
   fileUploadHandler = () => {
     var apiImageUrl = "http://localhost:5000/api/user/images";
     console.log(this.state.fileToBeSent);
@@ -58,31 +60,6 @@ class UploadScreen extends Component {
     axios.post(apiImageUrl, payload).then(res => {
       console.log(res);
     });
-    // var self = this;
-    //
-    // if (this.state.file !== {}) {
-    //   payload.file = self.state.file;
-    // }
-    // console.log(self.state.file)
-    // axios
-    //   .post(apiImageUrl, payload)
-    //   .then(function(response) {
-    //     console.log(response);
-    //     if (response.data.code === 200) {
-    //       console.log("Upload Successful");
-    //       self.setState({ file: {} });
-    //       alert("Image uploaded!");
-    //     } else if (response.data.code === 409) {
-    //       console.log("Incorrect file type.");
-    //       alert("Please select a .jpg or .png");
-    //     } else if (response.data.code === 400) {
-    //       console.log("Error");
-    //       alert("An error has occurred.");
-    //     }
-    //   })
-    //   .catch(function(error) {
-    //     console.log(error);
-    //   });
   };
 
   handleClick(event) {
@@ -144,7 +121,7 @@ class UploadScreen extends Component {
                 <SettingsIcon />
               </IconButton>
             }
-            style={{backgroundColor: '#478fcd'}}
+            style={{ backgroundColor: "#478fcd" }}
             onLeftIconButtonClick={event => this.editClick(event)}
           />
           <header
@@ -183,9 +160,13 @@ class UploadScreen extends Component {
             method="post"
             encType="multipart/form-data"
           >
-            <input type="file" name='file' accept='.png, .jpg'/>
-            <input type='submit' value='Upload!' />
-            <input id="email" value={this.state.email} style={{ visibility: 'hidden'}}/>
+            <input type="file" name="file" accept=".png, .jpg" />
+            <input type="submit" value="Upload!" />
+            <input
+              id="email"
+              value={this.state.email}
+              style={{ visibility: "hidden" }}
+            />
           </form>
           <br />
           <TextField

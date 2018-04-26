@@ -4,7 +4,8 @@ import RaisedButton from "material-ui/RaisedButton";
 import Login from "./Login";
 import Register from "./Register";
 
-// Establishes which component, login or registration, will be rendered. 
+// Establishes which component, login or registration, will be rendered.
+// Also displays a dynamically rendered message instructing the user what to do.
 class Loginscreen extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +19,6 @@ class Loginscreen extends Component {
   }
 
   handleClick(event) {
-    // console.log("event",event);
     var loginmessage;
     var loginscreen = [];
     if (this.state.isLogin) {

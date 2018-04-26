@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import "./User.css";
 import LoginScreen from "./LoginScreen";
 
-// This component displays the assigned login page component, either Login or Register
+// This component Loginscreen component, then the profile page, which is
+// UploadScreen.js
 class User extends Component {
   constructor(props) {
     super(props);
@@ -12,6 +13,7 @@ class User extends Component {
     };
   }
 
+  // Sets the correct state when the component is first rendered.
   componentWillMount() {
     var loginPage = [];
     loginPage.push(<LoginScreen parentContext={this} />);

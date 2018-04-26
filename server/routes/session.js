@@ -17,9 +17,9 @@ the session state will be indicated by a field named "session" in every returnin
 \* ========================================================================== */
 
 const CryptoJS = require("crypto-js");
-var CryptoKey = "o012i390umsamkg89phr3qp"
+var CryptoKey = "o012i390umsamkg89phr3qp";
 
-exports.initSession = function(req,res,email, next) {
+exports.initSession = function(req, res, email, next) {
   /*if (req.session.email !== null) {
     res.send({session: "valid"});
   }*/
@@ -31,9 +31,9 @@ exports.initSession = function(req,res,email, next) {
   next();
 };
 //returns the decrypted contents of the session
-exports.getSession = function(req,res, next) {
-  if(req.session== null){
-    return false
+exports.getSession = function(req, res, next) {
+  if (req.session == null) {
+    return false;
   }
   var ciphertext = req.session;
   const solved = CryptoJS.AES.decrypt(ciphertext, CryptoKey);
@@ -41,18 +41,16 @@ exports.getSession = function(req,res, next) {
 
   if (plaintext.includes("@messiah.edu")) {
     return plaintext;
-    console.log("plaintext session: "+ plaintext);
+    console.log("plaintext session: " + plaintext);
   } else {
-
-    return false
+    return false;
   }
 };
-exports.authSession = function(req,res,next){
-  var session = getSession(req,res,next)
-  if(session == false){
-    res.send({code:401});
-
-  }else{
+exports.authSession = function(req, res, next) {
+  var session = getSession(req, res, next);
+  if (session == false) {
+    res.send({ code: 401 });
+  } else {
     return session;
   }
 };

@@ -10,7 +10,7 @@ class Secret extends Component {
             UH-OH YOU JUST MADE IT TO THE SECRET PAGE
           </h1>
           <Link to="/" className="App-title">
-            click here to go back
+            Click here to go to the homepage
           </Link>
         </header>
       </div>

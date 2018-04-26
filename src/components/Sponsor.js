@@ -16,30 +16,29 @@ class Sponsor extends Component {
   }
 
   render() {
-    return(
+    return (
       <MuiThemeProvider>
-      <div className="App">
-      <HelloHeader/>
-      <h1 style={{'font-size': '50px'}}>Sponsors and Supporters</h1>
-      <RaisedButton
-        label="Home"
-        primary={true}
-        style={style}
-        href="/"
-      />
-      <div className="curved">
-      <h2>Sponsors</h2>
-      <p>This is where future sponsors will appear, with photos
-      and other relevant information.</p>
-      <br/>
-      <h2>Contact Us!</h2>
-      <p>This is where contact information will go for club leadership
-      so that potential contributors have a place/person to reach out to.</p>
-      </div>
-      </div>
-      <br/>
+        <div className="App">
+          <HelloHeader />
+          <h1 style={{ "font-size": "50px" }}>Sponsors and Supporters</h1>
+          <RaisedButton label="Home" primary={true} style={style} href="/" />
+          <div className="curved">
+            <h2>Sponsors</h2>
+            <p>
+              This is where future sponsors will appear, with photos and other
+              relevant information.
+            </p>
+            <br />
+            <h2>Contact Us!</h2>
+            <p>
+              This is where contact information will go for club leadership so
+              that potential contributors have a place/person to reach out to.
+            </p>
+          </div>
+        </div>
+        <br />
       </MuiThemeProvider>
-    )
+    );
   }
 }
 

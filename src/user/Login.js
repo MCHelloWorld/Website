@@ -8,7 +8,7 @@ import UploadScreen from "./UploadScreen";
 import logo from "../css/images/logo.png";
 import banner from "../css/images/banner.png";
 
-// This component displays a login prompt and submits a login request api
+// This component displays a login prompt and submits a login request.
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -31,7 +31,8 @@ class Login extends Component {
       .post(apiBaseUrl + "login", payload)
       .then(function(response) {
         console.log(response);
-        if (response.data.code === 200) { // received from ../../server/loginroutes.js
+        if (response.data.code === 200) {
+          // received from ../../server/user.js
           console.log("Login successful");
           var uploadScreen = [];
           uploadScreen.push(
@@ -45,11 +46,10 @@ class Login extends Component {
               admin={response.data.admin}
               pic={response.data.profile_picture}
             />
-
           );
-         self.props.appContext.setState({
-           loginPage: [],
-           uploadScreen: uploadScreen
+          self.props.appContext.setState({
+            loginPage: [],
+            uploadScreen: uploadScreen
           });
         } else if (response.data.code === 204) {
           console.log("Username password do not match");
@@ -69,8 +69,11 @@ class Login extends Component {
       <div>
         <MuiThemeProvider>
           <div>
-            <AppBar title="Login" showMenuIconButton={false}
-            style={{backgroundColor: '#478fcd'}} />
+            <AppBar
+              title="Login"
+              showMenuIconButton={false}
+              style={{ backgroundColor: "#478fcd" }}
+            />
             <header
               style={{
                 backgroundImage: `url(${banner})`,

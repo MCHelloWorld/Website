@@ -1,13 +1,11 @@
-
-
 @font-face {
-  font-family: 'Prompt';
-  src: url('./fonts/prompt-v2-latin-regular.woff2');
+  font-family: "Prompt";
+  src: url("./fonts/prompt-v2-latin-regular.woff2");
 }
 
 @font-face {
   font-family: "Arista";
-  src: url('./fonts/arista-webfont.woff2');
+  src: url("./fonts/arista-webfont.woff2");
 }
 
 body {

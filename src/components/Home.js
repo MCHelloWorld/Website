@@ -7,6 +7,7 @@ const style = {
   margin: 15
 };
 
+// Homepage of our website; will be the main source of inforamtion for users.
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -44,7 +45,7 @@ class Home extends Component {
             />
           </div>
           <hr />
-          <h1>What We Do – Be In The Know</h1>
+          <h1>What We Do & Who We Are</h1>
           <RaisedButton
             label="FAQ Page"
             primary={true}
@@ -58,8 +59,6 @@ class Home extends Component {
             href="/Sponsor"
           />
         </MuiThemeProvider>
-
-
       </div>
     );
   }

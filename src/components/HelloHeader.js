@@ -5,6 +5,8 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import AppBar from "material-ui/AppBar";
 import PropTypes from "prop-types";
 
+// Default header for use in other pages on our site. Uses
+// Google's Material UI for the AppBar.
 class MenuAppBar extends Component {
   state = {
     auth: true,
@@ -27,7 +29,7 @@ class MenuAppBar extends Component {
     return (
       <div className="alright">
         <MuiThemeProvider>
-          <AppBar title="Hello World" style={{backgroundColor: '#478fcd'}}/>
+          <AppBar title="Hello World" style={{ backgroundColor: "#478fcd" }} />
         </MuiThemeProvider>
       </div>
     );

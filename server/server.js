@@ -1,3 +1,6 @@
+// Server.js handles all routing of our API requests, using
+// the Express router package.
+
 const express = require("express");
 const login = require("./routes/loginroutes");
 const special = require("./routes/special");
@@ -8,12 +11,11 @@ const CryptoJS = require("crypto-js");
 const fileUpload = require('express-fileUpload');
 const sessionUtils = require("./routes/session.js");
 
-
 var rp = require("request-promise");
 
 app = express();
-//app.private = require("./private_config.js");
-//establish an express routing app and assign it's url interpretation properties.
+
+// Establish an express routing app and assign it's url interpretation properties.
 app.use(bodyParser.urlencoded({ limit: '5mb', extended: true })); // QUESTION: What is body parser for? ~James ANSWER: I dunno, but the tutorial said we needed it. ~ Josh
 app.use(bodyParser.json({limit: '5mb'}));
 app.use(fileUpload())
@@ -35,8 +37,8 @@ app.use(
     saveUninitialized: true,
     maxAge: 600000000
   })
-
 );
+
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Credentials', true);
@@ -47,23 +49,20 @@ app.use(function(req, res, next) {
 // Creates express router which handles API requests
 var router = express.Router();
 
-//route to handle user registration
-router.post("/register", user.register); // allows user registration
-router.post("/login", function(req,res,next){
+router.post("/register", user.register);        // Route to handle user registration
+router.post("/login", function(req,res,next){   // Route to handle login
   console.log("login hit!");
   user.login(req,res,next);
-}); // user login page
+});
 router.post("/special", special.special); // for testing and debugging
-router.post("/user/edit", user.edit); // editing profile information
-router.post("/user/images", user.images); //Importing profile pictures
-router.post("/user/status", function(req, res) { // determines if a user is logged in
+router.post("/user/edit", user.edit); // Route for editing profile information
+router.post("/user/images", user.images); // Importing profile pictures. Currently not functional
+router.post("/user/status", function(req, res) { // API that determines if a user is logged in
   if (!req.session.user) {
-    return res.status(401).send();
-    /* If user is not logged in, then send Unauthorized 401 error */
+    return res.status(401).send(); // If user is not logged in, then send Unauthorized 401 error.
   }
 
-  return res.status(200).send("Welcome to Super Secret API");
-  /* Otherwise go to the super long API */
+  return res.status(200).send("Welcome to Super Secret API"); // Otherwise go to the super long API
 });
 
 router.post("/session", function(req, res) {
