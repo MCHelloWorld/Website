@@ -144,6 +144,7 @@ class UploadScreen extends Component {
                 <SettingsIcon />
               </IconButton>
             }
+            style={{backgroundColor: '#478fcd'}}
             onLeftIconButtonClick={event => this.editClick(event)}
           />
           <header

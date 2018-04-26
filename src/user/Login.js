@@ -69,7 +69,8 @@ class Login extends Component {
       <div>
         <MuiThemeProvider>
           <div>
-            <AppBar title="Login" showMenuIconButton={false} />
+            <AppBar title="Login" showMenuIconButton={false}
+            style={{backgroundColor: '#478fcd'}} />
             <header
               style={{
                 backgroundImage: `url(${banner})`,

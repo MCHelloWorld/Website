@@ -27,7 +27,7 @@ class MenuAppBar extends Component {
     return (
       <div className="alright">
         <MuiThemeProvider>
-          <AppBar title="Hello World" />
+          <AppBar title="Hello World" style={{backgroundColor: '#478fcd'}}/>
         </MuiThemeProvider>
       </div>
     );

@@ -25,7 +25,7 @@ class Home extends Component {
     return (
       <div className="App">
         <HelloHeader />
-        <h1>Demonstration</h1>
+        <h1>Welcome to Hello, World!</h1> 
         <h3>{this.props.appState.header.text}</h3>
         <MuiThemeProvider>
           <div>
@@ -43,9 +43,17 @@ class Home extends Component {
               onClick={event => this.handleClick(event)}
             />
           </div>
+          <hr />
+          <h1>What We Do – Be In The Know</h1>
+          <RaisedButton
+            label="FAQ Page"
+            primary={true}
+            style={style}
+            href="/FAQ"
+          />
         </MuiThemeProvider>
-        <hr />
-        <h1>What We Do – Be In The Know</h1>
+
+
       </div>
     );
   }

@@ -5,6 +5,7 @@ import AppState from "./AppState.js";
 import registerServiceWorker from "./registerServiceWorker";
 import App from "./components/App.js";
 
+// Root file for our web application
 var Root = () => {
   return (
     <AppState>
