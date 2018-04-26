@@ -1,3 +1,5 @@
+// This file is an authenitcation script, that works with
+// sessions to determine if a user is logged in.
 const auth = {
   isAuthenticated: false,
   authenticate(cb) {

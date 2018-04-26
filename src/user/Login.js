@@ -7,6 +7,7 @@ import TextField from "material-ui/TextField";
 import UploadScreen from "./UploadScreen";
 import logo from "../css/images/logo.png";
 import banner from "../css/images/banner.png";
+<<<<<<< HEAD
 const axios = Axios.create({
   baseURL: "http://localhost:5000/api/",
   withCredentials: true,
@@ -15,18 +16,16 @@ const axios = Axios.create({
   }
 });
 // This component displays a login prompt and submits a login request api
+=======
+
+// This component displays a login prompt and submits a login request.
+>>>>>>> bd4b754e0858f24e12b7a20aa0b421ecd7864237
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: "",
       password: ""
-    };
-  }
-
-  getChildContext() {
-    return {
-      email: this.state.email
     };
   }
 
@@ -44,7 +43,11 @@ class Login extends Component {
       .then(function(response) {
         console.log(response);
         if (response.data.code === 200) {
+<<<<<<< HEAD
           // received from ../../server/loginroutes.js
+=======
+          // received from ../../server/user.js
+>>>>>>> bd4b754e0858f24e12b7a20aa0b421ecd7864237
           console.log("Login successful");
           var uploadScreen = [];
           uploadScreen.push(
@@ -81,7 +84,11 @@ class Login extends Component {
       <div>
         <MuiThemeProvider>
           <div>
-            <AppBar title="Login" showMenuIconButton={false} />
+            <AppBar
+              title="Login"
+              showMenuIconButton={false}
+              style={{ backgroundColor: "#478fcd" }}
+            />
             <header
               style={{
                 backgroundImage: `url(${banner})`,

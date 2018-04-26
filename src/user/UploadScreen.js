@@ -1,34 +1,39 @@
 import React, { Component } from "react";
 import axios from "axios";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import lightBaseTheme from "material-ui/styles/baseThemes/lightBaseTheme";
 import AppBar from "material-ui/AppBar";
 import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
 import logo from "../css/images/logo.png";
 import banner from "../css/images/banner.png";
+import getMuiTheme from "material-ui/styles/getMuiTheme";
 import IconButton from "material-ui/IconButton";
 import SettingsIcon from "material-ui/svg-icons/action/settings";
 import { ImageUploadField } from "react-image-file";
 import Globe from "../css/images/globe.png";
 var status = "hidden";
 
-// Primary user profile page
+/* Primary user profile page.
+    From here, the user can see their own data,
+    and can edit it as they please. They can also upload
+    custom profile pictures.
+*/
 class UploadScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // Receives user's data from loginroutes.js response object,
-      email: this.props.userEmail, // which was sent to Loginscreen.js and set as props on that component.
-      first_name: this.props.first,
+      email: this.props.userEmail, // Receives user's data from user.js response object,
+      first_name: this.props.first, // which was sent to Loginscreen.js and set as props on that component.
       last_name: this.props.last,
       bio: this.props.bio,
       admin: this.props.admin,
       picSource: this.props.picSource,
       password: "",
       confirm: "",
-      edit: false
+      edit: false,
+      fileToBeSent: null
     };
-    this.handleClick = this.handleClick.bind(this);
   }
 
   editClick(event) {
@@ -39,6 +44,24 @@ class UploadScreen extends Component {
       status = "visible";
     }
   }
+
+  // Changes state of the component when a user selects a profile picture to upload.
+  fileSelectHandler = event => {
+    //console.log(event.target.files[0]);
+    this.setState({ fileToBeSent: event.target.files[0] });
+  };
+
+  // Submits a file as an API request, to store the file. Currently not functional.
+  fileUploadHandler = () => {
+    var apiImageUrl = "http://localhost:5000/api/user/images";
+    console.log(this.state.fileToBeSent);
+    //  payload.append('file', this.state.fileToBeSent);
+    var payload = { email: this.state.email, file: this.state.fileToBeSent };
+    console.log(payload);
+    axios.post(apiImageUrl, payload).then(res => {
+      console.log(res);
+    });
+  };
 
   handleClick(event) {
     // Sends edited user information as an API request
@@ -88,7 +111,7 @@ class UploadScreen extends Component {
   render() {
     return (
       <div>
-        <MuiThemeProvider>
+        <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
           <AppBar
             title="Profile Page"
             iconElementLeft={
@@ -99,6 +122,7 @@ class UploadScreen extends Component {
                 <SettingsIcon />
               </IconButton>
             }
+            style={{ backgroundColor: "#478fcd" }}
             onLeftIconButtonClick={event => this.editClick(event)}
           />
           <header
@@ -118,7 +142,7 @@ class UploadScreen extends Component {
           </header>
           <br />
           <img
-            src={Globe}
+            src={""}
             alt="profile pic"
             style={{ height: 140, width: 140, margin: "auto" }}
           />
@@ -130,6 +154,22 @@ class UploadScreen extends Component {
           <p>
             <u style={{ color: "#262262" }}>Bio:</u>&nbsp;&nbsp;{this.props.bio}{" "}
           </p>
+          <form
+            ref="uploadForm"
+            id="uploadForm"
+            action="http://localhost:5000/api/user/images"
+            method="post"
+            encType="multipart/form-data"
+          >
+            <input type="file" name="file" accept=".png, .jpg" />
+            <input type="submit" value="Upload!" />
+            <input
+              id="email"
+              value={this.state.email}
+              style={{ visibility: "hidden" }}
+            />
+          </form>
+          <br />
           <TextField
             hintText="Edit your first name."
             floatingLabelText="First name"
