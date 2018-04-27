@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import axios from "axios";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import lightBaseTheme from "material-ui/styles/baseThemes/lightBaseTheme";
 import AppBar from "material-ui/AppBar";
 import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
 import logo from "../css/images/logo.png";
 import banner from "../css/images/banner.png";
+import getMuiTheme from "material-ui/styles/getMuiTheme";
 import IconButton from "material-ui/IconButton";
 import SettingsIcon from "material-ui/svg-icons/action/settings";
-import { ImageUploadField } from "react-image-file";
+//import ImageUploader from './ImageUploader';
 import Globe from "../css/images/globe.png";
 var status = "hidden";
 
@@ -26,7 +28,8 @@ class UploadScreen extends Component {
       picSource: this.props.picSource,
       password: "",
       confirm: "",
-      edit: false
+      edit: false,
+      file: []
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -40,6 +43,17 @@ class UploadScreen extends Component {
     }
   }
 
+<<<<<<< HEAD
+=======
+  handleFile(event) {
+    console.log("File Handled");
+  }
+
+  onClick(event) {
+
+  }
+
+>>>>>>> OOOOOH HES TRYIN
   handleClick(event) {
     // Sends edited user information as an API request
     var apiBaseUrl = "http://localhost:5000/api/";
@@ -88,7 +102,7 @@ class UploadScreen extends Component {
   render() {
     return (
       <div>
-        <MuiThemeProvider>
+        <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
           <AppBar
             title="Profile Page"
             iconElementLeft={
@@ -130,6 +144,16 @@ class UploadScreen extends Component {
           <p>
             <u style={{ color: "#262262" }}>Bio:</u>&nbsp;&nbsp;{this.props.bio}{" "}
           </p>
+          <RaisedButton
+            containerElement="label"
+            label="Upload Profile Picture"
+            style={{visibility: status}}
+            onClick={event => this.onClick(event)}
+          >
+            <input type="file" accept=".png,.jpg"
+            onChange={(event, newFile) => this.setState({file: newFile})}/>
+          </RaisedButton>
+          <br/>
           <TextField
             hintText="Edit your first name."
             floatingLabelText="First name"

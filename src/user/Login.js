@@ -24,12 +24,6 @@ class Login extends Component {
     };
   }
 
-  getChildContext() {
-    return {
-      email: this.state.email
-    };
-  }
-
   handleClick(event) {
     var apiBaseUrl = "http://localhost:5000/api/";
     var self = this;
