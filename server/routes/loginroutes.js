@@ -1,3 +1,5 @@
+// loginroutes.js was an original JS file that contained our Login scripts.
+// Now, all functionality has been ported to user.js in the same folder.
 var mysql = require("mysql");
 var connection = require("./connection");
 const CryptoJS = require("crypto-js");

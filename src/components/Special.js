@@ -4,6 +4,8 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
+// This page contains a lot of test code and unfinished product to be implemented later.
+// This code is not currently used in our actual site.
 class Special extends Component {
   handleCheckLogin(event) {
     console.log("waggleflaggle");

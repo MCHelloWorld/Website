@@ -160,7 +160,7 @@ class User {
     var password = req.body.password;
 
     //hash = "111111";
-    //var userId = sessionUtils.getSession(req, res, next);
+    //var userId = sess ionUtils.getSession(req, res, next);
     /**if (userId > -1) {
       res.send({
         session: "valid"

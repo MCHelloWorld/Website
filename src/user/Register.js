@@ -48,7 +48,7 @@ class Register extends Component {
         validEmail = true;
       }
     }
-    // Verifies information entered cannot be blank or that it meets certain requirements
+    // Verifies certain information entered cannot be blank or that it meets certain requirements
     if (payload.first_name.length <= 0) {
       alert("First name cannot be blank.");
     } else if (payload.last_name.length <= 0) {
@@ -69,12 +69,11 @@ class Register extends Component {
         .then(function(response) {
           console.log(response);
           if (response.data.code === 200) {
-            //  console.log("registration successfull");
             var loginscreen = []; // Resets the registration page to show the Login component
             loginscreen.push(
               <Login parentContext={this} appContext={self.props.appContext} />
             );
-            var loginmessage = "Not Registered yet? Go to registration";
+            var loginmessage = "Not Registered yet? Go to registration"; // Resets login message.
             self.props.parentContext.setState({
               loginscreen: loginscreen,
               loginmessage: loginmessage,

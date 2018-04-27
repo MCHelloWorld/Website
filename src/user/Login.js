@@ -7,6 +7,7 @@ import TextField from "material-ui/TextField";
 import UploadScreen from "./UploadScreen";
 import logo from "../css/images/logo.png";
 import banner from "../css/images/banner.png";
+
 const axios = Axios.create({
   baseURL: "http://localhost:5000/api/",
   withCredentials: true,
@@ -15,6 +16,7 @@ const axios = Axios.create({
   }
 });
 // This component displays a login prompt and submits a login request api
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -38,7 +40,8 @@ class Login extends Component {
       .then(function(response) {
         console.log(response);
         if (response.data.code === 200) {
-          // received from ../../server/loginroutes.js
+          // received from ../../server/user.js
+
           console.log("Login successful");
           var uploadScreen = [];
           uploadScreen.push(
@@ -75,7 +78,11 @@ class Login extends Component {
       <div>
         <MuiThemeProvider>
           <div>
-            <AppBar title="Login" showMenuIconButton={false} />
+            <AppBar
+              title="Login"
+              showMenuIconButton={false}
+              style={{ backgroundColor: "#478fcd" }}
+            />
             <header
               style={{
                 backgroundImage: `url(${banner})`,

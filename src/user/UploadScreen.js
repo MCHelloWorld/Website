@@ -14,14 +14,17 @@ import SettingsIcon from "material-ui/svg-icons/action/settings";
 import Globe from "../css/images/globe.png";
 var status = "hidden";
 
-// Primary user profile page
+/* Primary user profile page.
+    From here, the user can see their own data,
+    and can edit it as they please. They can also upload
+    custom profile pictures.
+*/
 class UploadScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // Receives user's data from loginroutes.js response object,
-      email: this.props.userEmail, // which was sent to Loginscreen.js and set as props on that component.
-      first_name: this.props.first,
+      email: this.props.userEmail, // Receives user's data from user.js response object,
+      first_name: this.props.first, // which was sent to Loginscreen.js and set as props on that component.
       last_name: this.props.last,
       bio: this.props.bio,
       admin: this.props.admin,
@@ -29,9 +32,10 @@ class UploadScreen extends Component {
       password: "",
       confirm: "",
       edit: false,
-      file: []
+
+      file: [],
+      fileToBeSent: null
     };
-    this.handleClick = this.handleClick.bind(this);
   }
 
   editClick(event) {
@@ -43,17 +47,30 @@ class UploadScreen extends Component {
     }
   }
 
-<<<<<<< HEAD
-=======
   handleFile(event) {
     console.log("File Handled");
   }
 
-  onClick(event) {
+  onClick(event) {}
 
-  }
+  // Changes state of the component when a user selects a profile picture to upload.
+  fileSelectHandler = event => {
+    //console.log(event.target.files[0]);
+    this.setState({ fileToBeSent: event.target.files[0] });
+  };
 
->>>>>>> OOOOOH HES TRYIN
+  // Submits a file as an API request, to store the file. Currently not functional.
+  fileUploadHandler = () => {
+    var apiImageUrl = "http://localhost:5000/api/user/images";
+    console.log(this.state.fileToBeSent);
+    //  payload.append('file', this.state.fileToBeSent);
+    var payload = { email: this.state.email, file: this.state.fileToBeSent };
+    console.log(payload);
+    axios.post(apiImageUrl, payload).then(res => {
+      console.log(res);
+    });
+  };
+
   handleClick(event) {
     // Sends edited user information as an API request
     var apiBaseUrl = "http://localhost:5000/api/";
@@ -113,6 +130,7 @@ class UploadScreen extends Component {
                 <SettingsIcon />
               </IconButton>
             }
+            style={{ backgroundColor: "#478fcd" }}
             onLeftIconButtonClick={event => this.editClick(event)}
           />
           <header
@@ -132,7 +150,7 @@ class UploadScreen extends Component {
           </header>
           <br />
           <img
-            src={Globe}
+            src={""}
             alt="profile pic"
             style={{ height: 140, width: 140, margin: "auto" }}
           />
@@ -144,16 +162,37 @@ class UploadScreen extends Component {
           <p>
             <u style={{ color: "#262262" }}>Bio:</u>&nbsp;&nbsp;{this.props.bio}{" "}
           </p>
+
           <RaisedButton
             containerElement="label"
             label="Upload Profile Picture"
-            style={{visibility: status}}
+            style={{ visibility: status }}
             onClick={event => this.onClick(event)}
           >
-            <input type="file" accept=".png,.jpg"
-            onChange={(event, newFile) => this.setState({file: newFile})}/>
+            <input
+              type="file"
+              accept=".png,.jpg"
+              onChange={(event, newFile) => this.setState({ file: newFile })}
+            />
           </RaisedButton>
-          <br/>
+          <br />
+          <form
+            ref="uploadForm"
+            id="uploadForm"
+            action="http://localhost:5000/api/user/images"
+            method="post"
+            encType="multipart/form-data"
+          >
+            <input type="file" name="file" accept=".png, .jpg" />
+            <input type="submit" value="Upload!" />
+            <input
+              id="email"
+              value={this.state.email}
+              style={{ visibility: "hidden" }}
+            />
+          </form>
+          <br />
+
           <TextField
             hintText="Edit your first name."
             floatingLabelText="First name"

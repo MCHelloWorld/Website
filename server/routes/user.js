@@ -1,20 +1,24 @@
+// user.js contains all of our critical APIs for login, registration,
+// etc. Currently they all receive data from axios posts from our frontend
+// JavaScript pages.
 var mysql = require("mysql");
 var connection = require("./connection");
 const CryptoJS = require("crypto-js");
 const sessionUtils = require("./session");
 const cookieSession = require("cookie-session");
 var CryptoKey = "kd2iewGN3Q9PGV8HNQ3G";
-// Updating a user's profile information
-exports.edit = function(req, res) {
-  //bcrypt.hash(req.body.password, 5, function(err, bcryptedPassword) {
-  var payload = {};
-  var email = req.body.email;
 
-  // Generates salt-rounded password
+// Request for updating a user's profile information.
+exports.edit = function(req, res) {
+  var payload = {};
+
+  // Generates salt-rounded password if necessary
   if (req.body.hasOwnProperty("password")) {
     var hashed = CryptoJS.AES.encrypt(req.body.password, passCrypto);
     payload.hash = hashed;
   }
+
+  // If different elements of the payload are present, add them to the query field list
   if (req.body.hasOwnProperty("first_name"))
     payload.first_name = req.body.first_name;
   if (req.body.hasOwnProperty("last_name"))
@@ -22,37 +26,37 @@ exports.edit = function(req, res) {
   if (req.body.hasOwnProperty("bio")) payload.bio = req.body.bio;
   payload.modified = new Date();
 
-  var emailStr = ' WHERE email = "' + email + '"';
-  //  Select from the database where the email is the value delivered by payload
-  connection.query("SELECT * FROM user WHERE email = ?", email, function(
-    error,
-    results,
-    fields
-  ) {
-    console.log(results.length);
-    if (results.length > 0) {
-      var str = "UPDATE user SET ?" + emailStr;
-      // Updates row in the database
-      connection.query(str, payload, function(error, results, fields) {
-        if (error) {
-          console.log(error);
-        } else {
-          res.send({
-            code: 200,
-            success: "Success!",
-            returned: payload
-          });
-        }
-      });
+  // This is done to create a proper WHERE clause in our query.
+  var emailStr = ' WHERE email = "' + req.body.email + '"';
+
+  // Select from the database where the email is the value delivered by payload
+  connection.query(
+    "SELECT * FROM user WHERE email = ?",
+    req.body.email,
+    function(error, results, fields) {
+      console.log(results.length);
+      if (results.length > 0) {
+        var str = "UPDATE user SET ?" + emailStr;
+        // Updates row in the database
+        connection.query(str, payload, function(error, results, fields) {
+          if (error) {
+            console.log(error);
+          } else {
+            res.send({
+              code: 200,
+              success: "Success!",
+              returned: payload
+            });
+          }
+        });
+      }
     }
-  });
+  );
 };
 
-// Runs when a user regsiters a new profile
+// Request for new user registration. Creates new
+// entry in the user table in our database.
 exports.register = function(req, res, next) {
-  // console.log("req",req.body);
-
-
   var hash = CryptoJS.AES.encrypt(req.body.password, CryptoKey);
 
   if (sessionUtils.getSession(req)) {
@@ -82,7 +86,7 @@ exports.register = function(req, res, next) {
       });
     } else {
       console.log("The solution is: ", results);
-      sessionUtils.initSession(req,res, email, next);
+      sessionUtils.initSession(req, res, email, next);
       res.send({
         code: 200,
         success: "user registered sucessfully"
@@ -91,91 +95,92 @@ exports.register = function(req, res, next) {
   });
 };
 
-exports.images = function(req, res) {
-  if (getSession(req)) {
-    req.send({session: "valid"});
-  }
-  //check if images contains a file
+// Profile picture uploading requests; inserts file as a BLOB
+// into our database.
+// Still a work in progress
+exports.images = function(req, res, next) {
+  if (!req.files) return res.status(400).send("No files were uploaded.");
   var today = new Date();
-
-connection.query(
-  "UPDATE user SET profile_picture = ? modified = ? WHERE EMAIL = ?",
- [ req.body.pic, today, req.body.email ],
- function(error, results, fields)
-  {
-   if(error) {
-      console.log("Error occurred: ", error);
-      res.send({
-        code: 400
-      })
-    } else {
-      console.log("Success!")
-      res.send({
-        code: 200
-      })
+  let sampleFile = req.files.file;
+  console.log(sampleFile);
+  connection.query(
+    "UPDATE user SET profile_picture = ?, modified = ? WHERE email = ?",
+    [sampleFile.data, today, req.body.email],
+    function(error, results, fields) {
+      if (error) {
+        console.log(error);
+        res.send({
+          code: 400
+        });
+      } else {
+        res.send({
+          code: 200
+        });
+      }
     }
+  );
+  // Use the mv() method to place the file somewhere on your server
+  // sampleFile.mv('../src/css/images/', function(err) {
+  //   if (err)
+  //     return res.status(500).send(err);
+  //
+  //   res.send('File uploaded!');
+  // });
+};
 
-  })
-}
-
-
-// Eventually .login will be exported  from this file instead of loginroutes.js
-exports.login = (req, res,next) => {
-  console.log("<Login hit>")
+// User login requests; checks database for entry matching the entered
+// credentials.
+exports.login = (req, res, next) => {
   var email = req.body.email;
   var password = req.body.password;
+  var userId = sessionUtils.getSession(req, res, next);
 
-//hash = "111111";
-  var userId = sessionUtils.getSession(req,res,next);
-  /**if (userId > -1) {
-    res.send({
-      session: "valid"
-    });/
-  } else {**/
+  //hash = "111111";
+  var userId = sessionUtils.getSession(req, res, next);
 
-
-    connection.query(
-      "Select * from user where email = ?",
-      [ email ],
-      function(error, results, fields) {
-        compare = true; ///bcrypt.compare(results[0].hash, password);
-        if (error) {
-          console.log("error ocurred", error);
-          if(error = "ER_DUP_ENTRY"){
-            res.send({
-              code: 204,
-            });
-          }
-        }
-         else if (results[0]!= null){
-          var dPassword = CryptoJS.AES.decrypt(results[0].hash, CryptoKey).toString(CryptoJS.enc.Utf8);
-console.log("the dpassword is: "+dPassword+" and the password is: "+ password);
-          if(dPassword == password){
-            sessionUtils.initSession(req,res, email,next);
-
-            res.send({    // Sends back user's information  for use in the React components
-              code: 200,
-            success: "user registered sucessfully",
-            session: "valid",
-            first: results[0].first_name,
-            last: results[0].last_name,
-            email: results[0].email,
-            username: results[0].username,
-            pic: results[0].url,
-            admin: results[0].is_admin,
-            bio: results[0].bio,
-          });
-        }else{ res.send({code:401})};
-
-        }else{
-          res.send({
-            code:401,
-          });
-        }
+  connection.query("SELECT * FROM user WHERE email = ?", [email], function(
+    error,
+    results,
+    fields
+  ) {
+    compare = true;
+    if (error) {
+      console.log("error ocurred", error);
+      res.send({
+        code: 400,
+        failed: "error ocurred"
+      });
+    } else if (results[0] !== null) {
+      var dPassword = CryptoJS.AES.decrypt(results[0].hash, CryptoKey).toString(
+        CryptoJS.enc.Utf8
+      );
+      console.log(
+        "the dpassword is: " + dPassword + " and the password is: " + password
+      );
+      if (dPassword == password) {
+        sessionUtils.initSession(req, res, email, next);
+        res.send({
+          // Sends back user's information for use as props in the React components
+          code: 200,
+          success: "user logged sucessfully",
+          session: "valid",
+          first: results[0].first_name,
+          last: results[0].last_name,
+          email: results[0].email,
+          username: results[0].username,
+          pic: results[0].url,
+          admin: results[0].is_admin,
+          bio: results[0].bio
+        });
+      } else {
+        res.send({ code: 401 });
       }
-    );
-    //}
-  //}
+    } else {
+      res.send({
+        code: 401
+      });
+    }
+  });
 };
 
 // Function to get a user's data based on an email
