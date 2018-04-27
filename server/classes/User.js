@@ -16,7 +16,7 @@ class User {
   init(id) {
     return this.initialize(id);
   }
-  async initialize(id) {
+  initialize(id) {
     var send = null;
     var back = null;
 
