@@ -10,7 +10,6 @@ import banner from "../css/images/banner.png";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import IconButton from "material-ui/IconButton";
 import SettingsIcon from "material-ui/svg-icons/action/settings";
-//import ImageUploader from './ImageUploader';
 import Globe from "../css/images/globe.png";
 var status = "hidden";
 
@@ -162,35 +161,6 @@ class UploadScreen extends Component {
           <p>
             <u style={{ color: "#262262" }}>Bio:</u>&nbsp;&nbsp;{this.props.bio}{" "}
           </p>
-
-          <RaisedButton
-            containerElement="label"
-            label="Upload Profile Picture"
-            style={{ visibility: status }}
-            onClick={event => this.onClick(event)}
-          >
-            <input
-              type="file"
-              accept=".png,.jpg"
-              onChange={(event, newFile) => this.setState({ file: newFile })}
-            />
-          </RaisedButton>
-          <br />
-          <form
-            ref="uploadForm"
-            id="uploadForm"
-            action="http://localhost:5000/api/user/images"
-            method="post"
-            encType="multipart/form-data"
-          >
-            <input type="file" name="file" accept=".png, .jpg" />
-            <input type="submit" value="Upload!" />
-            <input
-              id="email"
-              value={this.state.email}
-              style={{ visibility: "hidden" }}
-            />
-          </form>
           <br />
 
           <TextField
