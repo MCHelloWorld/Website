@@ -149,7 +149,7 @@ class UploadScreen extends Component {
           </header>
           <br />
           <img
-            src={""}
+            src={Globe}
             alt="profile pic"
             style={{ height: 140, width: 140, margin: "auto" }}
           />
