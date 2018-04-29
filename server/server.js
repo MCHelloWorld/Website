@@ -89,7 +89,7 @@ router.post("/user/edit", user.edit); // editing profile information
 //router.post("/user/status", function(req, res) {
 // determines if a user is logged in
 
-router.post("/register", user.register); // Route to handle user registration
+//router.post("/register", user.register); // Route to handle user registration
 router.post("/login", function(req, res, next) {
   // Route to handle login
   console.log("login hit!");
