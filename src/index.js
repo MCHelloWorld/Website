@@ -9,6 +9,11 @@ import App from "./components/App.js";
 var Root = () => {
   return (
     <AppState>
+      <header>
+        <a href="http://localhost:3000/">Main Site</a>
+        <a href="http://localhost:3001/">React Redux</a>
+        <a href="http://localhost:8080/">Proof of Concept</a>
+      </header>
       <App />
     </AppState>
   );

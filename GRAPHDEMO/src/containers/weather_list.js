@@ -22,13 +22,13 @@ class WeatherList extends Component {
           <GoogleMap lon={lon} lat={lat} />
         </td>
         <td>
-          <Chart data={temps} color="orange" units="K" />
+          <Chart data={temps} color="orange" units="Weekly" />
         </td>
         <td>
-          <Chart data={pressures} color="green" units="hPa" />
+          <Chart data={pressures} color="green" units="Monthly" />
         </td>
         <td>
-          <Chart data={humidities} color="black" units="%" />
+          <Chart data={humidities} color="black" units="Semester" />
         </td>
       </tr>
     );
@@ -39,10 +39,10 @@ class WeatherList extends Component {
       <table className="table table-hover">
         <thead>
           <tr>
-            <th>City </th>
-            <th>Temperature (K)</th>
-            <th>Pressure (hPa)</th>
-            <th>Humidity (%)</th>
+            <th>Example of a Personalized Image</th>
+            <th>Weekly</th>
+            <th>Monthly</th>
+            <th>Semester</th>
           </tr>
         </thead>
         <tbody>{this.props.weather.map(this.renderWeather)}</tbody>
