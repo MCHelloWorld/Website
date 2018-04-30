@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class Secret extends Component {
   render() {
@@ -10,12 +10,12 @@ class Secret extends Component {
             UH-OH YOU JUST MADE IT TO THE SECRET PAGE
           </h1>
           <Link to="/" className="App-title">
-            click here to go back
+            Click here to go to the homepage
           </Link>
         </header>
       </div>
-    )
+    );
   }
 }
 
-export default Secret
+export default Secret;

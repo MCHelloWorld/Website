@@ -1,22 +1,25 @@
-import React, { Component } from 'react'
-import './User.css'
-import LoginScreen from './LoginScreen'
+import React, { Component } from "react";
+import "./User.css";
+import LoginScreen from "./LoginScreen";
 
+// This component Loginscreen component, then the profile page, which is
+// UploadScreen.js
 class User extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       loginPage: [],
-      uploadScreen: [],
-    }
+      uploadScreen: []
+    };
   }
 
+  // Sets the correct state when the component is first rendered.
   componentWillMount() {
-    var loginPage = []
-    loginPage.push(<LoginScreen parentContext={this} />)
+    var loginPage = [];
+    loginPage.push(<LoginScreen parentContext={this} />);
     this.setState({
-      loginPage: loginPage,
-    })
+      loginPage: loginPage
+    });
   }
   render() {
     return (
@@ -24,7 +27,7 @@ class User extends Component {
         {this.state.loginPage}
         {this.state.uploadScreen}
       </div>
-    )
+    );
   }
 }
-export default User
+export default User;
