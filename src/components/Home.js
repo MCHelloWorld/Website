@@ -44,6 +44,8 @@ class Home extends Component {
               onClick={event => this.handleClick(event)}
             />
           </div>
+          <h1>Events</h1>
+          <h2>(Calendar goes here)</h2>
           <hr />
           <h1>What We Do & Who We Are</h1>
           <RaisedButton
