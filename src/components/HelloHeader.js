@@ -3,6 +3,7 @@ import logo from "../css/images/logo.png";
 import banner from "../css/images/banner.png";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import AppBar from "material-ui/AppBar";
+import FlatButton from "material-ui/FlatButton"
 import PropTypes from "prop-types";
 
 // Default header for use in other pages on our site. Uses
@@ -29,7 +30,10 @@ class MenuAppBar extends Component {
     return (
       <div className="alright">
         <MuiThemeProvider>
-          <AppBar title="Hello World" style={{ backgroundColor: "#478fcd" }} />
+          <AppBar title="Hello World" style={{ backgroundColor: "#478fcd" }}
+          iconElementRight={
+            <FlatButton href='/User'>Log In</FlatButton>
+          }/>
         </MuiThemeProvider>
       </div>
     );

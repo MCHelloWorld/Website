@@ -37,7 +37,8 @@ class FAQ extends Component {
             <p>
               The club meets in Frey 151, the Computer Science Lounge.
               Typically, meetings are held on Thursdays at 7pm, and run for
-              about an hour.
+              about an hour. <br/>
+              (Also, there's usually food!)
             </p>
           </div>
           <br />
@@ -78,8 +79,9 @@ class FAQ extends Component {
             </h2>
             <p>
               Have you tried turning it off and on again?<br />
-              (But seriously, you should take it to SCS. They'll be happy to
-              help!)
+              (But seriously, you should take it to {" "}
+            <a href='https://www.messiah.edu/info/20154/information_technology_services/198/student_computer_services_scs'>SCS.</a>
+             {" "} They'll be happy to help!)
             </p>
           </div>
           <br />
