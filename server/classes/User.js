@@ -1,107 +1,42 @@
-const connection = require("../routes/connection.js");
+//const connection = require("../routes/connection.js");
 const sessionUtils = require("../routes/session.js");
 const CryptoJS = require("crypto-js");
 const deasync = require("deasync");
 const cp = require("child_process");
+const connection = require("../utils/deasyncSQL.js");
 var exec = deasync(cp.exec);
 var CryptoKey = "kd2iewGN3Q9PGV8HNQ3G";
 class User {
-  constructor(id) {
-    var id = id;
+  constructor(values) {
     this.values = {};
-    if (id != -1) {
-      this.initialize(id);
+    for (var i; i < values.length; i++) {
+      constrcutor.values;
     }
   }
-  init(id) {
-    return this.initialize(id);
-  }
-  initialize(id) {
+
+  async initialize(id) {
     var send = null;
     var back = null;
+    var lthis = this;
+    console.log("initialize hit");
+    var received = await connection("Select * from user where user_id = ?", [
+      id
+    ]);
+    this.values = received[0];
+    this.test = "test";
 
-    connection.query("Select * from user where user_id = ?", [id], function(
-      error,
-      results,
-      fields
-    ) {
-      if (error) {
-        console.log("error ocurred", error);
-      } else if (results[0] != null) {
-        this.values = results[0];
-      }
-    });
-
-    /*  return await resolveAfter2Seconds();
-    async function resolveAfter2Seconds() {
-      return await new Promise(resolve => {
-        setTimeout(() => {
-          resolve("resolved");
-        }, 2000);
-      });
-    }
-    //TODO: modify with better synchronous functions
-    /**SyncFunction();
-    function SyncFunction() {
-      var ret;
-      setTimeout(function() {
-        ret = "hey";
-        console.log("looping");
-      }, 3000);
-      while (query instanceof Promise) {
-        require("deasync").sleep(100);
-      }
-      // returns hello with sleep; undefined without
-      return query;
-    }
-
-    /*======
-
-     paste this block to test await within
-
-     an async function
-
-     ======*
-
-    function resolveAfter2Seconds() {
-
-    }
-
-    console.log("calling");
-
-    var result = await resolveAfter2Seconds();
-
-    console.log(result);
-
-    // expected output: "resolved"
-
-    /*======*/
+    console.log(received[0] + "recieved from the database");
+    console.log(typeof this);
   }
   //requires an array of values
-  static getUsers(ids) {
-    var values = "";
-    var counter = 0;
-    var setOr = "";
+  static async getUser(id) {
+    var conn = null;
 
-    for (var key in ids) {
-      if (counter > 0) {
-        setOr = "OR";
-      }
-
-      values += setOr + ids[key];
-    }
-    connection.query("Select * from user where user_id = ?", [id], function(
-      error,
-      results,
-      fields
-    ) {
-      if (error) {
-        console.log("error ocurred", error);
-      } else if (results[0] != null) {
-        this.values = results[0];
-      }
-    });
+    conn = await connection("SELECT * FROM user WHERE user_id = ?", [id]);
+    console.log("conn=" + conn);
+    return conn;
   }
+
   static updateUser(email, req, res) {
     var updates = req.body;
     var fields = "";
@@ -266,3 +201,6 @@ class User {
 })();//*/
 //console.log("this is a value: the last thing that should show up", user.values);
 exports.User = User;
+exports.userobject = async function(id) {
+  return await new User(id);
+};
