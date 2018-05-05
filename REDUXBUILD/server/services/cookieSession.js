@@ -1,8 +1,7 @@
 const cookieSession = require("cookie-session");
 const passport = require("passport");
-const keys = require("../config/keys");
 
-module.exports = app => {
+module.exports = (app, keys) => {
   app.use(
     cookieSession({
       maxAge: 30 * 24 * 60 * 60 * 1000,
