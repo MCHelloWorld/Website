@@ -1,7 +1,7 @@
 // server/services/mySQL.js
 // establish a mySQL connection
 
-const mysql = require("mysql");
+const mysql = require("mysql2");
 
 module.exports = (app, keys) => {
   //𝕿𝖍𝖎𝖘 connects to the mySQL database

@@ -11,7 +11,8 @@ module.exports = (app, keys) => {
   passport.use(
     "local-login",
     new LocalStrategy(authOpts, async (email, password, done) => {
-      var myUser = {
+      var myUser = {};
+      var user = {
         id: "5ada1a9ad3d3c82faabd70ee",
         username: "admin1@messiah.edu",
         password: "KgeFPwNvpkmluLGc59d7",
@@ -21,7 +22,7 @@ module.exports = (app, keys) => {
 
       const sql = "SELECT * FROM user WHERE email = ?";
 
-      await app.connection.query(sql, [email], (err, results, fields) => {
+      app.connection.query(sql, [email], (err, results, fields) => {
         // Helper Assignments
         row = results[0];
 
@@ -35,6 +36,8 @@ module.exports = (app, keys) => {
 
         // Check password equivalence
         if (decryptedPass != password) return done(null, false);
+
+        for (var i in row) myUser[i] = row[i];
 
         return done(null, myUser);
       });

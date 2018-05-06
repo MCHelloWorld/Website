@@ -25,8 +25,10 @@ class Login extends Component {
 
     await this.props.localLogin({ email, password });
 
-    if (!this.props.login.success)
-      return this.setState({ error: this.props.login.message });
+    if (!this.props.login.success) {
+      const error = this.props.login.message;
+      return this.setState({ error });
+    }
 
     this.props.fetchUser();
   }
