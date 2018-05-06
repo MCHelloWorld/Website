@@ -4,13 +4,13 @@ const CryptoJS = require("crypto-js");
 
 module.exports = (app, keys) => {
   const authOpts = {
-    usernameField: "username",
+    usernameField: "email",
     passwordField: "password"
   };
 
   passport.use(
     "local-login",
-    new LocalStrategy(authOpts, async (username, password, done) => {
+    new LocalStrategy(authOpts, async (email, password, done) => {
       var myUser = {
         id: "5ada1a9ad3d3c82faabd70ee",
         username: "admin1@messiah.edu",
@@ -21,21 +21,20 @@ module.exports = (app, keys) => {
 
       const sql = "SELECT * FROM user WHERE email = ?";
 
-      await app.connection.query(sql, [username], (err, results, fields) => {
+      await app.connection.query(sql, [email], (err, results, fields) => {
         // Helper Assignments
         row = results[0];
 
         // Error Checking
-        if (err) return done(null, false, { message: "failure message" });
-        if (row === undefined)
-          return done(null, false, { message: "failure message" });
+        if (err) return done(null, false);
+        if (row === undefined) return done(null, false);
 
         // Decrypt password
         var decryptedBytes = CryptoJS.AES.decrypt(row.hash, keys.cryptoKey);
         var decryptedPass = decryptedBytes.toString(CryptoJS.enc.Utf8);
 
         // Check password equivalence
-        if (decryptedPass != password) return done("no match", false);
+        if (decryptedPass != password) return done(null, false);
 
         return done(null, myUser);
       });

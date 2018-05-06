@@ -6,12 +6,14 @@
 import { combineReducers } from "redux";
 //𝕿𝖍𝖊 following imports are needed to combine reducer files from src/reducers
 import authReducer from "./authReducer";
+import loginReducer from "./loginReducer";
 
 /* ========================================================================== ~\
 |  COMBINE THE REDUCERS
 \* ========================================================================== */
 export default combineReducers({
-  auth: authReducer
+  auth: authReducer,
+  login: loginReducer
 });
 
 /* ========================================================================== ~\
