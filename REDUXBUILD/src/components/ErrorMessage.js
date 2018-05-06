@@ -5,13 +5,17 @@ const ErrorMessage = props => {
     if (props.links)
       return (
         <div className="card-action">
-          {props.links.map(shit => <a href={shit.href}>{shit.content}</a>)}
+          {props.links.map((obj, i) => (
+            <a key={i} href={obj.href}>
+              {obj.content}
+            </a>
+          ))}
         </div>
       );
     else {
     }
   }
-
+  console.log(props.display);
   if (props.display === false) return null;
 
   return (
