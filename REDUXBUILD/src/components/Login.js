@@ -35,10 +35,10 @@ class Login extends Component {
     return (
       <div className="container">
         <ErrorMessage
-          display={this.props.login ? !this.props.login.success : ""}
+          display={!!this.props.login ? !this.props.login.success : false}
           error={this.props.login ? this.props.login.message : "none"}
-          desc="well darn, "
-          links={[{ href: "#asdf", content: "asdf-ify that url" }]}
+          desc="well darn..."
+          links={[{ href: "/SignUp", content: "Have you signed up?" }]}
         />
         <form onSubmit={this.onLoginSubmit} method="post" className="col s12">
           <div className="row">
@@ -65,7 +65,9 @@ class Login extends Component {
                 onChange={this.onInputChange}
               />
               <label>
-                {this.state.password ? this.state.password : "Password"}
+                {this.state.password
+                  ? "*".repeat(this.state.password.length)
+                  : "Password"}
               </label>
             </div>
           </div>
