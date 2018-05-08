@@ -43,6 +43,7 @@ class App extends Component {
             render={() => <Special {...this.props} />}
           />
           <Route exact path="/FAQ" render={() => <FAQ {...this.props} />} />
+          <Route exact path="/Events" render={() => <Events {...this.props} />}/>
           <Route
             exact
             path="/Sponsor"

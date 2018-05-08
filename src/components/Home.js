@@ -59,6 +59,13 @@ class Home extends Component {
           </MuiThemeProvider>
           <iframe src="https://calendar.google.com/calendar/embed?src=helloworld%40messiah.edu&ctz=America%2FNew_York" className='curved'
           title="calendar" width={800} height={600} frameborder={0} scrolling="no"></iframe>
+          <br/>
+          <RaisedButton
+            label="Upcoming Events"
+            primary={true}
+            style={style}
+            href="/Events"
+          />
 
       </div>
     );
