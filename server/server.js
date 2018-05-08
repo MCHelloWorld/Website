@@ -23,14 +23,14 @@ app = express();
 
 //app.private =  require("./private_config.js");
 //establish an express routing app and assign it's url interpretation properties.
-app.use(bodyParser.urlencoded({ extended: true })); // QUESTION: What is body parser for? ~James ANSWER: I dunno, but the tutorial said we needed it. ~ Josh
+app.use(bodyParser.urlencoded({ extended: true })); // BodyParser: Allows us to parse JSON data in get and post requests
 app.use(bodyParser.json());
 
 /*app.use(function(req, res, next) {
 
 
 // Establish an express routing app and assign it's url interpretation properties.
-app.use(bodyParser.urlencoded({ limit: '5mb', extended: true })); // QUESTION: What is body parser for? ~James ANSWER: I dunno, but the tutorial said we needed it. ~ Josh
+app.use(bodyParser.urlencoded({ limit: '5mb', extended: true }));
 app.use(bodyParser.json({limit: '5mb'}));
 app.use(fileUpload())
 app.use(function(req, res, next) {

@@ -95,38 +95,6 @@ exports.register = function(req, res, next) {
   });
 };
 
-// Profile picture uploading requests; inserts file as a BLOB
-// into our database.
-// Still a work in progress
-exports.images = function(req, res, next) {
-  if (!req.files) return res.status(400).send("No files were uploaded.");
-  var today = new Date();
-  let sampleFile = req.files.file;
-  console.log(sampleFile);
-  connection.query(
-    "UPDATE user SET profile_picture = ?, modified = ? WHERE email = ?",
-    [sampleFile.data, today, req.body.email],
-    function(error, results, fields) {
-      if (error) {
-        console.log(error);
-        res.send({
-          code: 400
-        });
-      } else {
-        res.send({
-          code: 200
-        });
-      }
-    }
-  );
-  // Use the mv() method to place the file somewhere on your server
-  // sampleFile.mv('../src/css/images/', function(err) {
-  //   if (err)
-  //     return res.status(500).send(err);
-  //
-  //   res.send('File uploaded!');
-  // });
-};
 
 // User login requests; checks database for entry matching the entered
 // credentials.
