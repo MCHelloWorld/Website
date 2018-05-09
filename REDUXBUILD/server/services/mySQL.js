@@ -8,7 +8,10 @@ module.exports = (app, keys) => {
   app.connection = mysql.createConnection(keys.mySQL);
 
   app.connection.connect(function(err) {
-    if (err) throw err;
-    else console.log("Database is connected. (mySQL.js)");
+    if (err) {
+      console.log("Database is connected. (mySQL.js)".underline.error);
+    } else {
+      console.log("Database is connected. (mySQL.js)".underline.green);
+    }
   });
 };

@@ -36,7 +36,6 @@ class Login extends Component {
   render() {
     return (
       <div className="container">
-        {console.log("this.props.login", this.props.login)}
         <ErrorMessage
           display={!!this.props.login ? !this.props.login.success : false}
           error={this.props.login ? this.props.login.message : "none"}

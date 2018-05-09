@@ -13,6 +13,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bluebird": "^3.5.1",
+    "colors": "^1.2.4",
     "concurrently": "^3.5.1",
     "connect-ensure-login": "^0.1.1",
     "connect-flash": "^0.1.1",

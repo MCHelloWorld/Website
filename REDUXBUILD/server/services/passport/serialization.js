@@ -13,10 +13,6 @@ module.exports = (app, keys = null) => {
   });
 
   passport.deserializeUser(async (id, done) => {
-    //console.log("typeof User.findById(id)", typeof User.findById(id));
-    //var user = await User.findById(id);
-    var user = {};
-
     app.connection.query(
       "SELECT * from user WHERE user_id = ?",
       [id],
@@ -24,9 +20,8 @@ module.exports = (app, keys = null) => {
         if (error) throw error;
         var row = results[0];
 
-        console.log("The solution is: ", row);
+        var user = {};
         for (var i in row) user[i] = row[i];
-        console.log(user);
 
         done(null, user);
       }
