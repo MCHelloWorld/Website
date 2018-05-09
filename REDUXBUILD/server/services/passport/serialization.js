@@ -16,6 +16,8 @@ module.exports = (app, keys = null) => {
       (error, results, fields) => {
         if (error) throw error;
 
+        delete results[0].hash;
+
         done(null, results[0]);
       }
     );
