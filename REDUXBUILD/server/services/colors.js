@@ -5,7 +5,7 @@ colors.setTheme({
   input: "grey",
   verbose: "cyan",
   prompt: "grey",
-  info: "green",
+  info: "cyan",
   data: "grey",
   help: "cyan",
   warn: "yellow",

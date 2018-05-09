@@ -11,95 +11,59 @@ module.exports = (app, keys) => {
         proxy: true
       },
       (accessToken, refreshToken, profile, done) => {
-        //const existingUser = await User.findOne({ googleId: profile.id }); //-=-=-=-=-=-=-=-=-= User
-        //
-        const sql = "SELECT * from user WHERE googleId = ?";
-        /*** * * * * * * *
-         * FIND THE USER *
-         * * * * * * * * */
-        app.connection.query(sql, [profile.id], (error, results, fields) => {
-          if (error) throw error;
+        app.connection.query(
+          "SELECT * from user WHERE googleId = ?",
+          [profile.id],
+          (error, results, fields) => {
+            if (error) throw error;
 
-          // if user already exists, stop executing and send that user
-          if (results[0]) return done(null, results[0]);
+            // ★ if user already exists, stop executing and send that user
+            if (results[0]) return done(null, results[0]);
 
-          // *************************************************
-          // if user DOESN'T already exist, make a new account
-          // *************************************************
+            // ★ if user DOESN'T already exist, make a new account
 
-          // DECLARE VARIABLES
-          var now = new Date(),
-            first = profile.name.givenName,
-            last = profile.name.familyName,
-            email = profile.emails[0].value,
-            usrnm = profile.displayName,
-            googleId = profile.id,
-            hash = "",
-            created = now,
-            modified = now;
+            // DECLARE VARIABLES for the eventual use in the USER object
+            var now = new Date(),
+              first = profile.name.givenName,
+              last = profile.name.familyName,
+              email = profile.emails[0].value,
+              usrnm = profile.displayName,
+              googleId = profile.id,
+              hash = "",
+              created = now,
+              modified = now;
 
-          // CHECK VARIABLE LENGTH
-          first_name = first.length > 20 ? first.substring(0, 20) : first;
-          last_name = last.length > 20 ? last.substring(0, 20) : last;
-          email = email.length > 20 ? email.substring(0, 45) : email;
-          username = usrnm.length > 20 ? usrnm.substring(0, 20) : usrnm;
+            // CHECK VARIABLE LENGTH and make it smaller if necessary
+            first_name = first.length > 20 ? first.substring(0, 20) : first;
+            last_name = last.length > 20 ? last.substring(0, 20) : last;
+            email = email.length > 20 ? email.substring(0, 45) : email;
+            username = usrnm.length > 20 ? usrnm.substring(0, 20) : usrnm;
 
-          // CREATE USER OBJECT
-          var user = {
-            first_name,
-            last_name,
-            email,
-            username,
-            googleId,
-            hash,
-            created,
-            modified
-          };
+            // CREATE USER OBJECT
+            var user = {
+              first_name,
+              last_name,
+              email,
+              username,
+              googleId,
+              hash,
+              created,
+              modified
+            };
 
-          app.connection.query(
-            "INSERT INTO user SET ?",
-            user,
-            (error, results, fields) => {
-              if (error) throw error;
-              user.user_id = results.insertId;
-              done(null, user);
-            }
-          );
-          // */
-        });
+            app.connection.query(
+              "INSERT INTO user SET ?",
+              user,
+              (error, results, fields) => {
+                if (error) throw error;
+
+                user.user_id = results.insertId;
+                done(null, user);
+              }
+            );
+          }
+        );
       }
     )
   );
 };
-
-// OTHERWISE CREATE A NEW USER
-/*
-  var today = new Date();
-
-  var users = {
-    first_name: profile.name.givenName,
-    last_name: profile.name.familyName,
-    email: HEYYYYYYYY MANNNN YOUUU NEEED TO DEBUG THIS JUNK,
-    username: profile.displayName,
-    hash: null,
-    created: today,
-    modified: today
-  }
-  _json:
-      { kind: 'plus#person',
-        etag: '"RKS4-q7QGL10FxltAebpjqjKQR0/NgdmKpdos-Pp-R0rB2uSJawrZo0"',
-        emails: [ [Object] ],
-        objectType: 'person',
-        id: '113992969331225066916',
-        displayName: 'James Gelok',
-        name: { familyName: 'Gelok', givenName: 'James' },
-        url: 'https://plus.google.com/113992969331225066916',
-        image:
-         { url: 'https://lh6.googleusercontent.com/-vb-q2soCZo0/AAAAAAAAAAI/AAAAAAAAApQ/oV2uY4kpTw0/photo.jpg?sz=50',
-           isDefault: false },
-        isPlusUser: true,
-        language: 'en',
-        circledByCount: 5,
-        verified: false,
-        cover: { layout: 'banner', coverPhoto: [Object], coverInfo: [Object] } } }
-        */

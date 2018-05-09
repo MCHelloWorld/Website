@@ -9,18 +9,14 @@ module.exports = (app, keys = null) => {
     done(null, user.user_id);
   });
 
-  passport.deserializeUser(async (id, done) => {
+  passport.deserializeUser((id, done) => {
     app.connection.query(
       "SELECT * from user WHERE user_id = ?",
       [id],
       (error, results, fields) => {
         if (error) throw error;
-        var row = results[0];
 
-        var user = {};
-        for (var i in row) user[i] = row[i];
-
-        done(null, user);
+        done(null, results[0]);
       }
     );
   });
