@@ -4,7 +4,7 @@ var User = require("../classes/User.js");
 
 router.post("/login", function(req, res, next) {
   console.log("login hit!");
-  User.User.login(req, res, next);
+  User.login(req, res, next);
 });
 
 router.post("/register", function(req, res, next) {
@@ -19,6 +19,10 @@ router.put("/update", function(req, res, next) {
     res.send({ code: 200 });
   }
 });
+router.get("/get", function(req, res, next) {
+  var response = User.User.getUser();
+  console.log(response);
+});
 
 //router.get("/get", User.User.getUsers);
 
@@ -27,5 +31,11 @@ router.delete("/delete", function(req, res, next) {
     console.log("deleted");
     res.send("200");
   }
+});
+
+router.get("/playground", async function(req, res, next) {
+  const localuser = await User.getUser(81);
+
+  res.send(localuser.values.first_name + " local values");
 });
 exports.router = router;

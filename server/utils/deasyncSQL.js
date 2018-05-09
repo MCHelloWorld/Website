@@ -22,8 +22,8 @@ connection.connect(function(err) {
     console.log("Error connecting database. (connection.js)");
   }
 });
-
-function deaconnect(input, array) {
+//non-asynchronous connection
+function query(input, array) {
   return new Promise(function(resolve, reject) {
     connection.query(input, array, function(error, results, fields) {
       if (error) {
@@ -36,7 +36,5 @@ function deaconnect(input, array) {
     });
   });
 }
-async function getConnect(input, array) {
-  return await deaconnect(input, array);
-}
-module.exports = getConnect;
+
+module.exports = query;

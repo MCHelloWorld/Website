@@ -1,104 +1,32 @@
-const connection = require("../routes/connection.js");
+const connection = require("../utils/deasyncSQL.js");
 const sessionUtils = require("../routes/session.js");
-
 const deasync = require("deasync");
 const cp = require("child_process");
 var exec = deasync(cp.exec);
 
 class Event {
-  constructor(id) {
+  constructor(values) {
     var id = id;
+    g;
     this.values = {};
     this.initialize(id);
   }
-  init(id) {
-    return this.initialize(id);
-  }
-  async initialize(id) {
-    var send = null;
-    var back = null;
 
-    connection.query("Select * from event where event_id = ?", [id], function(
-      error,
-      results,
-      fields
-    ) {
-      if (error) {
-        console.log("error ocurred", error);
-      } else if (results[0] != null) {
-        this.values = results[0];
-      }
-    });
-
-    /*  return await resolveAfter2Seconds();
-    async function resolveAfter2Seconds() {
-      return await new Promise(resolve => {
-        setTimeout(() => {
-          resolve("resolved");
-        }, 2000);
-      });
+  /**returns a list of events. will return events in DESC order
+  by date
+  num - int- the number of eveents you would lie returned
+  */
+  static async getEvents(num) {
+    var num = num;
+    var retEvents = null;
+    var events = await connection(
+      "SELECT * FROM events LIMIT ? ORDER BY data DESC",
+      [num]
+    );
+    for (var i = 0; i < events.length; i++) {
+      retEvents = events.push(events[i]);
     }
-    //TODO: modify with better synchronous functions
-    /**SyncFunction();
-    function SyncFunction() {
-      var ret;
-      setTimeout(function() {
-        ret = "hey";
-        console.log("looping");
-      }, 3000);
-      while (query instanceof Promise) {
-        require("deasync").sleep(100);
-      }
-      // returns hello with sleep; undefined without
-      return query;
-    }
-
-    /*======
-
-     paste this block to test await within
-
-     an async function
-
-     ======*
-
-    function resolveAfter2Seconds() {
-
-    }
-
-    console.log("calling");
-
-    var result = await resolveAfter2Seconds();
-
-    console.log(result);
-
-    // expected output: "resolved"
-
-    /*======*/
-  }
-  //requires an array of values
-  getEvents(ids) {
-    var values = "";
-    var counter = 0;
-    var setOr = "";
-
-    for (var key in ids) {
-      if (counter > 0) {
-        setOr = "OR";
-      }
-
-      values += setOr + ids[key];
-    }
-    connection.query("Select * from event where event_id = ?", [id], function(
-      error,
-      results,
-      fields
-    ) {
-      if (error) {
-        console.log("error ocurred", error);
-      } else if (results[0] != null) {
-        this.values = results[0];
-      }
-    });
+    return events;
   }
   updateEvent(req, res) {
     var id = req.body.event_id;
@@ -198,4 +126,4 @@ class Event {
 })();//*/
 //console.log("this is a value: the last thing that should show up", user.values);
 
-exports.user = Event;
+module.exports = Event;
