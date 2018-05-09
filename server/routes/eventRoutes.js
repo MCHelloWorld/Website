@@ -1,10 +1,9 @@
 const Event = require("../classes/Event.js");
 var express = require("express");
 var router = express.Router();
-
-router.post("/getEvents", function(req, res, next) {
+router.post("/getevents", function(req, res, next) {
   console.log("register hit!");
-  Event.event.register(req, res, next);
+  Event.getEvents(3);
 });
 
 router.put("/update", function(req, res, next) {
