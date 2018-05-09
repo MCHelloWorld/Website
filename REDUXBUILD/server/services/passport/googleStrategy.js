@@ -11,6 +11,8 @@ module.exports = (app, keys) => {
         proxy: true
       },
       (accessToken, refreshToken, profile, done) => {
+        // same as function(accessToken, refreshToken, profile, done) { ... }
+
         app.connection.query(
           "SELECT * from user WHERE googleId = ?",
           [profile.id],
