@@ -8,8 +8,6 @@ module.exports = (app, keys) => {
 
   require("./cookieSession")(app, keys);
 
-  require("./mongoose")(null, keys);
-
   require("./mySQL")(app, keys);
 
   require("./passport")(app, keys);

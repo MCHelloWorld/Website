@@ -1,7 +1,5 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const mongoose = require("mongoose");
-const User = mongoose.model("users");
 
 module.exports = (app, keys) => {
   passport.use(
@@ -25,27 +23,28 @@ module.exports = (app, keys) => {
           // if user already exists, stop executing and send that user
           if (results[0]) return done(null, results[0]);
 
+          // *************************************************
           // if user DOESN'T already exist, make a new account
+          // *************************************************
 
           // DECLARE VARIABLES
           var now = new Date(),
             first = profile.name.givenName,
-            last_name = profile.name.familyName,
+            last = profile.name.familyName,
             email = profile.emails[0].value,
-            username = profile.displayName,
+            usrnm = profile.displayName,
             googleId = profile.id,
             hash = "",
             created = now,
             modified = now;
 
-          var shrink = (str, n) => str.substring(0, 20);
-
           // CHECK VARIABLE LENGTH
-          first_name = first > 20 ? first.substring(0, 20) : first;
-          last_name = last_name > 20 ? last_name.substring(0, 20) : last_name;
-          email = email > 20 ? email.substring(0, 45) : email;
-          username = username > 20 ? username.substring(0, 20) : username;
-          console.log(last_name);
+          first_name = first.length > 20 ? first.substring(0, 20) : first;
+          last_name = last.length > 20 ? last.substring(0, 20) : last;
+          email = email.length > 20 ? email.substring(0, 45) : email;
+          username = usrnm.length > 20 ? usrnm.substring(0, 20) : usrnm;
+
+          // CREATE USER OBJECT
           var user = {
             first_name,
             last_name,

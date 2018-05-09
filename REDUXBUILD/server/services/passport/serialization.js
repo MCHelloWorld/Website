@@ -2,9 +2,6 @@
 // required for persistent login sessions
 
 const passport = require("passport");
-const mongoose = require("mongoose");
-const User = mongoose.model("users");
-const Promise = require("bluebird");
 
 // passport needs ability to serialize and unserialize users out of session
 module.exports = (app, keys = null) => {
