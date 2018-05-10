@@ -90,6 +90,7 @@ fields - int - an object with key-value pairs, where the keys are matched to DB 
       }
     );
   }
+
   static login(req, res, next) {
     var email = req.body.email;
     var password = req.body.password;

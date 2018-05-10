@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-
+import Events from "./Events.js"
 import Sponsor from "./Sponsor.js";
 import Home from "./Home.js";
 import Secret from "./Secret.js";
@@ -43,6 +43,7 @@ class App extends Component {
             render={() => <Special {...this.props} />}
           />
           <Route exact path="/FAQ" render={() => <FAQ {...this.props} />} />
+          <Route exact path="/Events" render={() => <Events {...this.props} />}/>
           <Route
             exact
             path="/Sponsor"
