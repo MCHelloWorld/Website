@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import HelloHeader from "./HelloHeader.js";
 import RaisedButton from "material-ui/RaisedButton";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import Axios from "axios";
+import axios from "axios";
 
 const style = {
   margin: 15
@@ -12,7 +12,7 @@ class Events extends Component{
   constructor(props) {
     super(props);
     this.state={
-      localArray=[];
+      localArray: []
     };
   }
 
@@ -60,3 +60,4 @@ class Events extends Component{
     )
   }
 }
+export default Events;

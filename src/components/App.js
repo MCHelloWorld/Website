@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-
+import Events from "./Events.js"
 import Sponsor from "./Sponsor.js";
 import Home from "./Home.js";
 import Secret from "./Secret.js";
