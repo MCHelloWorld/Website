@@ -2,7 +2,7 @@ const Event = require("../classes/Event.js");
 var express = require("express");
 var router = express.Router();
 
-///testing
+/*//testing
 var func = async function() {
   var event = Event.getEvents(3);
   console.log(event);
