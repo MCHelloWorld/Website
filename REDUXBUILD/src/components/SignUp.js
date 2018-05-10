@@ -43,12 +43,12 @@ class SignUp extends Component {
 
     console.log(fuck);
 
-    if (!this.props.login.success) {
-      const error = this.props.login.message;
+    if (!this.props.error.success) {
+      const error = this.props.error.message;
       return this.setState({ error });
     }
 
-    // await this.props.localLogin({ email, password });
+    // await this.props.localerror({ email, password });
 
     this.props.fetchUser();
   }
@@ -62,8 +62,8 @@ class SignUp extends Component {
     return (
       <div className="container">
         <ErrorMessage
-          display={!!this.props.login ? !this.props.login.success : false}
-          error={this.props.login ? this.props.login.message : "none"}
+          display={!!this.props.error ? !this.props.error.success : false}
+          error={this.props.error ? this.props.error.message : "none"}
           desc="well darn..."
           links={[{ href: "/SignUp", content: "Have you signed up?" }]}
         />
@@ -147,8 +147,8 @@ class SignUp extends Component {
   }
 }
 
-function mapStateToProps({ login }) {
-  return { login };
+function mapStateToProps({ error }) {
+  return { error };
 }
 
 export default connect(mapStateToProps, actions)(SignUp);

@@ -21,8 +21,8 @@ class Login extends Component {
 
     await this.props.localLogin({ email, password });
 
-    if (!this.props.login.success) {
-      const error = this.props.login.message;
+    if (!this.props.error.success) {
+      const error = this.props.error.message;
       return this.setState({ error });
     }
 
@@ -37,8 +37,8 @@ class Login extends Component {
     return (
       <div className="container">
         <ErrorMessage
-          display={!!this.props.login ? !this.props.login.success : false}
-          error={this.props.login ? this.props.login.message : "none"}
+          display={!!this.props.error ? !this.props.error.success : false}
+          error={this.props.error ? this.props.error.message : "none"}
           desc="well darn..."
           links={[{ href: "/SignUp", content: "Have you signed up?" }]}
         />
@@ -86,8 +86,8 @@ class Login extends Component {
   }
 }
 
-function mapStateToProps({ login }) {
-  return { login };
+function mapStateToProps({ error }) {
+  return { error };
 }
 
 export default connect(mapStateToProps, actions)(Login);
