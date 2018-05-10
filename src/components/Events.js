@@ -25,9 +25,10 @@ class Events extends Component{
       .get(apiBaseUrl+"Event/getEvents")
       .then(function(response) {
         console.log(response);
+        var array = response.data.data;
         if (response.data.code === 200) {
           console.log("Events retrieved");
-          for (i=0; i < response.data.data.length; i++) { // array to be changed to diff variable name based on Sam's code
+          for (var i = 0; i < array.length; i++) { // array to be changed to diff variable name based on Sam's code
             this.state.localArray[i] = array[i];
           }
         } else if (response.data.code === 500) {
