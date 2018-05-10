@@ -8,6 +8,7 @@ import UploadScreen from "./UploadScreen";
 import logo from "../css/images/logo.png";
 import banner from "../css/images/banner.png";
 
+// Initializes axios posting module and sending of data to the server
 const axios = Axios.create({
   baseURL: "http://localhost:5000/api/",
   withCredentials: true,
