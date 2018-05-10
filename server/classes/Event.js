@@ -11,6 +11,13 @@ class Event {
     this.values = {};
     this.initialize(id);
   }
+  static async getEvent(id) {
+    var conn = null;
+    console.log("user hit");
+    conn = await query("SELECT * FROM user WHERE event_id= ?", [id]);
+    console.log("conn=" + conn);
+    return new Event(conn[0]);
+  }
 
   /**returns a list of events. will return events in DESC order
   by date
@@ -18,15 +25,17 @@ class Event {
   */
   static async getEvents(num) {
     var num = num;
-    var retEvents = null;
-    var events = await connection(
-      "SELECT * FROM events LIMIT ? ORDER BY data DESC",
-      [num]
-    );
-    for (var i = 0; i < events.length; i++) {
-      retEvents = events.push(events[i]);
+    var retEvents = [];
+
+    var events = await connection("SELECT * FROM event LIMIT ? ", [num]);
+    console.log("after query " + events[0].event_date);
+    console.log("this is the length" + events.length);
+    for (var key in events) {
+      console.log("this is the key " + key);
+      retEvents.push(events[key]);
+      console.log(events[key]);
     }
-    return events;
+    return retEvents;
   }
   updateEvent(req, res) {
     var id = req.body.event_id;

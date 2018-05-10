@@ -8,10 +8,11 @@
 
 var mysql = require("mysql");
 var connection = mysql.createConnection({
-  host: "35.231.84.39",
-  user: "developer",
-  password: "f4weqi9ptgfy3890vfm3bu8rohi3#@$R",
-  database: "helloworld"
+  host: "153.42.31.18",
+  user: "helloadmin",
+  password: "h3llo3ar7h",
+  database: "helloworld",
+  port: 3306
 });
 
 connection.connect(function(err) {
@@ -22,12 +23,13 @@ connection.connect(function(err) {
     console.log("Error connecting database. (connection.js)");
   }
 });
-//non-asynchronous connection
+//non-asynchronous connection returning the array result of a query and an
+//error message if not
 function query(input, array) {
   return new Promise(function(resolve, reject) {
     connection.query(input, array, function(error, results, fields) {
       if (error) {
-        console.log(error);
+        console.debug(error);
         reject(error);
       } else {
         console.log("results have been hit ");

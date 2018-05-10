@@ -9,10 +9,11 @@ var exec = deasync(cp.exec);
 var CryptoKey = "kd2iewGN3Q9PGV8HNQ3G";
 
 var aconnection = MySQL.createConnection({
-  host: "35.231.84.39",
-  user: "developer",
-  password: "f4weqi9ptgfy3890vfm3bu8rohi3#@$R",
-  database: "helloworld"
+  host: "153.42.31.18",
+  user: "helloadmin",
+  password: "h3llo3ar7h",
+  database: "helloworld",
+  port: 3306
 });
 
 class User {
@@ -36,41 +37,41 @@ This will be appended to user.values
     console.log("conn=" + conn);
     return new User(conn[0]);
   }
+  /*
+Dynamically updates the database with given key-value pairs in an object
+the keys must be equal to the database fields.
+fields - obj - key-value pairs with which to update the database
+*/
+  async updateUser(fields) {
+    var conn = null; //query await
+    var fields = User.prepareValues(fields);
+    var addition = "UPDATE user SET " + fields + "WHERE user_id = 80";
+    conn = await query(addition, [fields, this.values.user_id]);
+    return conn;
+  }
+  /*
+  prepares values in a given object to be inserter into a Database
+fields - int - an object with key-value pairs, where the keys are matched to DB field names
 
-  static updateUser(email, req, res) {
-    var updates = req.body;
-    var fields = "";
-    var name = "";
-    var counter = 0;
-    var commas = "";
+  */
+  static prepareValues(fields) {
+    var updates = fields; //setting fields to a local variable
+    var fields = ""; //the generated string that gets appended with key-value pairs to bi inserted
+    var counter = 0; //sets commas if the number of key-value pairs exceeds 1
+    var commas = ""; //dynamically insert commas between fields when necessary
+
+    //generates the string for the sql statemenet
     for (var key in updates) {
       if (counter > 0) {
         commas = ",";
       }
-      name = key;
-      if (key == "password") {
-        name = "hash";
-      }
-      fields += commas + name + "=" + connection.escape(updates[key]);
-
+      console.log(key);
+      fields += commas + key + "=" + MySQL.escape(updates[key]) + " ";
       counter++;
     }
-    console.log(fields);
-    var result = null;
-    connection.query(
-      "UPDATE user SET " + fields + " WHERE email = '" + email + "' ",
-      [],
-      function(error, results, fields) {
-        if (error) {
-          console.log("error ocurred", error);
-          result = error;
-          res.send({ code: 400 });
-        } else {
-          res.send({ code: 200 });
-        }
-      }
-    );
+    return fields;
   }
+
   updateFirstName(newName) {
     this.updateUser({ first_name: newName });
   }
@@ -90,30 +91,22 @@ This will be appended to user.values
     );
   }
   static login(req, res, next) {
-    console.log("<Login hit>");
     var email = req.body.email;
     var password = req.body.password;
-
-    //hash = "111111";
-    //var userId = sess ionUtils.getSession(req, res, next);
-    /**if (userId > -1) {
-      res.send({
-        session: "valid"
-      });/
-    } else {**/
-
     aconnection.query("Select * from user where email = ?", [email], function(
       error,
       results,
       fields
     ) {
       if (error) {
-        console.log("error ocurred", error);
-        if ((error = "ER_DUP_ENTRY")) {
-          res.send({
-            code: 204
-          });
-        }
+        console.debug("", error);
+        res.send({
+          success: true,
+          data: null,
+          error: "database error",
+          message: "There was an error. You cannot log in at this time",
+          code: 500
+        });
       } else if (results[0] != null) {
         var cPassword = CryptoJS.AES.decrypt(results[0].hash, CryptoKey);
         var dPassword = cPassword.toString(CryptoJS.enc.Utf8);
@@ -149,13 +142,19 @@ This will be appended to user.values
     //}
     //}
   }
-  static register(req, res, next) {
+  static async register(req, res, next) {
     // console.log("req",req.body);
 
     var hash = CryptoJS.AES.encrypt(req.body.password, CryptoKey);
 
     if (sessionUtils.getSession(req)) {
-      res.send({ session: "valid" });
+      res.send({
+        success: true,
+        data: req.session.user,
+        code: 200,
+        error: false,
+        message: "You are already logged in!"
+      });
     }
     var today = new Date();
     var email = req.body.email;
@@ -168,26 +167,22 @@ This will be appended to user.values
       created: today,
       modified: today
     };
-    aconnection.query("INSERT INTO user SET ?", users, function(
-      error,
-      results,
-      fields
-    ) {
-      if (error) {
-        console.log("error ocurred", error);
-        res.send({
-          code: 400,
-          failed: "error ocurred"
-        });
-      } else {
-        console.log("The solution is: ", results);
-        sessionUtils.initSession(req, res, email, next);
-        res.send({
-          code: 200,
-          success: "user registered sucessfully"
-        });
-      }
-    });
+    try {
+      await query("INSERT INTO user SET ?", users);
+
+      sessionUtils.initSession(req, res, email, next);
+      res.send({
+        code: 200,
+        success: true,
+        data: { id: results.insertid },
+        message: "successful user registry"
+      });
+    } catch (error) {
+      res.send({
+        code: 200,
+        success: false
+      });
+    }
   }
 }
 
