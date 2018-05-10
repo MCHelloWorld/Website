@@ -18,7 +18,7 @@ class Header extends Component {
       default:
         return (
           <li>
-            <a href="/api/logout">Logout</a>
+            <a href="/api/logout">Logout, {this.props.auth.user_id}</a>
           </li>
         );
     }

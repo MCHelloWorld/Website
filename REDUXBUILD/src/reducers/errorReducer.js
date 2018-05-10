@@ -1,5 +1,5 @@
-// src/reducers/errorReducer.js
-// controls the error part of the app state
+// src/reducers/loginReducer.js
+// controls the login part of the app state
 
 import { LOCAL_LOGIN } from "../actions/TYPES";
 

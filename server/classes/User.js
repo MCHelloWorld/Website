@@ -3,38 +3,38 @@ const sessionUtils = require("../routes/session.js");
 const CryptoJS = require("crypto-js");
 const deasync = require("deasync");
 const cp = require("child_process");
-const connection = require("../utils/deasyncSQL.js");
+const MySQL = require("Mysql");
+const query = require("../utils/deasyncSQL.js");
 var exec = deasync(cp.exec);
 var CryptoKey = "kd2iewGN3Q9PGV8HNQ3G";
+
+var aconnection = MySQL.createConnection({
+  host: "35.231.84.39",
+  user: "developer",
+  password: "f4weqi9ptgfy3890vfm3bu8rohi3#@$R",
+  database: "helloworld"
+});
+
 class User {
+  /**
+constructor acceps a values object
+This will be appended to user.values
+  */
   constructor(values) {
-    this.values = {};
-    for (var i; i < values.length; i++) {
-      constrcutor.values;
-    }
-  }
-
-  async initialize(id) {
-    var send = null;
-    var back = null;
-    var lthis = this;
-    console.log("initialize hit");
-    var received = await connection("Select * from user where user_id = ?", [
-      id
-    ]);
-    this.values = received[0];
+    this.values = values;
     this.test = "test";
-
-    console.log(received[0] + "recieved from the database");
-    console.log(typeof this);
+    console.log("values hit" + this.values.first_name);
   }
-  //requires an array of values
+
+  /**
+  searches the database for a user based on the given Id
+  */
   static async getUser(id) {
     var conn = null;
-
-    conn = await connection("SELECT * FROM user WHERE user_id = ?", [id]);
+    console.log("user hit");
+    conn = await query("SELECT * FROM user WHERE user_id = ?", [id]);
     console.log("conn=" + conn);
-    return conn;
+    return new User(conn[0]);
   }
 
   static updateUser(email, req, res) {
@@ -71,6 +71,7 @@ class User {
       }
     );
   }
+
   updateFirstName(newName) {
     this.updateUser({ first_name: newName });
   }
@@ -89,6 +90,7 @@ class User {
       }
     );
   }
+
   static login(req, res, next) {
     console.log("<Login hit>");
     var email = req.body.email;
@@ -102,7 +104,7 @@ class User {
       });/
     } else {**/
 
-    connection.query("Select * from user where email = ?", [email], function(
+    aconnection.query("Select * from user where email = ?", [email], function(
       error,
       results,
       fields
@@ -168,7 +170,7 @@ class User {
       created: today,
       modified: today
     };
-    connection.query("INSERT INTO user SET ?", users, function(
+    aconnection.query("INSERT INTO user SET ?", users, function(
       error,
       results,
       fields
@@ -200,7 +202,4 @@ class User {
   );
 })();//*/
 //console.log("this is a value: the last thing that should show up", user.values);
-exports.User = User;
-exports.userobject = async function(id) {
-  return await new User(id);
-};
+module.exports = User;

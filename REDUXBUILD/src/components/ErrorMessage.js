@@ -15,7 +15,7 @@ const ErrorMessage = props => {
     else {
     }
   }
-  console.log(props.display);
+
   if (props.display === false) return null;
 
   return (

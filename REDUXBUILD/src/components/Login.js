@@ -14,10 +14,6 @@ class Login extends Component {
     this.onInputChange = this.onInputChange.bind(this);
   }
 
-  onInputChange(event) {
-    this.setState({ [event.target.id]: event.target.value });
-  }
-
   async onLoginSubmit(event) {
     event.preventDefault();
 
@@ -25,21 +21,24 @@ class Login extends Component {
 
     await this.props.localLogin({ email, password });
 
-    if (!this.props.login.success) {
-      const error = this.props.login.message;
+    if (!this.props.error.success) {
+      const error = this.props.error.message;
       return this.setState({ error });
     }
 
     this.props.fetchUser();
   }
 
+  onInputChange(event) {
+    this.setState({ [event.target.id]: event.target.value });
+  }
+
   render() {
     return (
       <div className="container">
-        {console.log("this.props.login", this.props.login)}
         <ErrorMessage
-          display={!!this.props.login ? !this.props.login.success : false}
-          error={this.props.login ? this.props.login.message : "none"}
+          display={!!this.props.error ? !this.props.error.success : false}
+          error={this.props.error ? this.props.error.message : "none"}
           desc="well darn..."
           links={[{ href: "/SignUp", content: "Have you signed up?" }]}
         />
@@ -87,8 +86,8 @@ class Login extends Component {
   }
 }
 
-function mapStateToProps({ login }) {
-  return { login };
+function mapStateToProps({ error }) {
+  return { error };
 }
 
 export default connect(mapStateToProps, actions)(Login);
