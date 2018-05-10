@@ -5,16 +5,13 @@
 //𝕿𝖍𝖊 following import is needed for Redux
 import { combineReducers } from "redux";
 //𝕿𝖍𝖊 following imports are needed to combine reducer files from src/reducers
-import authReducer from "./authReducer";
-import errorReducer from "./errorReducer";
+import auth from "./authReducer";
+import error from "./errorReducer";
 
 /* ========================================================================== ~\
 |  COMBINE THE REDUCERS
 \* ========================================================================== */
-export default combineReducers({
-  auth: authReducer,
-  error: errorReducer
-});
+export default combineReducers({ auth, error });
 
 /* ========================================================================== ~\
 |  ▁ ▂ ▄ ▅ ▆ ▇ █ HELPFUL QUESTIONS AND ANSWERS █ ▇ ▆ ▅ ▄ ▂ ▁
