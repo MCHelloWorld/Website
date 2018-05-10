@@ -10,7 +10,7 @@ var func = async function() {
 func();
 
 // **/
-router.post("/getevents", async function(req, res, next) {
+router.get("/getevents", async function(req, res, next) {
   console.log("register hit!");
   //this will catch any errors that buttble up from the database if there isn an error.
   //if the romise is rejectes, it will be caught.
