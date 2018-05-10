@@ -14,10 +14,6 @@ class Login extends Component {
     this.onInputChange = this.onInputChange.bind(this);
   }
 
-  onInputChange(event) {
-    this.setState({ [event.target.id]: event.target.value });
-  }
-
   async onLoginSubmit(event) {
     event.preventDefault();
 
@@ -31,6 +27,10 @@ class Login extends Component {
     }
 
     this.props.fetchUser();
+  }
+
+  onInputChange(event) {
+    this.setState({ [event.target.id]: event.target.value });
   }
 
   render() {

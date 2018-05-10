@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "circular-json": "^0.5.3",
     "colors": "^1.2.4",
     "concurrently": "^3.5.1",
     "connect-ensure-login": "^0.1.1",

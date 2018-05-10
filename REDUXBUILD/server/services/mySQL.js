@@ -7,9 +7,9 @@ module.exports = (app, keys) => {
   //𝕿𝖍𝖎𝖘 connects to the mySQL database
   app.connection = mysql.createConnection(keys.mySQL);
 
-  app.connection.connect(function(err) {
+  app.connection.connect(err => {
     if (err) {
-      console.log("Database is connected. (mySQL.js)".underline.error);
+      console.log("Database is not connected. (mySQL.js)".underline.error);
     } else {
       console.log("Database is connected. (mySQL.js)".underline.green);
     }

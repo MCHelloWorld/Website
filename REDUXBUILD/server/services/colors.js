@@ -10,8 +10,7 @@ colors.setTheme({
   help: "cyan",
   warn: "yellow",
   debug: "blue",
-  error: "red",
-  custom: ["red", "underline"]
+  error: ["red", "underline"]
 });
 
 /******************

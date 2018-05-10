@@ -71,6 +71,7 @@ This will be appended to user.values
       }
     );
   }
+
   updateFirstName(newName) {
     this.updateUser({ first_name: newName });
   }
@@ -89,6 +90,7 @@ This will be appended to user.values
       }
     );
   }
+
   static login(req, res, next) {
     console.log("<Login hit>");
     var email = req.body.email;
