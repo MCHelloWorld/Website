@@ -16,7 +16,7 @@ router.get("/getevents", async function(req, res, next) {
     });
   } catch (error) {
     res.send({
-      success: true,
+      success: false,
       message: "there was an error",
       error: "error",
       code: 200
