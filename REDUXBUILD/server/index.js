@@ -6,9 +6,11 @@ const app = express();
 
 const keys = require("./config/keys"),
   services = require("./services"),
-  routes = require("./routes");
+  routes = require("./routes"),
+  controllers = require("./controllers");
 
 services(app, keys);
 routes(app, keys);
+controllers(app, keys);
 
 app.listen(process.env.PORT || 5000);

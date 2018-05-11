@@ -1,4 +1,4 @@
-// server/routes/index.js
+// server/routes/controllers.js
 // compiles the various backend routes into a single file
 
 module.exports = (app, keys) => {

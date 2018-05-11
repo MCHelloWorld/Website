@@ -2,6 +2,7 @@ var colors = require("colors");
 
 colors.setTheme({
   silly: "rainbow",
+  unicorn: ["rainbow", "underline"],
   input: "grey",
   verbose: "cyan",
   prompt: "grey",
