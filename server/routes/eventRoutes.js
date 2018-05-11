@@ -2,14 +2,6 @@ const Event = require("../classes/Event.js");
 var express = require("express");
 var router = express.Router();
 
-/*//testing
-var func = async function() {
-  var event = Event.getEvents(3);
-  console.log(event);
-};
-func();
-
-// **/
 router.get("/getevents", async function(req, res, next) {
   console.log("register hit!");
   //this will catch any errors that buttble up from the database if there isn an error.
@@ -30,19 +22,15 @@ router.get("/getevents", async function(req, res, next) {
       code: 200
     });
   }
-  res.send({
-    data: events,
-    success: true
-  });
 });
 
-router.put("/update", function(req, res, next) {});
-
-router.get("/get", function(req, res, next) {
-  Event.event.getEvents(req.body.event_id);
+router.put("/update", function(req, res, next) {
+  var event = Event.getEvent(1);
+  event.update({ event_name: "this is the new event_name" });
 });
 
 router.delete("/delete", function(req, res, next) {
-  Event.event.deleteEvent(req.body.event_id);
+  var event = Event.getEvent(1);
+  event.delete();
 });
 exports.router = router;

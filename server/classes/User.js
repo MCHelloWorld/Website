@@ -7,6 +7,7 @@ const MySQL = require("Mysql");
 const query = require("../utils/deasyncSQL.js");
 var exec = deasync(cp.exec);
 var CryptoKey = "kd2iewGN3Q9PGV8HNQ3G";
+const Entity = require("./Entity.js");
 
 var aconnection = MySQL.createConnection({
   host: "153.42.31.18",
@@ -16,12 +17,13 @@ var aconnection = MySQL.createConnection({
   port: 3306
 });
 
-class User {
+class User extends Entity {
   /**
 constructor acceps a values object
 This will be appended to user.values
   */
   constructor(values) {
+    super("user", values.user_id);
     this.values = values;
     this.test = "test";
     console.log("values hit" + this.values.first_name);
@@ -31,11 +33,8 @@ This will be appended to user.values
   searches the database for a user based on the given Id
   */
   static async getUser(id) {
-    var conn = null;
-    console.log("user hit");
-    conn = await query("SELECT * FROM user WHERE user_id = ?", [id]);
-    console.log("conn=" + conn);
-    return new User(conn[0]);
+    var values = super.get(id);
+    return new User(values);
   }
   /*
 Dynamically updates the database with given key-value pairs in an object
@@ -43,54 +42,17 @@ the keys must be equal to the database fields.
 fields - obj - key-value pairs with which to update the database
 */
   async updateUser(fields) {
-    var conn = null; //query await
-    var fields = User.prepareValues(fields);
-    var addition = "UPDATE user SET " + fields + "WHERE user_id = 80";
-    conn = await query(addition, [fields, this.values.user_id]);
-    return conn;
-  }
-  /*
-  prepares values in a given object to be inserter into a Database
-fields - int - an object with key-value pairs, where the keys are matched to DB field names
-
-  */
-  static prepareValues(fields) {
-    var updates = fields; //setting fields to a local variable
-    var fields = ""; //the generated string that gets appended with key-value pairs to bi inserted
-    var counter = 0; //sets commas if the number of key-value pairs exceeds 1
-    var commas = ""; //dynamically insert commas between fields when necessary
-
-    //generates the string for the sql statemenet
-    for (var key in updates) {
-      if (counter > 0) {
-        commas = ",";
-      }
-      console.log(key);
-      fields += commas + key + "=" + MySQL.escape(updates[key]) + " ";
-      counter++;
-    }
-    return fields;
+    return await super.update(fields);
   }
 
-  updateFirstName(newName) {
-    this.updateUser({ first_name: newName });
+  async updateFirstName(newName) {
+    return await this.updateUser({ first_name: newName });
   }
 
-  static deleteUser(req) {
-    connection.query(
-      "DELETE FROM user WHERE email = ? ",
-      [this.user_id],
-      function(error, results, fields) {
-        if (error) {
-          console.log("error ocurred", error);
-          return error;
-        } else {
-          return true;
-        }
-      }
-    );
+  async delete() {
+    return await super.deleteRow();
   }
-
+  //we could get away with classic callbacks for this function since we're technically not initializing a user object
   static login(req, res, next) {
     var email = req.body.email;
     var password = req.body.password;
