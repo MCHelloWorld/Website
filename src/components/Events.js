@@ -19,7 +19,6 @@ class Events extends Component{
   componentWillMount() {
     var apiBaseUrl = "http://localhost:5000/api/";
     var self = this;
-
     axios
       .get(apiBaseUrl+"event/getevents")
       .then(function(response) {
@@ -27,8 +26,13 @@ class Events extends Component{
         var array = response.data.data;
         if (response.data.code === 200) {
           console.log("Events retrieved");
-          for (var i = 0; i < array.length; i++) { // array to be changed to diff variable name based on Sam's code
-            self.state.localArray[i] = array[i];
+          for (var i = 0; i < array.length; i++) {
+            var newArray = self.state.localArray.concat({name: array[i].event_name,
+                                                         date: array[i].event_date,
+                                                         desc: array[i].event_desc});
+            self.setState({
+              localArray: newArray
+            })
           }
         } else if (response.data.code === 500) {
             console.log(response.data.error);
@@ -37,23 +41,28 @@ class Events extends Component{
   }
 
   render() {
+    var eventArray = this.state.localArray.map(function(item,i){
+        return (
+          <div>
+          <div className="curved">
+            <h2>{item.name} - {item.date}</h2>
+            <p>
+              {item.desc}
+            </p>
+          </div>
+          <br/>
+          </div>
+        )
+    })
     return (
       <MuiThemeProvider>
         <div className="App">
           <HelloHeader />
-          <h1 style={{"font-size": "50px"}}>Upcoming Events</h1>
+          <h1 style={{"fontSize": "50px"}}>Upcoming Events</h1>
           <RaisedButton label="Home" primary={true} style={style} href="/" />
           <br/>
           <h2>
-            {this.state.localArray.map(event => {
-              return( <div key = {event.event_name}>
-                      <dt>{event.event_name}</dt>
-                      <dd>{event.date}</dd>
-                      <dd>{event.event_desc}</dd>
-                      </div>
-                    )
-            })
-          }
+          {eventArray}
           </h2>
         </div>
       </MuiThemeProvider>
