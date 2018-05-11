@@ -16,9 +16,9 @@ module.exports = (app, keys) => {
       return res.send({ code, success, message });
     }
 
-    const { first_name, last_name, email } = req.body;
-    const username = email;
-    const now = new Date(),
+    const { first_name, last_name, email } = req.body,
+      username = email,
+      now = new Date(),
       created = now,
       modified = now;
 

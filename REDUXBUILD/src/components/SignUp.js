@@ -141,6 +141,12 @@ class SignUp extends Component {
           >
             Submit
           </button>
+          <a
+            className="waves-effect waves-light btn social google right"
+            href="/auth/google"
+          >
+            <i className="fa fa-google" /> Sign Up with Google
+          </a>
         </form>
       </div>
     );
