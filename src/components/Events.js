@@ -19,17 +19,16 @@ class Events extends Component{
   componentWillMount() {
     var apiBaseUrl = "http://localhost:5000/api/";
     var self = this;
-    var payload = {};
 
     axios
-      .get(apiBaseUrl+"Event/getEvents")
+      .get(apiBaseUrl+"event/getevents")
       .then(function(response) {
         console.log(response);
         var array = response.data.data;
         if (response.data.code === 200) {
           console.log("Events retrieved");
           for (var i = 0; i < array.length; i++) { // array to be changed to diff variable name based on Sam's code
-            this.state.localArray[i] = array[i];
+            self.state.localArray[i] = array[i];
           }
         } else if (response.data.code === 500) {
             console.log(response.data.error);
