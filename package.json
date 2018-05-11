@@ -39,7 +39,7 @@
   "scripts": {
     "server": "nodemon server/server.js",
     "client": "react-scripts start",
-    "start": "concurrently --kill-others \"yarn server\" \"yarn client\"",
+    "start": "concurrently --kill-others \"yarn server\" \"yarn client\" \"cd REDUXBUILD && npm run dev\" ",
     "start-prod": "pm2 start pm2.yml ",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

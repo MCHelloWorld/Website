@@ -2,24 +2,35 @@ const Event = require("../classes/Event.js");
 var express = require("express");
 var router = express.Router();
 
-router.post("/getEvents", function(req, res, next) {
+router.get("/getevents", async function(req, res, next) {
   console.log("register hit!");
-  Event.event.register(req, res, next);
-});
-
-router.put("/update", function(req, res, next) {
-  console.log("update hit!");
-  if (Event.event.updateEvent(req.body.email, req, res) === true) {
-    console.log("hey, this is true!");
-    res.send({ code: 200 });
+  //this will catch any errors that buttble up from the database if there isn an error.
+  //if the romise is rejectes, it will be caught.
+  try {
+    var events = await Event.getEvents(3);
+    res.send({
+      data: events,
+      success: true,
+      code: 200,
+      error: false
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: "there was an error",
+      error: "error",
+      code: 200
+    });
   }
 });
 
-router.get("/get", function(req, res, next) {
-  Event.event.getEvents(req.body.event_id);
+router.put("/update", function(req, res, next) {
+  var event = Event.getEvent(1);
+  event.update({ event_name: "this is the new event_name" });
 });
 
 router.delete("/delete", function(req, res, next) {
-  Event.event.deleteEvent(req.body.event_id);
+  var event = Event.getEvent(1);
+  event.delete();
 });
 exports.router = router;

@@ -4,73 +4,20 @@
 |  IMPORTS
 \* ========================================================================== */
 import React, { Component } from "react"; //𝕿𝖍𝖎𝖘 is for React
-import { BrowserRouter, Route } from "react-router-dom"; //𝕿𝖍𝖎𝖘 is for for URL routing
+import { BrowserRouter, Route, Redirect } from "react-router-dom"; //𝕿𝖍𝖎𝖘 is for for URL routing
 import { connect } from "react-redux"; //𝕿𝖍𝖎𝖘 is for connecting React w/ Redux
 import * as actions from "../actions"; //𝕿𝖍𝖎𝖘 is for the actions
 
 import Header from "./Header";
 import Landing from "./Landing";
+import Login from "./Login";
+import SignUp from "./SignUp";
+import About from "./About";
+import Contact from "./Contact";
+import Alumni from "./Alumni";
+import Members from "./Members";
 
-const Dashboard = () => <h2>Dashboard</h2>;
-const SurveyNew = () => <h2>SurveyNew</h2>;
-const Login = () => (
-  <div className="row">
-    <form action="/auth/local_login" method="post" className="col s12">
-      <div className="row">
-        <div className="input-field col s12">
-          <input
-            id="email"
-            type="username"
-            name="username"
-            className="validate"
-          />
-          <label htmlFor="email">Email</label>
-        </div>
-      </div>
-
-      <div className="row">
-        <div className="input-field col s12">
-          <input
-            id="password"
-            type="password"
-            className="validate"
-            name="password"
-          />
-          <label htmlFor="password">Password</label>
-        </div>
-      </div>
-      <button
-        className="btn waves-effect waves-light"
-        type="submit"
-        name="action"
-      >
-        Submit
-      </button>
-    </form>
-  </div>
-);
-
-const SignUp = () => (
-  <div className="row">
-    <form action="/auth/local_signupa" method="post" className="col s12">
-      <div className="row">
-        <div className="input-field col s12">
-          <input id="email" type="email" className="validate" />
-          <label htmlFor="email">Email</label>
-        </div>
-      </div>
-      <div className="row">
-        <div className="input-field col s12">
-          <input id="password" type="password" className="validate" />
-          <label htmlFor="password">Password</label>
-        </div>
-      </div>
-      <button class="btn waves-effect waves-light" type="submit" name="action">
-        Submit
-      </button>
-    </form>
-  </div>
-);
+const Profile = () => <h2>Profile Yo</h2>;
 
 /* ========================================================================== ~\
 |  DEFINE URL ROUTES FOR THE APP
@@ -81,16 +28,66 @@ class App extends Component {
   }
 
   render() {
+    /* ====================================================================== ~\
+    |  DEFINE PRIVATE ROUTES FOR THE APP
+    \* ====================================================================== */
+    const PrivateRoute = ({ component: Component, ...rest }) => (
+      <Route
+        {...rest}
+        render={props =>
+          this.props.auth || this.props.auth === null ? (
+            <Component {...props} />
+          ) : (
+            <Redirect
+              to={{
+                pathname: "/login",
+                state: { from: props.location }
+              }}
+            />
+          )
+        }
+      />
+    );
+
+    /* ====================================================================== ~\
+    |  DEFINE PUBLIC ROUTES FOR THE APP
+    \* ====================================================================== */
+    const PublicRoute = ({ component: Component, ...rest }) => (
+      <Route
+        {...rest}
+        render={props =>
+          !this.props.auth || this.props.auth === null ? (
+            <Component {...props} />
+          ) : (
+            <Redirect
+              to={{
+                pathname: "/profile",
+                state: { from: props.location }
+              }}
+            />
+          )
+        }
+      />
+    );
+
     return (
       <div className="container">
         <BrowserRouter>
           <div>
+            <header>
+              <a href="http://localhost:3000/">Main Site</a>
+              <br />
+              <a href="http://localhost:3001/">React Redux</a>
+            </header>
             <Header />
             <Route exact path="/" component={Landing} />
-            <Route exact path="/profile" component={Dashboard} />
-            <Route exact path="/profile/new" component={SurveyNew} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/signup" component={SignUp} />
+            <Route exact path="/About" component={About} />
+            <Route exact path="/Contact" component={Contact} />
+            <Route exact path="/Contact/Alumni" component={Alumni} />
+            <Route exact path="/Contact/Members" component={Members} />
+            <PrivateRoute exact path="/profile" component={Profile} />
+            <PublicRoute exact path="/login" component={Login} />
+            <PublicRoute exact path="/SignUp" component={SignUp} />
           </div>
         </BrowserRouter>
       </div>
@@ -98,4 +95,8 @@ class App extends Component {
   }
 }
 
-export default connect(null, actions)(App);
+function mapStateToProps({ auth }) {
+  return { auth };
+}
+
+export default connect(mapStateToProps, actions)(App);

@@ -11,8 +11,8 @@ var Root = () => {
     <AppState>
       <header>
         <a href="http://localhost:3000/">Main Site</a>
+        <br />
         <a href="http://localhost:3001/">React Redux</a>
-        <a href="http://localhost:8080/">Proof of Concept</a>
       </header>
       <App />
     </AppState>

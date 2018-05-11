@@ -11,15 +11,25 @@ class Header extends Component {
         return "Still deciding";
       case false:
         return (
-          <li>
-            <a href="/auth/google">Login With Google</a>
-          </li>
+          <span>
+            <li>
+              <a href="/Login">Login</a>
+            </li>
+            <li>
+              <a href="/SignUp">SignUp</a>
+            </li>
+          </span>
         );
       default:
         return (
-          <li>
-            <a href="/api/logout">Logout</a>
-          </li>
+          <span>
+            <li>
+              <a href="/profile">Profile</a>
+            </li>
+            <li>
+              <a href="/api/logout">Logout, {this.props.auth.username}</a>
+            </li>
+          </span>
         );
     }
   }
@@ -28,15 +38,20 @@ class Header extends Component {
     return (
       <nav>
         <div className="nav-wrapper">
-          <Link to={this.props.auth ? "/surveys" : "/"} className="brand-logo">
-            Hello World
-          </Link>
+          <ul className="left">
+            <Link
+              to={this.props.auth ? "/profile" : "/"}
+              className="brand-logo"
+            >
+              Hello World
+            </Link>
+          </ul>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             <li>
-              <a href="/login">Login Local</a>
+              <a href="/About">About</a>
             </li>
             <li>
-              <a href="/signup">SignUp Local</a>
+              <a href="/Contact">Contact</a>
             </li>
             {this.renderContent()}
           </ul>

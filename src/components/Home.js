@@ -30,14 +30,6 @@ class Home extends Component {
         <h3>{this.props.appState.header.text}</h3>
         <MuiThemeProvider>
           <div>
-            <RaisedButton label="Home" primary={true} style={style} href="/" />
-            <RaisedButton
-              label="Log In"
-              primary={true}
-              style={style}
-              href="/User"
-            />
-            <br />
             <RaisedButton
               label="Change Temporary Text"
               style={style}
@@ -46,6 +38,9 @@ class Home extends Component {
           </div>
           <hr />
           <h1>What We Do & Who We Are</h1>
+          <h3 className="curved">Hello World is Messiah College's beginner-friendly computer science club! Please visit our FAQ
+          page to learn more!
+          <br/>
           <RaisedButton
             label="FAQ Page"
             primary={true}
@@ -58,7 +53,21 @@ class Home extends Component {
             style={style}
             href="/Sponsor"
           />
-        </MuiThemeProvider>
+          </h3>
+          <hr/>
+          <h1>Events Calendar</h1>
+          </MuiThemeProvider>
+          <iframe src="https://calendar.google.com/calendar/embed?src=helloworld%40messiah.edu&ctz=America%2FNew_York" className='curved'
+          title="calendar" width={800} height={600} frameborder={0} scrolling="no"></iframe>
+          <br/>
+          <MuiThemeProvider>
+          <RaisedButton
+            label="Upcoming Events"
+            primary={true}
+            style={style}
+            href="/Events"
+          />
+          </MuiThemeProvider>
       </div>
     );
   }
