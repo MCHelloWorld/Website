@@ -4,10 +4,10 @@
   "private": true,
   "proxy": {
     "/auth/*": {
-      "target": "http://localhost:5000"
+      "target": "http://localhost:5001"
     },
     "/api/*": {
-      "target": "http://localhost:5000"
+      "target": "http://localhost:5001"
     }
   },
   "dependencies": {
@@ -23,7 +23,9 @@
     "ejs": "^2.5.9",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
+    "font-awesome": "^4.7.0",
     "materialize-css": "^0.100.2",
+    "materialize-social": "^1.0.3",
     "morgan": "^1.9.0",
     "mysql": "^2.15.0",
     "mysql2": "^1.5.3",
@@ -46,7 +48,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "server": "nodemon index.js --prefix server",
-    "client": "react-scripts start",
+    "client": "PORT=3001 react-scripts start",
     "dev": "concurrently --kill-others \"npm run server\" \"npm run client\""
   }
 }

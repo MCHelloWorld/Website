@@ -4,6 +4,9 @@
 \* ========================================================================== */
 import "materialize-css/dist/css/materialize.min.css"; //𝕿𝖍𝖎𝖘 is needed for the material design css file
 import "materialize-css/dist/js/materialize.min.js"; //𝕿𝖍𝖎𝖘 is needed for the material design js file
+import "materialize-social/materialize-social.css"; //𝕿𝖍𝖎𝖘 is needed for the material design js file
+import "font-awesome/css/font-awesome.min.css";
+
 import React from "react"; //𝕿𝖍𝖎𝖘 is needed for React
 import ReactDOM from "react-dom"; //𝕿𝖍𝖎𝖘 is for dom manipulation in react
 import { Provider } from "react-redux"; //𝕿𝖍𝖎𝖘 is for integrating React with Redux
