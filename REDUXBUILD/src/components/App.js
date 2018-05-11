@@ -13,6 +13,9 @@ import Landing from "./Landing";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import About from "./About";
+import Contact from "./Contact";
+import Alumni from "./Alumni";
+import Members from "./Members";
 
 const Profile = () => <h2>Profile Yo</h2>;
 
@@ -79,6 +82,9 @@ class App extends Component {
             <Header />
             <Route exact path="/" component={Landing} />
             <Route exact path="/About" component={About} />
+            <Route exact path="/Contact" component={Contact} />
+            <Route exact path="/Contact/Alumni" component={Alumni} />
+            <Route exact path="/Contact/Members" component={Members} />
             <PrivateRoute exact path="/profile" component={Profile} />
             <PublicRoute exact path="/login" component={Login} />
             <PublicRoute exact path="/SignUp" component={SignUp} />

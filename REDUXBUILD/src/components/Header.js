@@ -51,7 +51,9 @@ class Header extends Component {
             <li>
               <a href="/About">About</a>
             </li>
-
+            <li>
+              <a href="/Contact">Contact</a>
+            </li>
             {this.renderContent()}
           </ul>
         </div>
