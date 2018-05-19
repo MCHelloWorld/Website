@@ -22,7 +22,7 @@ class Event extends Entity {
   */
   static async getEvents(num) {
     var retEvents = await Entity.getMultiple("event", num);
-
+    console.log("retEvents");
     return retEvents;
   }
   async update(fields) {
